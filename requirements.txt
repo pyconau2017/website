@@ -13,5 +13,5 @@ django-nose==1.4.3
 coverage==4.0.3
 
 # Registrasion
-registrasion==0.1.0
+registrasion==0.1.1
 https://github.com/lca2017/symposion/tarball/master#egg=symposion
