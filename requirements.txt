@@ -13,7 +13,7 @@ pinax-boxes==2.1.2
 django-nose==1.4.3
 coverage==4.0.3
 
-# Registrasion
-# Install via setuptools rather than pip
+# Registrasion + Symposion
+# Install via pip repo cloned locally
 #registrasion==0.1.1
 #https://github.com/lca2017/symposion/tarball/master#egg=symposion
