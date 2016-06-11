@@ -233,3 +233,9 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=registrasion.controllers,registrasion.models',
 ]
+
+# Production settings have their own file to override stuff here
+try:
+    from local_settings import *
+except ImportError:
+    pass

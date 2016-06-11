@@ -4,3 +4,5 @@ _build/
 .DS_Store
 dev.db
 .coverage
+pinaxcon/site_media/
+local_settings.py
