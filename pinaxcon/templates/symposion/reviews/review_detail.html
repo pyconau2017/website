@@ -74,18 +74,18 @@
                 <h4>{% trans "Current Results" %}</h4>
                 <table class="table table-striped">
                     <thead>
+                        <th>+2 votes</th>
                         <th>+1 votes</th>
-                        <th>+0 votes</th>
-                        <th>-0 votes</th>
                         <th>-1 votes</th>
+                        <th>-2 votes</th>
                         <th>{% trans "Total Responses" %}
                     </thead>
                     <tbody>
                         <tr>
+                            <td>{{ proposal.plus_two }}</td>
                             <td>{{ proposal.plus_one }}</td>
-                            <td>{{ proposal.plus_zero }}</td>
-                            <td>{{ proposal.minus_zero }}</td>
                             <td>{{ proposal.minus_one }}</td>
+                            <td>{{ proposal.minus_two }}</td>
                             <td>{{ proposal.total_votes }}</td>
                         </tr>
                     </tbody>

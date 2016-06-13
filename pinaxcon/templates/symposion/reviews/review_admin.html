@@ -15,16 +15,16 @@
                 Comments
             </th>
             <th>
+                +2
+            </th>
+            <th>
                 +1
             </th>
             <th>
-                +0
-            </th>
-            <th>
-                &minus;0
-            </th>
-            <th>
                 &minus;1
+            </th>
+            <th>
+                &minus;2
             </th>
         </tr>
         {% for reviewer in reviewers %}
@@ -39,16 +39,16 @@
                 {{ reviewer.comment_count }}
             </td>
             <td>
+                {{ reviewer.plus_two }}
+            </td>
+            <td>
                 {{ reviewer.plus_one }}
             </td>
             <td>
-                {{ reviewer.plus_zero }}
-            </td>
-            <td>
-                {{ reviewer.minus_zero }}
-            </td>
-            <td>
                 {{ reviewer.minus_one }}
+            </td>
+            <td>
+                {{ reviewer.minus_two }}
             </td>
         </tr>
         {% endfor %}
