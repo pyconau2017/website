@@ -6,7 +6,7 @@
 
 
 {% block body %}
-    {% if request.user.is_staff %}
+    {% if is_manager %}
         <div class="pull-right">
             <form class="result-form form-inline" method="POST" action="">
                 {% csrf_token %}
@@ -146,6 +146,7 @@
                     <hr />
                 {% endif %}
 
+		{% if is_manager %}
                 <form action="" method="POST"accept-charset="utf-8">
                     <legend>{% trans "Send a message" %}</legend>
                     <p>
@@ -160,6 +161,7 @@
                         <input type="submit" class="btn btn-primary" name="message_submit" value="Send Message" />
                     </div>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>
