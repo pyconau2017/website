@@ -6,6 +6,7 @@
         <th>{% trans "Speaker / Title" %}</th>
         <th>{% trans "Category" %}</th>
         <th><i class="fa fa-comment-alt"></i></th>
+        <th>{% trans "Score" %}</th>
         <th>{% trans "+2" %}</th>
         <th>{% trans "+1" %}</th>
         <th>{% trans "-1" %}</th>
@@ -26,6 +27,7 @@
                 </td>
                 <td>{{ proposal.track }}</td>
                 <td>{{ proposal.comment_count }}</td>
+                <td>{{ proposal.score }}</td>
                 <td>{{ proposal.plus_two }}</td>
                 <td>{{ proposal.plus_one }}</td>
                 <td>{{ proposal.minus_one }}</td>
