@@ -49,28 +49,28 @@
                 <span class="badge">{{ proposals.positive|length }}</span>
             </dt>
             <dd>
-                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and at least one +1 and no &minus;1s
+                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and at least one +2 and no &minus;2s
             </dd>
             <dt>
                 <a href="{% url "review_status" section_slug "negative" %}">Negative</a>
                 <span class="badge">{{ proposals.negative|length }}</span>
             </dt>
             <dd>
-                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and at least one &minus;1 and no +1s
+                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and at least one &minus;2 and no +2s
             </dd>
             <dt>
                 <a href="{% url "review_status" section_slug "indifferent" %}">Indifferent</a>
                 <span class="badge">{{ proposals.indifferent|length }}</span>
             </dt>
             <dd>
-                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and neither a +1 or a &minus;1
+                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and neither a +2 or a &minus;2
             </dd>
             <dt>
                 <a href="{% url "review_status" section_slug "controversial" %}">Controversial</a>
                 <span class="badge">{{ proposals.controversial|length }}</span>
             </dt>
             <dd>
-                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and both a +1 and &minus;1
+                proposals with at least {{ vote_threshold }} vote{{ vote_threshold|pluralize }} and both a +2 and &minus;2
             </dd>
             <dt>
                 <a href="{% url "review_status" section_slug "too_few" %}">Too Few Reviews</a>
