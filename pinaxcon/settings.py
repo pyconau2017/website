@@ -154,15 +154,15 @@ INSTALLED_APPS = [
     "symposion.teams",
 
     # Registrasion
-    "registrasion",
+    #"registrasion",
 
     #admin - required by registrasion ??
-    "nested_admin",
+    #"nested_admin",
 
     # project
     "pinaxcon",
     "pinaxcon.proposals",
-    "pinaxcon.registrasion",
+    #"pinaxcon.registrasion",
 
     #testing
     "django_nose",
