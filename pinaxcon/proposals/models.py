@@ -30,3 +30,13 @@ class TalkProposal(Proposal):
 
     class Meta:
         verbose_name = "talk proposal"
+
+class TutorialProposal(Proposal):
+
+    class Meta:
+        verbose_name = "tutorial proposal"
+
+class MiniconfProposal(ProposalBase):
+
+    class Meta:
+        verbose_name = "miniconf proposal"
