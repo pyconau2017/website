@@ -4,8 +4,7 @@
     <thead>
         <th>#</th>
         <th>{% trans "Speaker / Title" %}</th>
-        <th>{% trans "Category" %}</th>
-        <th><i class="fa fa-comment-alt"></i></th>
+        <th>{% trans "Votes" %}</th>
         <th>{% trans "Score" %}</th>
         <th>{% trans "+2" %}</th>
         <th>{% trans "+1" %}</th>
@@ -25,8 +24,7 @@
                         {{ proposal.title }}
                     </a>
                 </td>
-                <td>{{ proposal.track }}</td>
-                <td>{{ proposal.comment_count }}</td>
+                <td>{{ proposal.total_votes }}</td>
                 <td>{{ proposal.score }}</td>
                 <td>{{ proposal.plus_two }}</td>
                 <td>{{ proposal.plus_one }}</td>

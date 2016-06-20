@@ -5,21 +5,35 @@ from symposion.proposals.models import ProposalBase
 
 class Proposal(ProposalBase):
 
-    AUDIENCE_LEVEL_NOVICE = 1
-    AUDIENCE_LEVEL_EXPERIENCED = 2
-    AUDIENCE_LEVEL_INTERMEDIATE = 3
+    TARGET_USER = 1
+    TARGET_BUSINESS = 2
+    TARGET_COMMUNITY = 3
+    TARGET_DEVELOPER = 4
 
-    AUDIENCE_LEVELS = [
-        (AUDIENCE_LEVEL_NOVICE, "Novice"),
-        (AUDIENCE_LEVEL_INTERMEDIATE, "Intermediate"),
-        (AUDIENCE_LEVEL_EXPERIENCED, "Experienced"),
+    TARGET_AUIDENCES = [
+        (TARGET_USER, "User"),
+        (TARGET_BUSINESS, "Business"),
+        (TARGET_COMMUNITY, "Community"),
+        (TARGET_DEVELOPER, "Developer"),
     ]
 
-    audience_level = models.IntegerField(choices=AUDIENCE_LEVELS)
+    target_audience = models.IntegerField(choices=TARGET_AUIDENCES)
 
     recording_release = models.BooleanField(
         default=True,
-        help_text="By submitting your proposal, you agree to give permission to the conference organizers to record, edit, and release audio and/or video of your presentation. If you do not agree to this, please uncheck this box."
+        help_text="I allow Linux Australia to release any recordings of "
+        "presentations covered by this proposal, under the <a "
+        "href='https://creativecommons.org/licenses/by-sa/3.0/au/deed.en'> "
+        "Creative Commons Attribution-Share Alike Australia 3.0 Licence</a>"
+    )
+
+    materials_release = models.BooleanField(
+        default=True,
+        help_text="I allow Linux Australia to release any other material "
+        "(such as slides) from presentations covered by this proposal, under "
+        "the <a "
+        "href='https://creativecommons.org/licenses/by-sa/3.0/au/deed.en'> "
+        "Creative Commons Attribution-Share Alike Australia 3.0 Licence</a>"
     )
 
     class Meta:

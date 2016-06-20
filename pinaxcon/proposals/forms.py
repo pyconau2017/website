@@ -20,9 +20,13 @@ class TalkProposalForm(ProposalForm):
         model = TalkProposal
         fields = [
             "title",
-            "audience_level",
-            "description",
+            "target_audience",
             "abstract",
-            "additional_notes",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "video_url",
             "recording_release",
+            "materials_release",
         ]
