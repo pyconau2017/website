@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import TalkProposal
+from .models import TalkProposal, TutorialProposal, MiniconfProposal
 
 
 class ProposalForm(forms.ModelForm):
@@ -29,4 +29,32 @@ class TalkProposalForm(ProposalForm):
             "video_url",
             "recording_release",
             "materials_release",
+        ]
+
+class TutorialProposalForm(ProposalForm):
+
+    class Meta:
+        model = TutorialProposal
+        fields = [
+            "title",
+            "target_audience",
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "video_url",
+            "recording_release",
+            "materials_release",
+        ]
+
+class MiniconfProposalForm(ProposalForm):
+
+    class Meta:
+        model = MiniconfProposal
+        fields = [
+            "title",
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
         ]
