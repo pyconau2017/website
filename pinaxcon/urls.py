@@ -3,13 +3,16 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.wagtailcore import urls as wagtail_urls
+
 from django.contrib import admin
 
 import symposion.views
 
 
 urlpatterns = [
-    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
+    #url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
     url(r"^admin/", include(admin.site.urls)),
 
     url(r"^account/", include("account.urls")),
@@ -25,7 +28,16 @@ urlpatterns = [
     url(r"^teams/", include("symposion.teams.urls")),
 
     url(r"^boxes/", include("pinax.boxes.urls")),
-    url(r"^", include("pinax.pages.urls")),
+
+    url(r'^cms/', include(wagtailadmin_urls)),
+
+    # Default catch-all for wagtail pages.
+    url(r'^', include(wagtail_urls)),
+
+    # Matches *NOTHING* -- remove once site_tree is fixed
+    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
+
+
 
     # Required by registrasion
 #    url(r'^register/', include('registrasion.urls')),

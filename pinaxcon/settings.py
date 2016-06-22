@@ -112,6 +112,8 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "reversion.middleware.RevisionMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = "pinaxcon.urls"
@@ -139,9 +141,23 @@ INSTALLED_APPS = [
     "reversion",
     "metron",
     "sitetree",
-    "pinax.boxes",
     "pinax.eventlog",
-    "pinax.pages",
+
+    # wagtail
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
+
+    'modelcluster',
+
 
     # symposion
     "symposion",
@@ -152,6 +168,7 @@ INSTALLED_APPS = [
     "symposion.speakers",
     "symposion.sponsorship",
     "symposion.teams",
+    "pinax.boxes",
 
     # Registrasion
     #"registrasion",
@@ -160,6 +177,7 @@ INSTALLED_APPS = [
     #"nested_admin",
 
     # project
+    "cms_pages",
     "pinaxcon",
     "pinaxcon.proposals",
     #"pinaxcon.registrasion",
@@ -222,8 +240,13 @@ PROPOSAL_FORMS = {
     "tutorial": "pinaxcon.proposals.forms.TutorialProposalForm",
     "miniconf": "pinaxcon.proposals.forms.MiniconfProposalForm",
 }
-PINAX_PAGES_HOOKSET = "pinaxcon.hooks.PinaxPagesHookSet"
-PINAX_BOXES_HOOKSET = "pinaxcon.hooks.PinaxBoxesHookSet"
+#PINAX_PAGES_HOOKSET = "pinaxcon.hooks.PinaxPagesHookSet"
+#PINAX_BOXES_HOOKSET = "pinaxcon.hooks.PinaxBoxesHookSet"
+
+# Wagtail config
+WAGTAIL_SITE_NAME = 'linux.conf.au 2017'
+WAGTAIL_APPEND_SLASH = True
+
 
 ATTENDEE_PROFILE_FORM = "pinaxcon.registrasion.forms.ProfileForm"
 
