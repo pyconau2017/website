@@ -27,6 +27,42 @@ class HomePage(Page):
         (BASIC_CONTENT_WHITE_RIGHT, "Right-aligned image, white background"),
     )
 
+    ILLUSTRATION_ANTARCTICA = "antarctica.svg"
+    ILLUSTRATION_BRIDGE = "bridge.svg"
+    ILLUSTRATION_CASINO = "casino.svg"
+    ILLUSTRATION_CRADLE = "cradle.svg"
+    ILLUSTRATION_DEVIL = "devil.svg"
+    ILLUSTRATION_FALLS = "falls.svg"
+    ILLUSTRATION_HOBART = "hobart.svg"
+    ILLUSTRATION_LAVENDER = "lavender.svg"
+    ILLUSTRATION_TUZ = "tuz.svg"
+    ILLUSTRATION_WINEGLASS = "wineglass.svg"
+
+    ILLUSTRATION_TYPES = (
+        (ILLUSTRATION_ANTARCTICA, "Antarctica"),
+        (ILLUSTRATION_BRIDGE, "Bridge"),
+        (ILLUSTRATION_CASINO, "Casino"),
+        (ILLUSTRATION_CRADLE, "Cradle Mountain"),
+        (ILLUSTRATION_DEVIL, "Tasmanian Devil"),
+        (ILLUSTRATION_FALLS, "Waterfall"),
+        (ILLUSTRATION_HOBART, "Hobart"),
+        (ILLUSTRATION_LAVENDER, "Lavender"),
+        (ILLUSTRATION_TUZ, "Tuz"),
+        (ILLUSTRATION_WINEGLASS, "Wineglass"),
+    )
+
+    EXTERNAL_LINK_TWITTER = "twitter.svg"
+    EXTERNAL_LINK_FACEBOOK = "facebook.svg"
+    EXTERNAL_LINK_LINKEDIN = "linkedin.svg"
+    EXTERNAL_LINK_GENERIC = "generic.svg"
+
+    EXTERNAL_LINK_TYPES = (
+        (EXTERNAL_LINK_TWITTER, "Twitter"),
+        (EXTERNAL_LINK_FACEBOOK, "Facebook"),
+        (EXTERNAL_LINK_LINKEDIN, "LinkedIn"),
+        (EXTERNAL_LINK_GENERIC, "Generic URL"),
+    )
+
     body = StreamField([
         ("basic_content", blocks.StructBlock([
             ("type", blocks.ChoiceBlock(
@@ -34,7 +70,10 @@ class HomePage(Page):
                 required=True,
             )),
             ("heading", blocks.CharBlock(required=True)),
-            ("inset_image", imageblocks.ImageChooserBlock()),
+            ("inset_illustration", blocks.ChoiceBlock(
+                choices=ILLUSTRATION_TYPES,
+                required=True,
+            )),
             ("background_image", imageblocks.ImageChooserBlock(
                 required=False,
                 help_text="This is used as the background image of a "
@@ -45,6 +84,16 @@ class HomePage(Page):
                 ("page", blocks.PageChooserBlock()),
                 ("title", blocks.CharBlock(required=True)),
             ])),
+            ("external_links", blocks.ListBlock(
+                blocks.StructBlock([
+                    ("alt", blocks.CharBlock(required=True)),
+                    ("icon", blocks.ChoiceBlock(
+                        choices=EXTERNAL_LINK_TYPES,
+                        required=True,
+                    )),
+                    ("url", blocks.URLBlock(required=True)
+                )])
+            )),
         ])),
         # TODO: keynotes
         # TODO: other bits
