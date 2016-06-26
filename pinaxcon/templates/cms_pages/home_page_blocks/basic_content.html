@@ -1,0 +1,25 @@
+{% load staticfiles %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% if value.panel_type == "blue_left" %}
+
+<div class="panel panel__bg">
+  {% image value.background_image width-2000 as background_image %}
+  <div style="background-image: url('{{ background_image.url }}');" class="panel--bg"></div>
+  <div class="panel--content">
+    {% include "cms_pages/home_page_blocks/basic_content_illustration.html" %}
+    {% include "cms_pages/home_page_blocks/basic_content_text_and_links.html" %}
+  </div>
+</div>
+
+{% elif value.panel_type == "white_right" %}
+
+<div class="panel">
+  <div class="panel--content">
+    {% include "cms_pages/home_page_blocks/basic_content_text_and_links.html" %}
+    {% include "cms_pages/home_page_blocks/basic_content_illustration.html" %}
+  </div>
+</div>
+
+{% endif %}

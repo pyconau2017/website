@@ -1,0 +1,25 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 57 57">
+    <defs>
+        <style>
+            .li-cls-1 {
+                fill: none;
+            }
+
+            .li-cls-2 {
+                clip-path: url(#clip-path);
+            }
+
+            .li-cls-3 {
+                fill: currentColor;
+            }
+        </style>
+        <clipPath id="clip-path">
+            <rect class="li-cls-1" width="57" height="57" />
+        </clipPath>
+    </defs>
+    <title>linked in</title>
+    <g class="li-cls-2">
+        <path class="li-cls-3" d="M41.48,38.41H36.07V29.7c0-2.19-.78-3.68-2.74-3.68a3,3,0,0,0-2.78,2,3.68,3.68,0,0,0-.18,1.32v9.09H25S25,23.66,25,22.13h5.41v2.3a5.37,5.37,0,0,1,4.88-2.69c3.56,0,6.23,2.32,6.23,7.32v9.33ZM19.26,19.91h0a2.82,2.82,0,1,1,.07-5.63,2.82,2.82,0,1,1,0,5.63M22,38.41H16.55V22.13H22V38.41ZM28.5,0A28.5,28.5,0,1,0,57,28.5,28.5,28.5,0,0,0,28.5,0"
+        />
+    </g>
+</svg>

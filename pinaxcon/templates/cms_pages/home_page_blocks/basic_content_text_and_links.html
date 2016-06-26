@@ -1,0 +1,16 @@
+<div class="panel--2-3">
+  <h2>{{ value.heading }}</h2>
+  <p class="lede">{{ value.body }}</p>
+  <div class="btn-group">
+    {% if value.panel_type == "blue_left" %}
+      <a href="{{ value.link.page.url }}" class="btn btn__white">{{ value.link.title }}</a>
+    {% elif value.panel_type == "white_right" %}
+      <a href="{{ value.link.page.url }}" class="btn">{{ value.link.title }}</a>
+    {% endif %}
+    {% for link in value.external_links %}
+      <a href="{{ link.url }}" title="{{ link.alt }}" class="btn-svg">
+        {% include "cms_pages/home_page_blocks/btn_svg.html" %}
+      </a>
+    {% endfor %}
+  </div>
+</div>

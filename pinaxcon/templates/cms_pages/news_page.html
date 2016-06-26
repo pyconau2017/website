@@ -12,16 +12,12 @@
 
 {% block body %}
   {% block content %}
-      <h1>{{ page.title }}</h1>
-
-      {% if page.main_image %}
-          {% image page.main_image width-400 %}
-      {% endif %}
-
-      <p class="meta">{{ page.date }}</p>
-
-      <div class="intro">{{ page.intro }}</div>
-
-      {{ page.body|richtext }}
+    {% include "cms_pages/content_page_header_panel.html" %}
+    <div class="l-content-page">
+      <div class="l-content-page--richtext">
+        <p><em>{{ page.date|date:"j F Y" }}</em></p>
+        {{ page.body|richtext }}
+      </div>
+    </div>
   {% endblock %}
 {% endblock %}

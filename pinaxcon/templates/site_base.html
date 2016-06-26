@@ -1,57 +1,100 @@
-{% extends "theme_bootstrap/base.html" %}
-
 {% load staticfiles %}
 {% load metron_tags %}
 {% load i18n %}
 {% load sitetree %}
-
-
+{# <!-- https://gist.github.com/geedmo/5682742--> #}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+{% block viewport %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+{% endblock %}
+    <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
 {% block styles %}
-    {% include "_styles.html" %}
+    <link rel="stylesheet" href="{% static 'lca2017/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'lca2017/css/print.css' %}" media="print">
+    <!--FIXME: download-->
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900|Roboto:400italic,400,700,700italic" rel="stylesheet" type="text/css">
+    <!--Meta tags-->
+    <meta name="theme-color" content="#0c486c">
 {% endblock %}
-
-
-{% block extra_head_base %}
-    {% block extra_head %}{% endblock %}
-{% endblock %}
-
-{% block nav %}
-    {% sitetree_menu from "main" include "trunk" template "sitetree/menu_bootstrap3.html" %}
+    <!--Twitter-->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@linuxconfau">
+    <meta name="twitter:creator" content="@linuxconfau">
+    <meta name="twitter:description" content="Linux Conf Hobart 16-20 January 2017">
+    <meta name="twitter:image:src" content="TODO">
+    <!--Open Graph-->
+    <meta property="og:url" content="https://linux.conf.au/">
+    <meta property="og:title" content="Linux.Conf.Au">
+    <meta property="og:description" content="Linux Conf Hobart 16-20 January 2017">
+    <meta property="og:type" content="website">
+    <meta property="fb:admins" content="TODO">
+    <meta property="fb:profile_id" content="TODO">
+        {% block extra_head_base %}
+            {% block extra_head %}{% endblock %}
+        {% endblock %}
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+{% block topbar_base %}
+    <header role="banner" class="l-header">
+      <div class="l-header--logo">
+        {% block site_brand %}
+          <img src="{% static 'lca2017/images/svgs/lca2017-website-logo.svg' %}" width="300px" />
+        {% endblock %}
+      </div>
+    {% block nav %}
+        {% sitetree_menu from "main" include "trunk" template "sitetree_header.html" %}
+      <a href="#" data-menu-opener="" class="l-header--menu-opener"></a>
+    </header>
+      {% sitetree_menu from "main" include "trunk" template "sitetree_opener.html" %}
+    {% endblock %}
 {% endblock %}
 
 {% block body_base %}
-    <section id="content_body">
-        <div class="container">
-            {% include "_messages.html" %}
-            <div class="row">
-                <div class="col-md-9">
-                    {% block body %}
-                    {% endblock %}
-                </div>
-                <div class="col-md-3">
-                    {% block sidebar %}
-                        {% include "_default_sidebar.html" %}
-                    {% endblock %}
-                </div>
-            </div>
+    <main role="main">
+    {% block body %}
+      {% block content %}
+      {% endblock %}
+    {% endblock %}
         </div>
-    </section>
 {% endblock %}
 
-
-{% block footer %}
-    {% include "_footer.html" %}
+{% block footer_base %}
+      <div class="panel panel__compact panel__bg">
+        <div style="background-image: url('');" class="panel--bg"></div>
+        <div class="panel--content">
+          <div class="panel--2-3">
+            <!-- TODO: put something here. -->
+          </div>
+        </div>
+      </div>
+      <!-- https://gist.github.com/geedmo/5682742-->
+      <footer class="l-footer">
+        {% block footer %}
+        <div class="l-footer--text">
+          <h3>Sponsors</h3>
+          <p class="lede">Magna morbi aliquet commodo arcu odio dui imperdiet blandit est.
+          </p><a href="#" class="btn">See sponsors</a>
+        </div>
+        <div class="l-footer--logos">
+          <img src="{% static 'lca2017/images/HPE.jpg' %}" role="presentation">
+          <img src="{% static 'lca2017/images/IBM.jpg' %}" role="presentation"></div>
+        <p class="lede">© 2016 linux.conf.au 2017 and Linux Australia. Linux is a registered trademark of Linus Torvalds. Site design by <a href="http://takeflight.com.au" >Takeflight</a>. <a href="/colophon">Colophon</a>.</p>
+        {% endblock %}
+      </footer>
 {% endblock %}
-
-
-{% block scripts %}
-    {% include "_scripts.html" %}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
+    </main>
+    {% block scripts %}
+    <script src="{% static 'lca2017/js/app.js' %}"></script>
     {% block extra_script %}{% endblock %}
-{% endblock %}
-
-
+    {% endblock %}
 {% block extra_body_base %}
     {% analytics %}
     {% block extra_body %}{% endblock %}
 {% endblock %}
+  </body>
+</html>
