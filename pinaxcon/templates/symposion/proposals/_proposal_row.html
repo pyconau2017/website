@@ -1,11 +1,11 @@
-<tr>
-    <td>
-        <a href="{% url "proposal_detail" proposal.pk %}">{{ proposal.title }}</a>
-    </td>
+    <h4>
+      {{ proposal.title }}
+    </h4>
 
-    <td>{{ proposal.kind.name }}</td>
-
-    <td>
+    <ul>
+      <li><strong>Type:</strong> {{ proposal.kind.name }}</li>
+      <li>
+        <strong>Status:</strong>
         {% if proposal.cancelled %}
             <span class="label label-danger">Cancelled</span>
         {% else %}
@@ -19,16 +19,17 @@
                 <span class="label label-default">Associated</span>
             {% endif %}
         {% endif %}
-    </td>
+      </li>
+  </ul>
 
-    <td>
-        {% if not proposal.cancelled %}
-            {% if request.user == proposal.speaker.user and proposal.can_edit %}
-              <ul>
-                <li><a href="{% url "proposal_edit" proposal.pk %}"><i class="fa fa-pencil"></i> Edit</a></li>
-                <li><a href="{% url "proposal_speaker_manage" proposal.id %}"><i class="fa fa-user"></i> Manage Additional Speakers</a></li>
-              </ul>
-            {% endif %}
-        {% endif %}
-    </td>
-</tr>
+  <div class="btn-group">
+    <a href="{% url "proposal_detail" proposal.pk %}" class="btn btn__compact">View details</a>
+    {% if not proposal.cancelled %}
+      {% if request.user == proposal.speaker.user and proposal.can_edit %}
+        <a href="{% url "proposal_edit" proposal.pk %}" class="btn btn__compact">Edit</a>
+        <a href="{% url "proposal_speaker_manage" proposal.id %}" class="btn btn__compact">Manage Additional Speakers</a>
+      {% endif %}
+  {% endif %}
+  </div>
+
+  <br/>

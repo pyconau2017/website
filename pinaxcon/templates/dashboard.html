@@ -16,11 +16,36 @@
 
 {% block body %}
 
+{% load staticfiles %}
+{% load wagtailimages_tags %}
+
+<div class="panel panel__compact panel__bg">
+  <div style="background-image: url('{% static "lca2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
+  <div class="panel--content">
+    <div class="panel--2-3">
+      <h2>{% trans "Speaking and Miniconfs" %}</h2>
+      <br />
+      <div class="btn-group">
+        {% if not user.speaker_profile %}
+          <a href="{% url "speaker_create" %}" class="btn btn__white">
+          Create profile
+          </a>
+        {% else %}
+          <a href="{% url "speaker_edit" %}" class="btn btn__white">
+            Edit profile
+          </a>
+          <a href="{% url "proposal_submit" %}" class="btn btn__white">
+            New proposal
+          </a>
+        {% endif %}
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
 
 <div class="l-content-page">
   <div class="l-content-page--richtext">
-    <section id="panel-speaking">
-      <h2>{% trans "Speaking" %}</h2>
 
       {% if not user.speaker_profile %}
         <p>To submit a proposal, you must first create a speaker profile.</p>
@@ -36,17 +61,9 @@
       {% endif %}
 
       {% if user.speaker_profile.proposals.exists %}
-        <table>
-          <tr>
-            <th>Title</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
           {% for proposal in user.speaker_profile.proposals.all %}
             {% include "symposion/proposals/_proposal_row.html" %}
           {% endfor %}
-        </table>
       {% endif %}
 
       {% if user.speaker_profile %}
@@ -83,82 +100,60 @@
           {% endif %}
       {% endif %}
 
-      <p></p>
-      <h3>Actions</h3>
-      <div class="btn-group">
-        {% if not user.speaker_profile %}
-          <a href="{% url "speaker_create" %}" class="btn">
-            <i class="fa fa-plus-sign"></i> Create a speaker profile
-          </a>
-        {% else %}
-          <a href="{% url "speaker_edit" %}" class="btn">
-            <i class="fa fa-pencil"></i> Edit your speaker profile
-          </a>
-          <a href="{% url "proposal_submit" %}" class="btn">
-            <i class="fa fa-plus-sign"></i> Submit a new proposal
-          </a>
-        {% endif %}
+      <br />
+
+  </div>
+</div>
+
+{# {% include 'registrasion/dashboard-widget.html' %} #}
+
+{% if review_sections %}
+
+  <div class="panel panel__compact panel__bg">
+    <div style="background-image: url('{% static "lca2017/images/conference_bg_optimised.jpg" %}');" class="panel--bg"></div>
+    <div class="panel--content">
+      <div class="panel--2-3">
+        <h2>{% trans "Reviews" %}</h2>
+        <br />
       </div>
+    </div>
+  </div>
 
-      <hr /> {# TODO: Can we do better? #}
-
-    </section>
-
-    {# {% include 'registrasion/dashboard-widget.html' %} #}
-
-
-    {% if review_sections %}
-      <h2 class="panel-title">
-        <i class="fa fa-briefcase"></i>
-        {% trans "Reviews" %}
-      </h2>
-
-      <h3>Reviews by Section</h3>
-      <ul>
-        {% for section in review_sections %}
-          <h4>{{ section }}</h4>
+  <div class="l-content-page">
+    <div class="l-content-page--richtext">
+      {% for section in review_sections %}
+        <h3>{{ section }}</h3>
+        <ul>
           <li><a href="{% url "review_section" section.section.slug %}">All</a></li>
           <li><a href="{% url "user_reviewed" section.section.slug %}">Reviewed by you</a></li>
           <li><a href="{% url "user_not_reviewed" section.section.slug %}">Not Reviewed by you</a></li>
-        {% endfor %}
-      </ul>
+        </ul>
+      {% endfor %}
 
-      {% comment %}
-        <h4>My Assignments</h4>
-        <table class="table">
-            <thead>
-                <td>Proposal Title</td>
-                <td>Score</td>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Title Three</td>
-                    <td>-1</td>
-                </tr>
-                <tr>
-                    <td>Title Four</td>
-                    <td>+2</td>
-                </tr>
-            </tbody>
-        </table>
-      {% endcomment %}
+      <br />
 
-      <hr /> {# TODO: Can we do better? #}
+    </div>
+  </div>
+{% endif %}
 
-    {% endif %}
 
-    {% available_teams as available_teams %}
-    {% if user.memberships.exists or available_teams %}
-      <section id="teams">
-        <h2 class="panel-title">
-            <i class="fa fa-group"></i>
-            {% trans "Teams" %}
-        </h2>
+{% available_teams as available_teams %}
+{% if user.memberships.exists or available_teams %}
+    <div class="panel panel__compact panel__bg">
+      <div style="background-image: url('{% static "lca2017/images/hobart_bg.jpg" %}');" class="panel--bg"></div>
+      <div class="panel--content">
+        <div class="panel--2-3">
+          <h2>{% trans "Teams" %}</h2>
+          <br />
+        </div>
+      </div>
+    </div>
 
-        {% if user.memberships.exists %}
-          <div class="panel-body">
-            <h3>Your Teams</h3>
-          </div>
+
+    {% if user.memberships.exists %}
+    <div class="l-content-page">
+      <div class="l-content-page--richtext">
+          <h3>Your Teams</h3>
           <table>
             {% for membership in user.memberships.all %}
               <tr>
@@ -179,9 +174,7 @@
           </table>
         {% endif %}
         {% if available_teams %}
-          <div class="panel-body">
-            <h4>Available Teams</h4>
-          </div>
+          <h3>Available Teams</h3>
           <table class="table table-striped">
             {% for team in available_teams %}
               <tr>
@@ -196,15 +189,9 @@
             {% endfor %}
           </table>
         {% endif %}
-      </section>
+      </div>
+    </div>
 
-      <hr /> {# TODO: Can we do better? #}
-
-    {% endif %}
-
-
-
-  </div>
-</div>
+{% endif %}
 
 {% endblock %}
