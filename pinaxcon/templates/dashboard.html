@@ -1,5 +1,5 @@
 {% extends "site_base.html" %}
-
+{% load staticfiles %}
 {% load i18n %}
 {% load proposal_tags %}
 {% load review_tags %}
@@ -7,6 +7,11 @@
 {# {% load registrasion_tags %} #}
 
 {% block head_title %}Dashboard{% endblock %}
+
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'css/site-0a247b924d.css' %}">
+<!-- Latest compiled and minified CSS -->
+{% endblock %}
 
 {% block body_class %}auth{% endblock %}
 

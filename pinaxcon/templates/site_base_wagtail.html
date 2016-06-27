@@ -1,16 +1,11 @@
 {% extends "site_base.html" %}
+{% block extra_style %}{% endblock %}
 {% block body_base %}
     <div style="height: 100px;" />
     <main role="main">
-<div class="l-content-page">
-        <section id="content_body">
-        <div class="container">
     {% include "_messages.html" %}
     {% block body %}
       {% block content %}
       {% endblock %}
     {% endblock %}
-</div>
-</section>
-</div>
 {% endblock %}
