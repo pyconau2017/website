@@ -4,11 +4,11 @@
 
 {% block page_title %}Upload Document to '{{ proposal.title }}'{% endblock %}
 
-{% block body %}
+{% block proposals_body %}
     <form method="POST" action="" enctype="multipart/form-data" class="form form-horizontal">
         {% csrf_token %}
         <fieldset>
-            {{ form|bootstrap_horizontal }}
+          {% include "_form_snippet.html" with form=form %}
         </fieldset>
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="Upload" />

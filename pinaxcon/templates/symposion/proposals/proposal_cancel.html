@@ -3,10 +3,9 @@
 {% load i18n %}
 
 {% block head_title %}{% trans 'Cancel Proposal' %}{% endblock %}
+{% block page_title %}Cancel: {{ proposal.title }}{% endblock %}
 
-{% block body %}
-    <h1>Cancel: {{ proposal.title }}</h1>
-
+{% block proposals_body %}
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Are you sure you want to cancel <b>{{ proposal.title }}</b>?</p>

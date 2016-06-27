@@ -1,15 +1,14 @@
 {% load i18n %}
 
-<dl class="dl-horizontal">
-    <dt>{% trans "Submitted by" %}</dt>
-    <dd>{{ proposal.speaker }}</dd>
+    <h4>{% trans "Submitted by" %}</h4>
+    <p>{{ proposal.speaker }}</p>
 
-    <dt>{% trans "Target Audience" %}</dt>
-    <dd>{{ proposal.get_target_audience_display }}&nbsp;</dd>
+    <h4>{% trans "Target Audience" %}</h4>
+    <p>{{ proposal.get_target_audience_display }}&nbsp;</p>
 
     {% if proposal.additional_speakers.all %}
-        <dt>{% trans "Additional Speakers" %}</dt>
-        <dd>
+        <h4>{% trans "Additional Speakers" %}</h4>
+        <ul>
             {% for speaker in proposal.additional_speakers.all %}
                 <li>
                     {% if speaker.user %}
@@ -19,32 +18,36 @@
                     {% endif %}
                 </li>
             {% endfor %}
-        </dd>
+        </ul>
+        <p></p>
     {% endif %}
 
-    <dt>{% trans "Abstract" %}</dt>
-    <dd>{{ proposal.abstract_html|safe }}&nbsp;</dd>
+    <h4>{% trans "Abstract" %}</h4>
+    <div class="abstract">{{ proposal.abstract_html|safe }}&nbsp;</div>
 
-    <dt>{% trans "Private Abstract" %}</dt>
-    <dd>{{ proposal.private_abstract_html|safe }}&nbsp;</dd>
+    <h4>{% trans "Private Abstract" %}</h4>
+    <div class="private_abstract">{{ proposal.private_abstract_html|safe }}&nbsp;</div>
 
-    <dt>{% trans "Project" %}</dt>
-    <dd>{{ proposal.project|safe }}&nbsp;</dd>
+    <h4>{% trans "Project" %}</h4>
+    <p>{{ proposal.project|safe }}&nbsp;</p>
 
-    <dt>{% trans "Project URL" %}</dt>
-    <dd><a href="{{ proposal.project_url|safe }}">{{ proposal.project_url|safe }}</a></dd>
+    <h4>{% trans "Project URL" %}</h4>
+    <p><a href="{{ proposal.project_url|safe }}">{{ proposal.project_url|safe }}</a>&nbsp;</p>
 
-    <dt>{% trans "Video URL" %}</dt>
-    <dd><a href="{{ proposal.video_url|safe }}">{{ proposal.video_url|safe }}</a></dd>
+    <h4>{% trans "Video URL" %}</h4>
+    <p><a href="{{ proposal.video_url|safe }}">{{ proposal.video_url|safe }}</a>&nbsp;</p>
 
-    <dt>{% trans "Special Requirements" %}</dt>
-    <dd>{{ proposal.technical_requirements_html|safe }}&nbsp;</dd>
+    <h4>{% trans "Special Requirements" %}</h4>
+    <div class="special_requirements">{{ proposal.technical_requirements_html|safe }}</div>
 
-    <dt>{% trans "Speaker Bio" %}</dt>
-    <dd>{{ proposal.speaker.biography_html|safe }}&nbsp;</dd>
+    <h4>{% trans "Speaker Bio" %}</h4>
+    <div class="biography">{{ proposal.speaker.biography_html|safe }}&nbsp;</div>
 
-    <dt>{% trans "Documents" %}</dt>
-    <dd>
+    <h4>{% trans "Speaker Experience" %}</h4>
+    <div class="biography">{{ proposal.speaker.experience_html|safe }}&nbsp;</div>
+
+    <h4>{% trans "Documents" %}</h4>
+    <div>
         {% if proposal.supporting_documents.exists %}
             <table class="table table-striped">
                 {% for document in proposal.supporting_documents.all %}
@@ -60,14 +63,12 @@
                 {% endfor %}
             </table>
         {% else %}
-            No supporting documents attached to this proposal.
+            <p>No supporting documents attached to this proposal.</p>
         {% endif %}
-    </dd>
+    </div>
 
-    <dt>{% trans "Recording Release" %}</dt>
-    <dd>{{ proposal.recording_release }}&nbsp;</dd>
+    <h4>{% trans "Recording Release" %}</h4>
+    <p>{{ proposal.recording_release }}&nbsp;</p>
 
-    <dt>{% trans "Materials Release" %}</dt>
-    <dd>{{ proposal.materials_release }}&nbsp;</dd>
-
-</dl>
+    <h4>{% trans "Materials Release" %}</h4>
+    <p>{{ proposal.materials_release }}&nbsp;</p>

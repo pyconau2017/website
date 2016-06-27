@@ -6,97 +6,89 @@
 
 {% block head_title %}{{ proposal.title }}{% endblock %}
 
+
 {% block body %}
-    <div class="pull-right">
-        {% if not proposal.cancelled %}
-            {% if request.user == proposal.speaker.user %}
-                <a href="{% url "proposal_edit" proposal.pk %}" class="btn btn-default">
-                    {% trans "Edit this proposal" %}
-                </a>
-                <a href="{% url "proposal_cancel" proposal.pk %}" class="btn btn-default">
-                    {% trans "Cancel this proposal" %}
-                </a>
-            {% else %}
-                <a href="{% url "proposal_leave" proposal.pk %}" class="btn btn-default">
-                    {% trans "Remove me from this proposal" %}
-                </a>
-            {% endif %}
-        {% else %}
-            {% trans 'Cancelled' }
-        {% endif %}
-    </div>
 
-    <h3>#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }})</h3>
+<div class="panel panel__compact">
+  <div class="panel--content">
 
-    <div class="tabbable">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#proposal-detail" data-toggle="tab">{% trans "Proposal Details" %}</a></li>
-            {% if request.user == proposal.speaker.user %}
-                <li><a href="#proposal-documents" data-toggle="tab">{% trans "Supporting Documents" %}</a></li>
-            {% endif %}
-            {% if message_form %}
-                <li><a href="#proposal-feedback" data-toggle="tab">{% trans "Reviewer Feedback" %} <span class="badge">{{ proposal.messages.all|length }}</span></a></li>
-            {% endif %}
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="proposal-detail">
-                {% include "symposion/proposals/_proposal_fields.html" %}
-            </div>
-            {% if request.user == proposal.speaker.user %}
-                <div class="tab-pane" id="proposal-documents">
-                    <h3>{% trans 'Supporting Documents' %}</h3>
+      <h2>{% block page_title %}#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}){% endblock %}</h2>
 
-                    {% if proposal.supporting_documents.exists %}
-                        <table class="table table-striped">
-                            {% for document in proposal.supporting_documents.all %}
-                                <tr>
-                                    <td><a href="{{ document.download_url }}">{{ document.description }}</a></td>
-                                    <td>
-                                    <form style="margin: 0;" method="post" action="{% url "proposal_document_delete" document.pk %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-xs">{% trans 'delete' %}</button>
-                                    </form>
-                                </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    {% else %}
-                        <p>{% trans 'No supporting documents attached to this proposal.' %}</p>
-                    {% endif %}
-                    <a class="btn btn-default btn-sm{% if proposal.cancelled %} btn-disabled{% endif %}" href="{% url "proposal_document_create" proposal.pk %}"><i class="fa fa-upload"></i> {% trans 'Add Document' %}</a>
-                </div>
-            {% endif %}
-
-    {% if message_form %}
-        <div class="tab-pane" id="proposal-feedback">
-
-            <h3>{% trans 'Conversation with Reviewers' %}</h3>
-
-            {% for message in proposal.messages.all %}
-                <div class="review-box">
-                    <div class="comment">{{ message.message|safe }}</div>
-                    <div class="dateline"><b>{% user_display message.user %}</b> {{ message.submitted_at|timesince }} ago</div>
-                </div>
-                <div class="clear"></div>
-            {% endfor %}
-
-            <h3>{% trans 'Leave a Message' %}</h3>
-
-            <p>{% trans 'You can leave a message for the reviewers here.' %}</p>
-
-            <form action="" method="POST" accept-charset="utf-8">
-                {% csrf_token %}
-                <fieldset>
-                    {{ message_form|bootstrap }}
-                </fieldset>
-                <div class="actions">
-                    <button type="submit" name="message_submit" class="btn btn-primary">{% trans 'Submit' %}</button>
-                </div>
-            </form>
+        <div class="panel--tab-controls">
+          <div class="panel--tabs"><a data-tab-control="Details" class="panel--tab-switch is-active">{% trans "Proposal Details" %}</a><a data-tab-control="Documents" class="panel--tab-switch">{% trans "Supporting Documents" %}</a><a data-tab-control="Feedback" class="panel--tab-switch">{% trans "Reviewer Feedback" %} ({{ proposal.messages.all|length }})</a>
+          </div>
         </div>
-    {% endif %}
+        <div data-tab-content="Details" class="panel--tab-content is-active">
+          {% include "symposion/proposals/_proposal_fields.html" %}
+
+          <div class="btn-group">
+              {% if not proposal.cancelled %}
+                  {% if request.user == proposal.speaker.user %}
+                      <a href="{% url "proposal_edit" proposal.pk %}" class="btn btn-default">
+                          {% trans "Edit this proposal" %}
+                      </a>
+                      <a href="{% url "proposal_cancel" proposal.pk %}" class="btn btn-default">
+                          {% trans "Cancel this proposal" %}
+                      </a>
+                  {% else %}
+                      <a href="{% url "proposal_leave" proposal.pk %}" class="btn btn-default">
+                          {% trans "Remove me from this proposal" %}
+                      </a>
+                  {% endif %}
+              {% else %}
+                  {% trans 'Cancelled' }
+              {% endif %}
+          </div>
+        </div>
+
+        <div data-tab-content="Documents" class="panel--tab-content">
+          {% if proposal.supporting_documents.exists %}
+              <table class="table table-striped">
+                  {% for document in proposal.supporting_documents.all %}
+                      <tr>
+                          <td><a href="{{ document.download_url }}">{{ document.description }}</a></td>
+                          <td>
+                          <form style="margin: 0;" method="post" action="{% url "proposal_document_delete" document.pk %}">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-xs">{% trans 'delete' %}</button>
+                          </form>
+                      </td>
+                      </tr>
+                  {% endfor %}
+              </table>
+          {% else %}
+              <p>{% trans 'No supporting documents attached to this proposal.' %}</p>
+          {% endif %}
+          <a class="btn btn-default btn-sm{% if proposal.cancelled %} btn-disabled{% endif %}" href="{% url "proposal_document_create" proposal.pk %}"><i class="fa fa-upload"></i> {% trans 'Add Document' %}</a>
+        </div>
+        <div data-tab-content="Feedback" class="panel--tab-content">
+
+          <h3>{% trans 'Conversation with Reviewers' %}</h3>
+          {% for message in proposal.messages.all %}
+              <div class="review-box">
+                  <div class="comment"><em>{{ message.message|safe }}</em></div>
+                  <div class="dateline"><b>{% user_display message.user %}</b> {{ message.submitted_at|timesince }} ago</div>
+              </div>
+              <br />
+          {% endfor %}
+
+          <h3>{% trans 'Leave a Message' %}</h3>
+
+          <p>{% trans 'You can leave a message for the reviewers here.' %}</p>
+
+          <form action="" method="POST" accept-charset="utf-8">
+              {% csrf_token %}
+              <fieldset>
+                {% include "_form_snippet.html" with form=message_form %}
+              </fieldset>
+              <div class="actions">
+                  <button type="submit" name="message_submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+              </div>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+
 {% endblock %}
 
 {% block extra_script %}

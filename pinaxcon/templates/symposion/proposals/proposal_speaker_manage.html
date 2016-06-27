@@ -3,15 +3,17 @@
 {% load i18n %}
 {% load bootstrap %}
 
-{% block body %}
-    <h1>{% trans 'Proposal:' %} {{ proposal.title }}</h1>
+{% block page_title %}{% trans 'Proposal:' %} {{ proposal.title }}{% endblock %}
+
+{% block proposals_body %}
+    <h1></h1>
 
     <p>
       <a href="{% url "proposal_edit" proposal.pk %}">{% trans 'Edit proposal' %}
       </a>
     </p>
 
-    <h2>{% trans 'Current Speakers' %}</h2>
+    <h3>{% trans 'Current Speakers' %}</h3>
 
     {% for speaker in speakers %}
         {% if speaker.user %}
@@ -21,11 +23,11 @@
         {% endif %}
     {% endfor %}
 
-    <h2>{% trans 'Add another speaker' %}</h2>
+    <h3>{% trans 'Add another speaker' %}</h3>
 
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ add_speaker_form|bootstrap }}
+        {% include "_form_snippet.html" with form=add_speaker_form %}
         <div class="form-action">
             <input type="submit" value="Add speaker" class="btn btn-primary" />
         </div>

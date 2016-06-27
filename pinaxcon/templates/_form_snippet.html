@@ -1,0 +1,27 @@
+{% load lca2017_tags %}
+
+{% for field in form %}
+  {% if not field.is_hidden %}
+    <div class="fieldWrapper">
+      {% classname field.field.widget as widget %}
+      {% if widget != "CheckboxInput" %}
+        <h4><label for="{{ field.id_for_label }}">{{ field.label }}</label></h4>
+        {{ field.errors }}
+        {{ field }}
+      {% else %}
+        <label for="{{ field.id_for_label }}"><strong>{{ field.label }}</strong></label>
+        {{ field }}
+        {{ field.errors }}
+      {% endif %}
+
+      {% if field.help_text %}
+        {% if widget != "CheckboxInput" or not field.errors %}
+          <br />
+        {% endif %}
+        <span class="help_text">{{ field.help_text|safe }}</span>
+      {% endif %}
+
+      <p></p>
+    </div>
+  {% endif %}
+{% endfor %}
