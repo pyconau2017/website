@@ -6,6 +6,7 @@
 {% block body_class %}{{ block.super }} review-results{% endblock %}
 
 {% block extra_style %}
+{{ block.super }}
     <style type="text/css">
         .table-striped tbody tr.selected td {
             background-color: #F7F4E6;
@@ -84,6 +85,7 @@
 {% endblock %}
 
 {% block extra_script %}
+{{ block.super }}
     <script type="text/javascript">
         (function($) {
             $.fn.actions = function(opts) {

@@ -1,10 +1,17 @@
 {% extends "site_base.html" %}
+{% load staticfiles %}
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'css/site-0a247b924d.css' %}">
+{% endblock %}
 
 {% load bootstrap %}
 
 {% block body_class %}review{% endblock %}
 
 {% block body %}
+<div class="l-content-page">
+<div class="l-content-page--richtext">
+<div class="rich-text">
     <h1>Proposal Review</h1>
 
     <div class="proposal">
@@ -73,5 +80,5 @@
             </div>
         </fieldset>
     </form>
-
+</div></div></div>
 {% endblock %}
