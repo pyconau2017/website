@@ -1025,6 +1025,8 @@ table.alt tr:not(:last-of-type) {
 
 .panel__compact .panel--1-3 {
   width: 100%;
+  margin-bottom: 2em;
+
 }
 
 @media (min-width: 48em) {
