@@ -779,6 +779,12 @@ table.alt tr:not(:last-of-type) {
   }
 }
 
+.btn__compact {
+  padding: 0.625rem 1.25rem;
+  border: 1px solid #3ab1c9;
+}
+
+
 .btn-group {
   display: -ms-flexbox;
   display: flex;

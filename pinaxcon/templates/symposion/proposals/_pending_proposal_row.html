@@ -24,19 +24,13 @@
     </td>
 
     <td>
-        {% if not proposal.cancelled %}
-            <div class="btn-group">
-                <a class="btn btn-xs dropdown-toggle" data-toggle="dropdown" href="#">
-                {% trans 'Choose Response' %}
-                <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="{% url "proposal_pending_join" proposal.id %}">
-			{% trans 'Accept invitation' %}</a></li>
-                    <li><a href="{% url "proposal_pending_decline" proposal.id
-		    %}">{% trans 'Decline invitation' %}</a></li>
-                </ul>
-            </div>
-        {% endif %}
+      {% if not proposal.cancelled %}
+        <ul>
+          <li><a href="{% url "proposal_pending_join" proposal.id %}">
+{% trans 'Accept invitation' %}</a></li>
+          <li><a href="{% url "proposal_pending_decline" proposal.id
+%}">{% trans 'Decline invitation' %}</a></li>
+        </ul>
+      {% endif %}
     </td>
 </tr>
