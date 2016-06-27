@@ -1,16 +1,16 @@
-{% extends "site_base_wagtail.html" %}
+{% extends "utility_page.html" %}
 {% load staticfiles %}
 
-{% block body %}
+
+{% block utility_body_outer %}
+{% block proposals_body_outer %}
   <div class="l-content-page">
     <div class="l-content-page--richtext">
-      <h2>{% block page_title %}{% endblock %}</h2>
-      {% block proposals_body %}
+      {% block utility_body %}
+        {% block proposals_body %}
+        {% endblock %}
       {% endblock %}
     </div>
   </div>
 {% endblock %}
-
-{% block extra_script %}
-<script src="{% static 'js/site-92ae8d0d6c.js' %}" type="text/javascript"></script>
 {% endblock %}

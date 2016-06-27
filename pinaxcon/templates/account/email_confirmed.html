@@ -1,0 +1,10 @@
+{% extends "utility_page.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Email confirmed" %}{% endblock %}
+{% block page_title %}{% trans "Email confirmed" %}{% endblock %}
+
+{% block utility_body %}
+    <p>{% blocktrans with email=confirmation.email_address.email %}You have confirmed <b>{{ email }}</b>{% endblocktrans %}</p>
+{% endblock %}

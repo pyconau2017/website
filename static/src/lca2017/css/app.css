@@ -784,6 +784,10 @@ table.alt tr:not(:last-of-type) {
   border: 1px solid #3ab1c9;
 }
 
+.btn__active {
+  border: solid #3ab1c9;  
+}
+
 
 .btn-group {
   display: -ms-flexbox;

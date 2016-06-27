@@ -1,0 +1,26 @@
+{% extends "site_base_wagtail.html" %}
+{% load staticfiles %}
+
+{% block body %}
+  <div class="panel panel__compact panel__bg">
+    <div style="background-image: url('{% static 'lca2017/images/wineglass_bg_optimised.jpg' %}');" class="panel--bg"></div>
+    <div class="panel--content">
+        <h2>{% block page_title %}{% endblock %}</h2>
+        <br />
+        <br />
+    </div>
+  </div>
+
+  {% block utility_body_outer %}
+    <div class="l-content-page">
+      <div class="l-content-page--richtext">
+        {% block utility_body %}
+        {% endblock %}
+      </div>
+    </div>
+  {% endblock %}
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/site-92ae8d0d6c.js' %}" type="text/javascript"></script>
+{% endblock %}

@@ -5,14 +5,12 @@
 {% load bootstrap %}
 
 {% block head_title %}{{ proposal.title }}{% endblock %}
+{% block page_title %}#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}){% endblock %}
 
-
-{% block body %}
+{% block proposals_body_outer %}
 
 <div class="panel panel__compact">
   <div class="panel--content">
-
-      <h2>{% block page_title %}#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}){% endblock %}</h2>
 
         <div class="panel--tab-controls">
           <div class="panel--tabs"><a data-tab-control="Details" class="panel--tab-switch is-active">{% trans "Proposal Details" %}</a><a data-tab-control="Documents" class="panel--tab-switch">{% trans "Supporting Documents" %}</a><a data-tab-control="Feedback" class="panel--tab-switch">{% trans "Reviewer Feedback" %} ({{ proposal.messages.all|length }})</a>
@@ -80,10 +78,10 @@
               {% csrf_token %}
               <fieldset>
                 {% include "_form_snippet.html" with form=message_form %}
+                <div class="btn-group">
+                    <button type="submit" name="message_submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+                </div>
               </fieldset>
-              <div class="actions">
-                  <button type="submit" name="message_submit" class="btn btn-primary">{% trans 'Submit' %}</button>
-              </div>
           </form>
         </div>
       </div>

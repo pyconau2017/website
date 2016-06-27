@@ -3,20 +3,21 @@
 {% load i18n %}
 
 {% block page_title %}Submit a Proposal for a {{ kind.name }}{% endblock %}
+{% block head_title %}Submit a Proposal for a {{ kind.name }}{% endblock %}
 
 {% block proposals_body %}
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset>
           {% include "_form_snippet.html" with form=proposal_form %}
-        </fieldset>
-        <div class="form-actions">
           <p>
             You will be able to edit your proposal after it has been submitted. The program committee may ask questions, provide feedback, and even suggest changes to your proposal as part of the review processes.
           </p>
-          <input class="btn btn-primary" type="submit" name="finish" value="Save" />
-          <!-- <span style="float: right; padding: 4px 6px">or</span> -->
-          <input class="btn btn-default" type="submit" name="add-speakers" value="Save and Add Additional Speakers" />
-        </div>
+          <div class="btn-group">
+            <input class="btn btn-primary" type="submit" name="finish" value="Save" />
+            <!-- <span style="float: right; padding: 4px 6px">or</span> -->
+            <input class="btn btn-default" type="submit" name="add-speakers" value="Save and Add Additional Speakers" />
+          </div>
+        </fieldset>
     </form>
 {% endblock %}

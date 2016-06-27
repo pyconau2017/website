@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load bootstrap %}
+
+{% block body_class %}account account-settings{% endblock %}
+
+{% block head_title %}{% trans "Account Settings" %}{% endblock %}
+{% block page_title %}{% trans "Account Settings" %}{% endblock %}
+{% block btn-settings %}btn__active{% endblock %}
+
+{% block account_body %}
+            <form method="POST" action="{% url "account_settings" %}">
+              <fieldset>
+                {% csrf_token %}
+                {% include "_form_snippet.html" with form=form %}
+                <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
+              </fieldset>
+            </form>
+{% endblock %}

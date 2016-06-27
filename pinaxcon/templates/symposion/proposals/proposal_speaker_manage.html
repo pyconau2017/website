@@ -4,6 +4,7 @@
 {% load bootstrap %}
 
 {% block page_title %}{% trans 'Proposal:' %} {{ proposal.title }}{% endblock %}
+{% block head_title %}{% trans 'Proposal:' %} {{ proposal.title }}{% endblock %}
 
 {% block proposals_body %}
     <h1></h1>
@@ -27,10 +28,12 @@
 
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
-        {% include "_form_snippet.html" with form=add_speaker_form %}
-        <div class="form-action">
-            <input type="submit" value="Add speaker" class="btn btn-primary" />
-        </div>
+        <fieldset>
+          {% include "_form_snippet.html" with form=add_speaker_form %}
+          <div class="btn-group">
+              <input type="submit" value="Add speaker" class="btn btn-primary" />
+          </div>
+        </fieldset>
     </form>
 {% endblock %}
 
