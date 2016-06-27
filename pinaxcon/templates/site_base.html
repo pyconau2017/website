@@ -100,6 +100,8 @@
     </main>
     {% block scripts %}
     <script src="{% static 'lca2017/js/app.js' %}"></script>
+    {% include "_scripts.html" %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
     {% block extra_script %}{% endblock %}
     {% endblock %}
 {% block extra_body_base %}
