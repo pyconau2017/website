@@ -264,6 +264,9 @@ NOSE_ARGS = [
 
 # Production settings have their own file to override stuff here
 try:
-    from local_settings import *
-except ImportError:
-    pass
+    LOCAL_SETTINGS
+except NameError:
+    try:
+        from local_settings import *
+    except ImportError:
+        pass
