@@ -46,6 +46,9 @@
     <h4>{% trans "Speaker Experience" %}</h4>
     <div class="biography">{{ proposal.speaker.experience_html|safe }}&nbsp;</div>
 
+    <h4>{% trans "Speaker Accessibility Requirements" %}</h4>
+    <div class="biography">{{ proposal.speaker.accessibility_html|safe }}&nbsp;</div>
+
     <h4>{% trans "Documents" %}</h4>
     <div>
         {% if proposal.supporting_documents.exists %}

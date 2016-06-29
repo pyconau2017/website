@@ -6,6 +6,13 @@
 
 
 {% block body %}
+
+    <div>
+        <a class="btn btn-primary" href="{% url "user_random" proposal.section.slug %}">
+            {% trans "Jump to a random unreviewed proposal" %}
+        </a>
+    </div>
+
     {% if is_manager %}
         <div class="pull-right">
             <form class="result-form form-inline" method="POST" action="">
@@ -165,6 +172,13 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <a class="btn btn-primary" href="{% url "user_random" proposal.section.slug %}">
+            {% trans "Jump to a random unreviewed proposal" %}
+        </a>
+    </div>
+
 {% endblock %}
 
 {% block extra_script %}

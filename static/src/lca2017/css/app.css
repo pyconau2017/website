@@ -1187,6 +1187,7 @@ table.alt tr:not(:last-of-type) {
   -ms-flex-item-align: start;
   align-self: flex-start;
   display: none;
+  margin-left: 1em;
 }
 
 .l-header--menu-opener {

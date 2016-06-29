@@ -1,5 +1,7 @@
 from django import forms
 
+from pinaxcon import widgets
+
 from .models import TalkProposal, TutorialProposal, MiniconfProposal
 
 
@@ -31,6 +33,13 @@ class TalkProposalForm(ProposalForm):
             "materials_release",
         ]
 
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }
+
+
 class TutorialProposalForm(ProposalForm):
 
     class Meta:
@@ -48,6 +57,13 @@ class TutorialProposalForm(ProposalForm):
             "materials_release",
         ]
 
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }
+
+
 class MiniconfProposalForm(ProposalForm):
 
     class Meta:
@@ -58,3 +74,9 @@ class MiniconfProposalForm(ProposalForm):
             "private_abstract",
             "technical_requirements",
         ]
+
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }

@@ -21,7 +21,7 @@ urlpatterns = [
 
     url(r"^speaker/", include("symposion.speakers.urls")),
     url(r"^proposals/", include("symposion.proposals.urls")),
-    url(r"^sponsors/", include("symposion.sponsorship.urls")),
+    #url(r"^sponsors/", include("symposion.sponsorship.urls")),
     url(r"^reviews/", include("symposion.reviews.urls")),
     url(r"^schedule/", include("symposion.schedule.urls")),
 
