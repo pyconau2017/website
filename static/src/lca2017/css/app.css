@@ -786,7 +786,7 @@ table.alt tr:not(:last-of-type) {
 }
 
 .btn__active {
-  border: solid #3ab1c9;  
+  border: solid #3ab1c9;
 }
 
 
@@ -1259,6 +1259,7 @@ table.alt tr:not(:last-of-type) {
   font-size: 2.5em;
   font-family: "Titillium Web", sans-serif;
   font-weight: 900;
+  text-transform: uppercase;
 }
 
 .mobile-menu.is-active {
