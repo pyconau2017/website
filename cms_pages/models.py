@@ -56,10 +56,12 @@ class BasicContentBlock(blocks.StructBlock):
     )
 
     EXTERNAL_LINK_TWITTER = "twitter"
+    EXTERNAL_LINK_FACEBOOK = "facebook"
     EXTERNAL_LINK_GENERIC = "generic"
 
     EXTERNAL_LINK_TYPES = (
         (EXTERNAL_LINK_TWITTER, "Twitter"),
+        (EXTERNAL_LINK_FACEBOOK, "Facebook"),
         (EXTERNAL_LINK_GENERIC, "Generic URL"),
     )
 
