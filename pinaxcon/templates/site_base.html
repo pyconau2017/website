@@ -46,7 +46,11 @@
     <header role="banner" class="l-header">
       <div class="l-header--logo">
         {% block site_brand %}
-          <img src="{% static 'lca2017/images/svgs/lca2017-website-logo.svg' %}" width="100%"/>
+          <a href="/">
+            <img src="{% static 'lca2017/images/svgs/lca2017-website-logo.svg' %}"
+              width="100%"
+              />
+          </a>
         {% endblock %}
       </div>
     {% block nav %}
