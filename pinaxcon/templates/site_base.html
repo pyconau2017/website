@@ -116,7 +116,9 @@
     {% block extra_script %}{% endblock %}
     {% endblock %}
 {% block extra_body_base %}
-    {% analytics %}
+{% block analytics %}
+	{% include "analytics.html" %}
+{% endblock %}
     {% block extra_body %}{% endblock %}
 {% endblock %}
   </body>
