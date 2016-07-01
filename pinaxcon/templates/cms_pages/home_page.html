@@ -4,6 +4,8 @@
 
 {% load wagtailcore_tags %}
 
+{% block head_title %}{{ page.title }}{% endblock %}
+
 {% block body %}
 
 {{ page.body }}
