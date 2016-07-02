@@ -16,6 +16,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{% static 'lca2017/css/app.css' %}">
     <link rel="stylesheet" href="{% static 'lca2017/css/print.css' %}" media="print">
+    <link rel="icon" href="{% static 'lca2017/images/favicon.ico' %}"
     <!--FIXME: download-->
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900|Roboto:400italic,400,700,700italic" rel="stylesheet" type="text/css">
     <!--Meta tags-->
@@ -47,9 +48,12 @@
     <header role="banner" class="l-header">
       <div class="l-header--logo">
         {% block site_brand %}
-          <a href="/">
+          <a href="/"
+            title="linux.conf.au | 16–20 January, Hobart | The Future of Open Source"
+          >
             <img src="{% static 'lca2017/images/svgs/lca2017-website-logo.svg' %}"
               width="100%"
+              title="linux.conf.au | 16–20 January, Hobart | The Future of Open Source"
               />
           </a>
         {% endblock %}
