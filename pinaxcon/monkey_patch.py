@@ -56,3 +56,22 @@ def patch_accounts_to_send_bcc():
         email.send()
 
     hooks.send_mail = send_mail
+
+
+def fix_sitetree_check_access_500s():
+    ''' django-sitetree has a bug: https://github.com/idlesign/django-sitetree/pull/167/files
+    -- it swallows the cause of all 500 errors. This swallows KeyErrors from
+    the failing function. '''
+
+    from sitetree.sitetreeapp import SiteTree
+
+    old_check_access = SiteTree.check_access
+
+    @wraps(SiteTree.check_access)
+    def check_access(self, *a, **k):
+        try:
+            return old_check_access(self, *a, **k)
+        except KeyError:
+            return False
+
+    SiteTree.check_access = check_access
