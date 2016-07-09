@@ -54,6 +54,7 @@
       <div class="biography">{{ proposal.speaker.experience_html|safe }}&nbsp;</div>
     {% endfor %}
 
+    {% can_manage proposal as can_manage_proposal %}
     {% if can_manage_proposal or request.user.speaker_profile in proposal.speakers %}
 
       <h4>{% trans "Assistance required?" %}</h4>
