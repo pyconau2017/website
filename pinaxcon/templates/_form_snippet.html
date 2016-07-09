@@ -1,5 +1,10 @@
 {% load lca2017_tags %}
 
+{% if form.non_field_errors %}
+  {{ form.non_field_errors }}
+  <br/>
+{% endif %}
+
 {% for field in form %}
   {% if not field.is_hidden %}
     <div class="fieldWrapper">

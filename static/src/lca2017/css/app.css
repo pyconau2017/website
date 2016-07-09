@@ -1375,7 +1375,7 @@ table.alt tr:not(:last-of-type) {
 
 @media (min-width: 48em) {
   .l-header {
-    margin-top: 6.25rem;
+    /*margin-top: 6.25rem;  /* issue #44. We don't like this. */
   }
   .l-header--menu-opener {
     display: none !important;
@@ -1430,7 +1430,7 @@ table.alt tr:not(:last-of-type) {
   -ms-flex-direction: column;
   flex-direction: column;
   margin-top: 100px;
-  margin-top: 6.25rem;
+  margin-top: 3.25rem;
   padding: 50px 40px;
   padding: 3.125rem 40px;
   width: 100%;
@@ -1466,7 +1466,8 @@ table.alt tr:not(:last-of-type) {
 
 @media (min-width: 48em) {
   .l-footer {
-    padding: 6.25rem 70px;
+    /*padding: 6.25rem 70px; /* issue #44 too much padding */
+    padding: 3.25rem 70px;
     -ms-flex-direction: row;
     flex-direction: row;
     -ms-flex-pack: justify;
@@ -1479,13 +1480,15 @@ table.alt tr:not(:last-of-type) {
 
 @media (min-width: 64em) {
   .l-footer {
-    padding: 6.25rem 160px;
+    /*padding: 6.25rem 160px; */
+    padding: 3.25rem 160px;
   }
 }
 
 @media (min-width: 80em) {
   .l-footer {
-    padding: 6.25rem 200px;
+    /*padding: 6.25rem 200px;*/
+    padding: 3.25rem 200px;
   }
   .l-footer--logo {
     margin-bottom: 0;
@@ -1496,7 +1499,8 @@ table.alt tr:not(:last-of-type) {
 
 @media (min-width: 1946px) {
   .l-footer {
-    padding: 6.25rem auto;
+    padding: 3.25rem auto;
+    /*padding: 6.25rem auto;*/
   }
 }
 

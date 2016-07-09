@@ -1,7 +1,11 @@
 {% load i18n %}
+{% load lca2017_tags %}
 
     <h4>{% trans "Submitted by" %}</h4>
     <p>{{ proposal.speaker }}</p>
+
+    <h4>{% trans "Proposal Type" %}</h4>
+    <p>{{ proposal.kind.name|capfirst }}</p>
 
     <h4>{% trans "Target Audience" %}</h4>
     <p>{{ proposal.get_target_audience_display }}&nbsp;</p>
@@ -40,14 +44,48 @@
     <h4>{% trans "Special Requirements" %}</h4>
     <div class="special_requirements">{{ proposal.technical_requirements_html|safe }}</div>
 
-    <h4>{% trans "Speaker Bio" %}</h4>
-    <div class="biography">{{ proposal.speaker.biography_html|safe }}&nbsp;</div>
+    {% for speaker in proposal.speakers %}
+      <h4>{% trans "Speaker:" %} {{ speaker.name }}</h4>
+      <h5>{% trans "Biography" %}</h5>
 
-    <h4>{% trans "Speaker Experience" %}</h4>
-    <div class="biography">{{ proposal.speaker.experience_html|safe }}&nbsp;</div>
+      <div class="biography">{{ proposal.speaker.biography_html|safe }}&nbsp;</div>
 
-    <h4>{% trans "Speaker Accessibility Requirements" %}</h4>
-    <div class="biography">{{ proposal.speaker.accessibility_html|safe }}&nbsp;</div>
+      <h5>{% trans "Experience" %}</h5>
+      <div class="biography">{{ proposal.speaker.experience_html|safe }}&nbsp;</div>
+    {% endfor %}
+
+    {% if can_manage_proposal or request.user.speaker_profile in proposal.speakers %}
+
+      <h4>{% trans "Assistance required?" %}</h4>
+      <br />
+      <table>
+        <tr>
+          <th></th>
+          <th>{% trans "Travel" %}</th>
+          <th>{% trans "Accommodation" %}</th>
+        </tr>
+        {% for speaker in proposal.speakers %}
+          <tr>
+            <td>{{ speaker.name }}</td>
+            <td>{{ speaker.travel_assistance }}</td>
+            <td>{{ speaker.accommodation_assistance }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      <br />
+
+      {% if proposal.speaker.accessibility_html %}
+        <h4>{% trans "Speaker Accessibility Requirements" %}</h4>
+        {% for speaker in proposal.speakers %}
+          {% if speaker.accessibility_html %}
+            <h5>{{ speaker.name }}</h5>
+            <div class="biography">{{ speaker.accessibility_html|safe }}&nbsp;</div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+
+    {% endif %}
+
 
     <h4>{% trans "Documents" %}</h4>
     <div>

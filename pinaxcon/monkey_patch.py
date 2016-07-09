@@ -13,6 +13,7 @@ class MonkeyPatchMiddleware(object):
 def do_monkey_patch():
     patch_speaker_profile_form()
     patch_accounts_to_send_bcc()
+    fix_sitetree_check_access_500s()
 
     # Remove this function from existence
     global do_monkey_patch
