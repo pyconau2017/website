@@ -1,0 +1,72 @@
+{% extends "site_base_wagtail.html" %}
+{% load staticfiles %}
+{% load wagtailcore_tags %}
+
+{% load sitetree %}
+{% load i18n %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block head_title %}{{ page.title }}{% endblock %}
+
+{% block body %}
+  {% block content %}
+    {% include "cms_pages/content_page_header_panel.html" %}
+    <div class="l-content-page">
+      <div class="l-content-page--richtext">
+        <h2>{{ title }} <span>(403)</span></h2>
+
+        <p>{{ main }}</p>
+
+        {% if bad_token and request.user.is_authenticated %}
+          <p>You are already logged in. If you saw this issue whilst attempting
+            to log in, you can to go to the
+            <a href='{% url "dashboard" %}'>Dashboard</a> and continue using
+            the site.</p>
+        {% endif %}
+
+        {% if no_referer %}
+          <p>{{ no_referer1 }}</p>
+          <p>{{ no_referer2 }}</p>
+        {% endif %}
+        {% if no_cookie %}
+          <p>{{ no_cookie1 }}</p>
+          <p>{{ no_cookie2 }}</p>
+        {% endif %}
+
+        {% if DEBUG %}
+          <h2>Help</h2>
+            {% if reason %}
+            <p>Reason given for failure:</p>
+            <pre>
+            {{ reason }}
+            </pre>
+            {% endif %}
+          <p>In general, this can occur when there is a genuine Cross Site Request Forgery, or when
+          <a
+          href="https://docs.djangoproject.com/en/{{ docs_version }}/ref/csrf/">Django's
+          CSRF mechanism</a> has not been used correctly.  For POST forms, you need to
+          ensure:</p>
+          <ul>
+            <li>Your browser is accepting cookies.</li>
+            <li>The view function passes a <code>request</code> to the template's <a
+            href="https://docs.djangoproject.com/en/dev/topics/templates/#django.template.backends.base.Template.render"><code>render</code></a>
+            method.</li>
+            <li>In the template, there is a <code>{% templatetag openblock %} csrf_token
+            {% templatetag closeblock %}</code> template tag inside each POST form that
+            targets an internal URL.</li>
+            <li>If you are not using <code>CsrfViewMiddleware</code>, then you must use
+            <code>csrf_protect</code> on any views that use the <code>csrf_token</code>
+            template tag, as well as those that accept the POST data.</li>
+          </ul>
+          <p>You're seeing the help section of this page because you have <code>DEBUG =
+          True</code> in your Django settings file. Change that to <code>False</code>,
+          and only the initial error message will be displayed.  </p>
+          <p>You can customize this page using the CSRF_FAILURE_VIEW setting.</p>
+        {% else %}
+          <p><small>{{ more }}</small></p>
+        {% endif %}
+      </div>
+    </div>
+  {% endblock %}
+{% endblock %}

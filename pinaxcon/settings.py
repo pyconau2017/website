@@ -251,8 +251,10 @@ PROPOSAL_FORMS = {
 WAGTAIL_SITE_NAME = 'linux.conf.au 2017'
 WAGTAIL_APPEND_SLASH = True
 
-
 ATTENDEE_PROFILE_FORM = "pinaxcon.registrasion.forms.ProfileForm"
+
+# CSRF custom error screen
+CSRF_FAILURE_VIEW = "pinaxcon.csrf_view.csrf_failure"
 
 # Use nose to run all tests
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
