@@ -1,0 +1,35 @@
+{% load wagtailcore_tags %}
+{% load i18n %}
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>
+      {{ SITE_NAME }} | {{ page.title }}
+    </title>
+    <link>{{ request.scheme }}://{{ request.get_host }}</link>
+    <description>Recent content from {{ SITE_NAME }}</description>
+    <generator>{{ SITE_NAME }}</generator>
+
+    <atom:link href="{{ request.scheme }}://{{ request.get_host }}{{ page.url }}rss" rel="self" type="application/rss+xml" />
+
+    {% if page.child_pages %}
+      {% for item in page.child_pages %}
+        <item>
+          <title>{{ item.title }}</title>
+          <link>{{ request.scheme }}://{{ request.get_host }}{{ item.url }}</link>
+          <guid>{{ request.scheme }}://{{ request.get_host }}{{ item.url }}</guid>
+          <pubDate>{{ item.date|date:"D, d M Y 00:00:00 +1000" }}</pubDate>
+          <description>
+            &lt;p&gt;
+            {{ item.intro|richtext|force_escape }}
+            &lt;/p&gt;
+            &lt;p&gt;
+            {{ item.body|richtext|force_escape }}
+            &lt;/p&gt;
+
+          </description>
+        </item>
+      {% endfor %}
+    {% endif %}
+  </channel>
+</rss>

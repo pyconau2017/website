@@ -14,6 +14,7 @@ def do_monkey_patch():
     patch_speaker_profile_form()
     patch_accounts_to_send_bcc()
     fix_sitetree_check_access_500s()
+    never_cache_login_page()
 
     # Remove this function from existence
     global do_monkey_patch
@@ -76,3 +77,8 @@ def fix_sitetree_check_access_500s():
             return False
 
     SiteTree.check_access = check_access
+
+def never_cache_login_page():
+    from django.views.decorators.cache import never_cache
+    from account.views import LoginView
+    LoginView.get = never_cache(LoginView.get)

@@ -115,7 +115,6 @@ MIDDLEWARE_CLASSES = [
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
     'pinaxcon.monkey_patch.MonkeyPatchMiddleware',
-    'pinaxcon.disable_cscache.DisableClientSideCachingMiddleware',
 ]
 
 ROOT_URLCONF = "pinaxcon.urls"

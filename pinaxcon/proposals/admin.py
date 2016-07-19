@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import TalkProposal
+import models
 
-
-admin.site.register(TalkProposal)
+admin.site.register(models.TalkProposal)
+admin.site.register(models.TutorialProposal)
+admin.site.register(models.MiniconfProposal)

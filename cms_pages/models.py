@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
+from django.http import Http404
 from django.db import models
+from django.shortcuts import render
 
 from modelcluster.fields import ParentalKey
 
@@ -10,13 +12,13 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.models import Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.fields import StreamField
+from wagtail.wagtailcore.url_routing import RouteResult
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailadmin.edit_handlers import InlinePanel
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailsearch import index
-
 
 ILLUSTRATION_ANTARCTICA = "antarctica.svg"
 ILLUSTRATION_BRIDGE = "bridge.svg"
@@ -151,6 +153,32 @@ class ContentPage(AbstractContentPage):
 # News pages
 
 class NewsIndexPage(AbstractContentPage):
+
+    def route(self, request, path_components):
+
+        # Try the default to allow children to resolve
+        try:
+            return super(NewsIndexPage, self).route(request, path_components)
+        except Http404:
+            pass
+
+        if path_components:
+            # tell Wagtail to call self.serve() with an additional 'path_components' kwarg
+            return RouteResult(self, kwargs={'path_components': path_components})
+        else:
+            raise Http404
+
+    def serve(self, request, path_components=[]):
+        ''' Optionally return the RSS version of the page '''
+
+        template = self.template
+
+        if path_components and path_components[0] == "rss":
+            template = template.replace(".html", ".rss")
+
+        r = super(NewsIndexPage, self).serve(request)
+        r.template_name = template
+        return r
 
     def child_pages(self):
         return NewsPage.objects.live().child_of(self).specific().order_by("-date")

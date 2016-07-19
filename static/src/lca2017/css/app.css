@@ -528,7 +528,7 @@ table {
   border: 1px solid #3ab1c9;
 }
 
-.form-field input[type='text'], .form-field input[type='tel'], .form-field input[type='number'], .form-field input[type='password'], .form-field input[type='email'] {
+.form-field input[type='text'], .form-field input[type='tel'], .form-field input[type='number'], .form-field input[type='password'], .form-field input[type='email'], textarea {
   color: #0c486c;
   padding: 10px;
   width: 100%;

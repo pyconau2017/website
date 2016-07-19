@@ -1,0 +1,12 @@
+{% load lca2017_tags %}
+
+{% classname field.field.widget as widget %}
+{% if widget == "CheckboxInput" %}
+  {% include "forms/widget_boolean_single.html" %}
+{% elif widget == "RadioSelect" %}
+  {% include "forms/widget_boolean_multiple.html" %}
+{% elif widget == "Select" or widget == "SelectMultiple" %}
+  {% include "forms/widget_basic.html" with widget_class="select" %}
+{% else %}
+  {% include "forms/widget_basic.html" %}
+{% endif %}

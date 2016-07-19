@@ -1,5 +1,6 @@
 {% load sitetree %}
-<div class="menu-dropdown">
+
+<div class="menu-dropdown {% if is_last%}menu-dropdown__last{% endif %}">
   <ul class="link-list" role="menu">
       {% for item in sitetree_items %}
           <li class="link-list--item">
