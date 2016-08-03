@@ -2,7 +2,7 @@
 {% load lca2017_tags %}
 
     <h4>{% trans "Submitted by" %}</h4>
-    <p>{{ proposal.speaker }}</p>
+    <p>{{ proposal.speaker }} &lt;{{ proposal.speaker.email }}&gt;</p>
 
     <h4>{% trans "Proposal Type" %}</h4>
     <p>{{ proposal.kind.name|capfirst }}</p>

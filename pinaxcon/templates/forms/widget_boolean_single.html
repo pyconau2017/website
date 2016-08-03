@@ -1,7 +1,12 @@
 <ul class="form-field boolean-group">
   <li class="boolean-group--row">
     {{ field }}
-    <label for="{{ field.id_for_label }}"><strong>{{ field.label }}</strong></label>
+    <label for="{{ field.id_for_label }}">
+      <strong>{{ field.label }}</strong>
+      {% if field.field.required %}
+        (*)
+      {% endif %}
+    </label>
   </li>
 </ul>
 {{ field.errors }}
