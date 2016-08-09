@@ -130,9 +130,9 @@
                                 </div>
                             {% endif %}
                             <div class="review-content">
-                                <b>{% user_display review.user %}</b>
+                                &nbsp; <b>{% user_display review.user %}</b>
                                 {{ review.submitted_at|timesince }} ago <br />
-                                {{ review.comment|safe }}
+                                {{ review.comment_html|safe }}
                             </div>
                         </div>
                     {% endfor %}
