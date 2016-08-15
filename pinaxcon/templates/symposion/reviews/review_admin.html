@@ -1,7 +1,7 @@
 {% extends "symposion/reviews/base.html" %}
 
 {% block body %}
-    <h1>Reviewers</h1>
+    <h1>Reviewers – {{ section_slug }}</h1>
 
     <table class="table table-striped">
         <tr>
@@ -15,6 +15,9 @@
                 Comments
             </th>
             <th>
+                Avg
+            </th>
+            <th>
                 +2
             </th>
             <th>
@@ -26,17 +29,25 @@
             <th>
                 &minus;2
             </th>
+            <th>
+                Abstain
+            </th>
         </tr>
         {% for reviewer in reviewers %}
         <tr>
             <td>
-                <a href="{% url "review_list_user" section_slug reviewer.pk %}">{{ reviewer.get_full_name }}</a>
+                <a href="{% url "review_list_user" section_slug reviewer.pk %}">
+                    {{ reviewer.get_full_name }} &lt;{{ reviewer.email }}&gt;
+                </a>
             </td>
             <td>
                 {{ reviewer.total_votes }}
             </td>
             <td>
                 {{ reviewer.comment_count }}
+            </td>
+            <td>
+                {{ reviewer.average }}
             </td>
             <td>
                 {{ reviewer.plus_two }}
@@ -49,6 +60,9 @@
             </td>
             <td>
                 {{ reviewer.minus_two }}
+            </td>
+            <td>
+                {{ reviewer.abstain }}
             </td>
         </tr>
         {% endfor %}

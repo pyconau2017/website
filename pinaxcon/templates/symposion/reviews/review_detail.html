@@ -107,7 +107,8 @@
                         {% csrf_token %}
                             {{ review_form|bootstrap }}
                             <div class="form-action">
-                                <input type="submit" class="btn btn-primary" name="vote_submit" value="Submit Review" />
+                              <input type="submit" class="btn btn-primary" name="vote_submit" value="Submit Review" />
+                              <input type="submit" class="btn btn-primary" name="vote_submit_and_random" value="Submit Review and jump to random proposal" />
                             </div>
                     </form>
                 {% else %}
@@ -130,7 +131,14 @@
                                 </div>
                             {% endif %}
                             <div class="review-content">
-                                &nbsp; <b>{% user_display review.user %}</b>
+                                &nbsp;
+                                <b>
+                                  {% if review.user.speaker_profile %}
+                                    {{ review.user.speaker_profile.name }}
+                                  {% else %}
+                                    {% user_display review.user %}
+                                  {% endif %}
+                                </b>
                                 {{ review.submitted_at|timesince }} ago <br />
                                 {{ review.comment_html|safe }}
                             </div>
