@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "symposion/schedule/base.html" %}
 
 {% load i18n %}
 {% load pinax_boxes_tags %}
@@ -12,7 +12,11 @@
 {% block right %}
 {% endblock %}
 
-{% block body_outer %}
+{% block content %}
+<div class="l-content-page">
+<div class="l-content-page--richtext">
+<div class="rich-text">
+
     <div class="page-head">
         <h1>{{ schedule.section }} Schedule</h1>
         {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
@@ -27,4 +31,5 @@
     {% endcache %}
 
     {% box "schedule_bottom" %}
+</div></div></div>
 {% endblock %}
