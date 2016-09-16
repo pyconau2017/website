@@ -167,7 +167,7 @@ class AbstractContentPage(Page):
     content_panels = Page.content_panels + [
         ImageChooserPanel('background_image'),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full")
+        StreamFieldPanel('body')
     ]
 
 
