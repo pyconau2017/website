@@ -11,37 +11,32 @@
 
 {% block head_title %}{{ page.title }}{% endblock %}
 
-{% block body %}
-  {% block content %}
-    {% include "cms_pages/content_page_header_panel.html" %}
-
-    {% if page.child_pages %}
-      {% for item in page.child_pages %}
-        <div class="panel panel__compact">
-          <div class="panel--content">
-            <div class="panel--1-3">
-              <div class="portrait">
-                {% image item.portrait_image width-640 as portrait_image %}
-                <div style="background-image: url('{{ portrait_image.url }}');" class="portrait--img"></div>
-              </div>
-            </div>
-            <div class="panel--2-3">
-              <h2>{{ item.title }}</h2>
-              <p class="lede"><em>{{ item.date|date:"j F Y" }}</em> – {{ item.intro }}</p>
-              <a href="{{ item.url }}" class="btn">Read more</a>
+{% block content %}
+  {% if page.child_pages %}
+    {% for item in page.child_pages %}
+      <div class="panel panel__compact">
+        <div class="panel--content">
+          <div class="panel--1-3">
+            <div class="portrait">
+              {% image item.portrait_image width-640 as portrait_image %}
+              <div style="background-image: url('{{ portrait_image.url }}');" class="portrait--img"></div>
             </div>
           </div>
+          <div class="panel--2-3">
+            <h2>{{ item.title }}</h2>
+            <p class="lede"><em>{{ item.date|date:"j F Y" }}</em> – {{ item.intro }}</p>
+            <a href="{{ item.url }}" class="btn">Read more</a>
+          </div>
         </div>
-      {% endfor %}
-      <div class="panel panel__compact"></div>
-    {% endif %}
-
-    <div class="panel panel__compact">
-      <div class="panel--content">
-        <h3>Subscribe</h3>
-        <p><a class="btn" href="rss">View as RSS</a></p>
       </div>
-    </div>
+    {% endfor %}
+    <div class="panel panel__compact"></div>
+  {% endif %}
 
-  {% endblock %}
+  <div class="panel panel__compact">
+    <div class="panel--content">
+      <h3>Subscribe</h3>
+      <p><a class="btn" href="rss">View as RSS</a></p>
+    </div>
+  </div>
 {% endblock %}

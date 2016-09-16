@@ -1,0 +1,42 @@
+{% extends "site_base_wagtail.html" %}
+{% load staticfiles %}
+{% load wagtailcore_tags %}
+
+{% load lca2017_tags %}
+
+
+{% load sitetree %}
+{% load i18n %}
+
+{% block body_class %}template-content-page{% endblock %}
+
+{% block head_title %}{% endblock %}
+
+{% block body %}
+  {% block heading_panel %}
+    <div class="panel panel__compact panel__bg">
+
+      <div style="background-image: url('{% block header_background_image %}{% endblock %}');" class="panel--bg"></div>
+
+      <div class="panel--content">
+        <div class="panel--2-3">
+          <h2>{% block header_title %}{% endblock %}</h2>
+          <p class="lede">{% block header_paragraph %}{% endblock %}</p>
+        </div>
+        {% block inset_image_base %}
+          <div class="panel--1-3">
+            <div class="illustration">
+              <div style="background-image: url('{% block header_inset_image %}{% endblock %}');" class="portrait--img"></div>
+            </div>
+          </div>
+        {% endblock %}
+      </div>
+    </div>
+  {% endblock %}
+  <div class="l-content-page">
+    <div class="l-content-page--richtext">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

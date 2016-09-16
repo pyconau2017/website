@@ -1,4 +1,6 @@
 from django import template
+from django.contrib.staticfiles.templatetags import staticfiles
+
 register = template.Library()
 
 @register.assignment_tag()
@@ -17,3 +19,10 @@ def proposal_permission(context, permname, proposal):
     slug = proposal.kind.section.slug
     perm = "reviews.can_%s_%s" % (permname, slug)
     return context.request.user.has_perm(perm)
+
+
+# {% load statictags %}{% static 'lca2017/images/svgs/illustrations/' %}{{ illustration }}
+
+@register.simple_tag(takes_context=False)
+def illustration(name):
+    return staticfiles.static('lca2017/images/svgs/illustrations/') + name
