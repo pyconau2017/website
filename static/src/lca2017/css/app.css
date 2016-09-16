@@ -1128,9 +1128,10 @@ table.alt tr:not(:last-of-type) {
 }
 
 .right-floating-image {
-  width: 35%;
+  width: 30%;
   float: right;
-  margin: 2rem;
+  margin: 4rem;
+  margin-right: 0;
 }
 
 .portrait {
