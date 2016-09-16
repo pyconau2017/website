@@ -114,7 +114,7 @@ class KeynoteSpeakerBlock(blocks.StructBlock):
         required=False,
         help_text="Profile image for the speaker",
     )
-    # TODO link to announcement page. Presentation page, or what?
+    # TODO choice block that links to presentation page.
 
 
 class KeynotesBlock(blocks.StructBlock):
@@ -146,7 +146,11 @@ class AbstractContentPage(Page):
         abstract = True
 
     intro = models.CharField(max_length=250)
-    body = RichTextField(blank=True)
+
+    body = StreamField([
+        ("rich_text", blocks.RichTextBlock(required=False)),
+    ])
+
     background_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
