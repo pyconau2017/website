@@ -45,6 +45,29 @@ ILLUSTRATION_TYPES = (
 )
 
 
+class ExternalLinksBlock(blocks.StructBlock):
+
+    class Meta:
+        template = "cms_pages/home_page_blocks/external_link.html"
+
+    EXTERNAL_LINK_TWITTER = "twitter"
+    EXTERNAL_LINK_FACEBOOK = "facebook"
+    EXTERNAL_LINK_GENERIC = "generic"
+
+    EXTERNAL_LINK_TYPES = (
+        (EXTERNAL_LINK_TWITTER, "Twitter"),
+        (EXTERNAL_LINK_FACEBOOK, "Facebook"),
+        (EXTERNAL_LINK_GENERIC, "Generic URL"),
+    )
+
+    alt = blocks.CharBlock(required=True)
+    icon = blocks.ChoiceBlock(
+        choices=EXTERNAL_LINK_TYPES,
+        required=True,
+    )
+    url = blocks.URLBlock(required=True)
+
+
 class BasicContentBlock(blocks.StructBlock):
 
     class Meta:
@@ -55,16 +78,6 @@ class BasicContentBlock(blocks.StructBlock):
     PANEL_TYPES = (
         (PANEL_BLUE_LEFT, "Left-aligned image, blue-filtered image BG"),
         (PANEL_WHITE_RIGHT, "Right-aligned image, white background"),
-    )
-
-    EXTERNAL_LINK_TWITTER = "twitter"
-    EXTERNAL_LINK_FACEBOOK = "facebook"
-    EXTERNAL_LINK_GENERIC = "generic"
-
-    EXTERNAL_LINK_TYPES = (
-        (EXTERNAL_LINK_TWITTER, "Twitter"),
-        (EXTERNAL_LINK_FACEBOOK, "Facebook"),
-        (EXTERNAL_LINK_GENERIC, "Generic URL"),
     )
 
     panel_type = blocks.ChoiceBlock(
@@ -86,15 +99,7 @@ class BasicContentBlock(blocks.StructBlock):
         ("page", blocks.PageChooserBlock()),
         ("title", blocks.CharBlock(required=True)),
     ])
-    external_links = blocks.ListBlock(
-        blocks.StructBlock([
-            ("alt", blocks.CharBlock(required=True)),
-            ("icon", blocks.ChoiceBlock(
-                choices=EXTERNAL_LINK_TYPES,
-                required=True,
-            )),
-            ("url", blocks.URLBlock(required=True)
-        )])
+    external_links = blocks.ListBlock(ExternalLinksBlock)
     )
 
 class HomePage(Page):
