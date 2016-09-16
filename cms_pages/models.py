@@ -100,13 +100,37 @@ class BasicContentBlock(blocks.StructBlock):
         ("title", blocks.CharBlock(required=True)),
     ])
     external_links = blocks.ListBlock(ExternalLinksBlock)
+
+
+class KeynoteSpeakerBlock(blocks.StructBlock):
+
+    class Meta:
+        template = "cms_pages/home_page_blocks/keynote_speaker.html"
+
+    name = blocks.CharBlock(required=True)
+    body = blocks.RichTextBlock(required=True)
+    links = blocks.ListBlock(ExternalLinksBlock)
+    profile_image = imageblocks.ImageChooserBlock(
+        required=False,
+        help_text="Profile image for the speaker",
     )
+    # TODO link to announcement page. Presentation page, or what?
+
+
+class KeynotesBlock(blocks.StructBlock):
+
+    class Meta:
+        template = "cms_pages/home_page_blocks/keynotes.html"
+
+    heading = blocks.CharBlock(required=True)
+    speakers = blocks.ListBlock(KeynoteSpeakerBlock)
+
 
 class HomePage(Page):
 
     body = StreamField([
         ("basic_content", BasicContentBlock()),
-        # TODO: keynotes
+        ("keynotes", KeynotesBlock()),
         # TODO: other bits
     ])
 
