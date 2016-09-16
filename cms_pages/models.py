@@ -146,6 +146,13 @@ class FloatingImageBlock(imageblocks.ImageChooserBlock):
     class Meta:
         template = "cms_pages/content_page_blocks/floating_image.html"
 
+
+class AnchorBlock(blocks.CharBlock):
+
+    class Meta:
+        template = "cms_pages/content_page_blocks/anchor.html"
+
+
 class AbstractContentPage(Page):
 
     class Meta:
@@ -157,6 +164,9 @@ class AbstractContentPage(Page):
         ("rich_text", blocks.RichTextBlock(required=False)),
         ("raw_html", blocks.RawHTMLBlock(required=False)),
         ("floating_image", FloatingImageBlock()),
+        ("anchor", AnchorBlock(
+            help_text="Add a named anchor to this point in the page"
+        )),
     ])
 
     background_image = models.ForeignKey(
