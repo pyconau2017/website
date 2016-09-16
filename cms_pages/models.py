@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django import forms
 from django.http import Http404
 from django.db import models
 from django.shortcuts import render
@@ -19,6 +20,8 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailsearch import index
+
+from symposion import schedule
 
 ILLUSTRATION_ANTARCTICA = "antarctica.svg"
 ILLUSTRATION_BRIDGE = "bridge.svg"
@@ -102,6 +105,10 @@ class BasicContentBlock(blocks.StructBlock):
     external_links = blocks.ListBlock(ExternalLinksBlock)
 
 
+class PresentationChooserBlock(blocks.ChooserBlock):
+    target_model = schedule.models.Presentation
+    widget = forms.Select
+
 class KeynoteSpeakerBlock(blocks.StructBlock):
 
     class Meta:
@@ -113,6 +120,9 @@ class KeynoteSpeakerBlock(blocks.StructBlock):
     profile_image = imageblocks.ImageChooserBlock(
         required=False,
         help_text="Profile image for the speaker",
+    )
+    presentation = PresentationChooserBlock(
+        help_text="This speaker's presentation",
     )
     # TODO choice block that links to presentation page.
 
