@@ -140,6 +140,12 @@ class HomePage(Page):
 
 
 # Content pages
+
+class FloatingImageBlock(imageblocks.ImageChooserBlock):
+
+    class Meta:
+        template = "cms_pages/content_page_blocks/floating_image.html"
+
 class AbstractContentPage(Page):
 
     class Meta:
@@ -149,6 +155,8 @@ class AbstractContentPage(Page):
 
     body = StreamField([
         ("rich_text", blocks.RichTextBlock(required=False)),
+        ("raw_html", blocks.RawHTMLBlock(required=False)),
+        ("floating_image", FloatingImageBlock()),
     ])
 
     background_image = models.ForeignKey(

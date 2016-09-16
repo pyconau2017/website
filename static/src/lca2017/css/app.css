@@ -1127,6 +1127,12 @@ table.alt tr:not(:last-of-type) {
   }
 }
 
+.right-floating-image {
+  width: 35%;
+  float: right;
+  margin: 2rem;
+}
+
 .portrait {
   position: relative;
   overflow: hidden;
