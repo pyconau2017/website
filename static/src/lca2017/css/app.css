@@ -1134,6 +1134,12 @@ table.alt tr:not(:last-of-type) {
   margin-right: 0;
 }
 
+.sponsor-logo {
+  width: 8em;
+  height: 4em;
+  margin: 0.5em;
+}
+
 .portrait {
   position: relative;
   overflow: hidden;
