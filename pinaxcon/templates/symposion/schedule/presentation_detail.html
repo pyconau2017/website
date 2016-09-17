@@ -1,31 +1,54 @@
-{% extends "site_base.html" %}
+{% extends "symposion/schedule/public_base.html" %}
 
+{% load lca2017_tags %}
 {% load sitetree %}
+{% load thumbnail %}
 
 {% block head_title %}Presentation: {{ presentation.title }}{% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
-{% block body %}
-    {% if presentation.slot %}
-        <h4>
-            {{ presentation.slot.day.date|date:"l" }}
-            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
-        </h4>
+{% block header_inset_image %}{% illustration "bridge.svg" %}{% endblock %}
+{% block header_title %}{{ presentation.title }}{% endblock %}
+
+{% block header_paragraph %}
+  <p>
+    Presented by
+    {% for speaker in presentation.speakers %}
+      <a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  </p>
+  {% if presentation.slot %}
+    <p>
+      {{ presentation.slot.day.date|date:"l" }}
+      {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+    </p>
+  {% endif %}
+  <p>
+    <strong>Target audience:</strong>
+    {{ presentation.proposal.get_target_audience_display }}
+  </p>
+{% endblock %}
+
+{% block content %}
+
+  <h2>Abstract</h2>
+
+  <div class="abstract">{{ presentation.abstract_html|safe }}</div>
+
+  <h2>Presented by</h2>
+  {% for speaker in presentation.speakers %}
+    {% if speaker.photo %}
+      {% thumbnail speaker.photo '512x512' as speaker_photo %}
+      {% include "lca2017/_right_floating_image.html" with image_url=speaker_photo.url %}
+    {% else %}
+        &nbsp;
     {% endif %}
-    <h2>{{ presentation.title }}</h2>
 
-    <h4>
-        {% for speaker in presentation.speakers %}
-            <a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
-    </h4>
+    <h3><a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a></h3>
+    {{ speaker.biography_html|safe}}
 
-    <dl class="dl-horizontal">
-        <dt>Audience level:</dt>
-        <dd style="margin-bottom: 0;">{{ presentation.proposal.get_audience_level_display }}</dd>
-    </dl>
+    {% if not forloop.last %}, {% endif %}
+  {% endfor %}
 
-    <h3>Abstract</h3>
-
-    <div class="abstract">{{ presentation.abstract_html|safe }}</div>
 {% endblock %}
