@@ -1,17 +1,20 @@
-{% extends "site_base_wagtail.html" %}
+{% extends "cms_pages/abstract_content_page.html" %}
 
 {% load staticfiles %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load lca2017_tags %}
 
 {% load sitetree %}
 {% load i18n %}
 
-{% block body_class %}template-blogpage{% endblock %}
-
 {% block head_title %}{{ page.title }}{% endblock %}
+{% block body_class %}template-news-index{% endblock %}
 
-{% block content %}
+{% block inset_image_base %}{% endblock %}
+
+{% comment %}We use panels here, so don't need to wrap in a text block{% endcomment %}
+{% block content_base %}
   {% if page.child_pages %}
     {% for item in page.child_pages %}
       <div class="panel panel__compact">

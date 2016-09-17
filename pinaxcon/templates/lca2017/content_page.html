@@ -33,10 +33,13 @@
       </div>
     </div>
   {% endblock %}
-  <div class="l-content-page">
-    <div class="l-content-page--richtext">
-      {% block content %}
-      {% endblock %}
+
+  {% block content_base %}
+    <div class="l-content-page">
+      <div class="l-content-page--richtext">
+        {% block content %}
+        {% endblock %}
+      </div>
     </div>
-  </div>
+  {% endblock %}
 {% endblock %}
