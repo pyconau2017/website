@@ -8,7 +8,8 @@
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
-{% block header_inset_image %}{% illustration "bridge.svg" %}{% endblock %}
+{% block header_inset_image %}{% with audience=presentation.proposal.get_target_audience_display %}{% if audience == "Business" %}{% illustration "falls.svg" %}{% elif audience == "Community" %}{% illustration "bridge.svg" %}{% elif audience == "Developer"%}{% illustration "hobart.svg" %}{% elif audience == "User" %}{% illustration "antarctica.svg" %}{% endif %}{% endwith %}{% endblock %}
+
 {% block header_title %}{{ presentation.title }}{% endblock %}
 
 {% block header_paragraph %}
@@ -17,17 +18,14 @@
     {% for speaker in presentation.speakers %}
       <a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}
     {% endfor %}
-  </p>
+  <br />
   {% if presentation.slot %}
-    <p>
-      {{ presentation.slot.day.date|date:"l" }}
-      {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
-    </p>
+    {{ presentation.slot.day.date|date:"l" }}
+    {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+    <br />
   {% endif %}
-  <p>
     <strong>Target audience:</strong>
     {{ presentation.proposal.get_target_audience_display }}
-  </p>
 {% endblock %}
 
 {% block content %}
@@ -38,12 +36,8 @@
 
   <h2>Presented by</h2>
   {% for speaker in presentation.speakers %}
-    {% if speaker.photo %}
-      {% thumbnail speaker.photo '512x512' as speaker_photo %}
-      {% include "lca2017/_right_floating_image.html" with image_url=speaker_photo.url %}
-    {% else %}
-        &nbsp;
-    {% endif %}
+    {% speaker_photo speaker 512 as speaker_photo_url %}
+    {% include "lca2017/_right_floating_image.html" with image_url=speaker_photo_url %}
 
     <h3><a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a></h3>
     {{ speaker.biography_html|safe}}

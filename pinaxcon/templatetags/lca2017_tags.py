@@ -1,5 +1,9 @@
+import hashlib
+import urllib
+
 from django import template
 from django.contrib.staticfiles.templatetags import staticfiles
+from easy_thumbnails.files import get_thumbnailer
 
 register = template.Library()
 
@@ -26,3 +30,24 @@ def proposal_permission(context, permname, proposal):
 @register.simple_tag(takes_context=False)
 def illustration(name):
     return staticfiles.static('lca2017/images/svgs/illustrations/') + name
+
+
+@register.simple_tag(takes_context=True)
+def speaker_photo(context, speaker, size):
+    ''' Provides the speaker profile, or else fall back to libravatar or gravatar. '''
+
+    if speaker.photo:
+        thumbnailer = get_thumbnailer(speaker.photo)
+        thumbnail_options = {'crop': True, 'size': (size, size)}
+        thumbnail = thumbnailer.get_thumbnail(thumbnail_options)
+        return thumbnail.url
+    else:
+        email = speaker.user.email.encode("utf-8")
+        md5sum = hashlib.md5(email.strip().lower()).hexdigest()
+        url = "https://secure.gravatar.com/avatar/%s?s=%d&d=%s" % (md5sum, size, "https://linux.conf.au/site_media/static/lca2017/images/speaker-fallback-devil.jpg")
+
+        print url
+        return url
+
+
+    # http://cdn.libravatar.org/avatar/40f8d096a3777232204cb3f796c577b7?d=http://example.com/nobody.jpg

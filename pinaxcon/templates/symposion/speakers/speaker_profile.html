@@ -1,10 +1,11 @@
 {% extends "symposion/schedule/public_base.html" %}
 
 {% load i18n %}
+{% load lca2017_tags %}
 {% load thumbnail %}
 
 {% if speaker.photo %}
-  {% block header_inset_image %}{% thumbnail speaker.photo '512x512' as speaker_photo %}{{ speaker_photo.url }}{% endblock %}
+  {% block header_inset_image %}{% speaker_photo speaker 512 as speaker_photo %}{{ speaker_photo }}{% endblock %}
 {% endif %}
 
 {% block header_title %}{{ speaker.name }}{% endblock %}
