@@ -1,28 +1,32 @@
-{% extends "utility_page.html" %}
+{% extends "symposion/schedule/public_base.html" %}
 
 {% load i18n %}
 {% load cache %}
+{% load lca2017_tags %}
 {% load sitetree %}
 
 {% block head_title %}Presentation Listing{% endblock %}
-{% block page_title %}{{ schedule.section.name }}{% endblock %}
+
+{% block header_title %}{{ schedule.section.name }}{% endblock %}
+{% block header_inset_image %}{% illustration "lavender.svg" %}{% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
-{% block utility_body %}
-    {% cache 600 "aaasdsdfschedule-list" schedule.section.name %}
-      <ul>
-        {% for presentation in presentations %}
-            <li>
-              <a href="{% url "schedule_presentation_detail" presentation.pk %}">{{ presentation.title }}</a> <em>by</em>
-              {{ presentation.speakers|join:", " }}
-              {% if presentation.slot %}
-                ({{ presentation.slot.day.date|date:"l" }}
-                {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
-                in
-                {{ presentation.slot.rooms|join:", " }})
-              {% endif %}
-            </li>
-        {% endfor %}
-    {% endcache %}
+{% block content %}
+  {% cache 600 "schedule-list" schedule.section.name %}
+    <ul>
+      {% for presentation in presentations %}
+        <li>
+          <a href="{% url "schedule_presentation_detail" presentation.pk %}">{{ presentation.title }}</a> {{ presentation.proposal.kind }} <em>by</em>
+          {{ presentation.speakers|join:", " }}
+          {% if presentation.slot %}
+            ({{ presentation.slot.day.date|date:"l" }}
+            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+            in
+            {{ presentation.slot.rooms|join:", " }})
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endcache %}
 {% endblock %}
