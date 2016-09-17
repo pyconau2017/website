@@ -2,6 +2,7 @@
 
 {% load lca2017_tags %}
 {% load sitetree %}
+{% load staticfiles %}
 {% load thumbnail %}
 
 {% block head_title %}Presentation: {{ presentation.title }}{% endblock %}
@@ -9,6 +10,8 @@
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
 {% block header_inset_image %}{% with audience=presentation.proposal.get_target_audience_display %}{% if audience == "Business" %}{% illustration "falls.svg" %}{% elif audience == "Community" %}{% illustration "bridge.svg" %}{% elif audience == "Developer"%}{% illustration "hobart.svg" %}{% elif audience == "User" %}{% illustration "antarctica.svg" %}{% endif %}{% endwith %}{% endblock %}
+
+{% block header_background_image %}{% presentation_bg_number presentation 4 as bg_number %}{% if bg_number == 0 %}{% static "lca2017/images/mt_anne_bg_optimised.jpg" %}{% elif bg_number == 1 %}{% static "lca2017/images/the_neck_bg_optimised.jpg" %}{% elif bg_number == 2 %}{% static "lca2017/images/snug_falls_bg_optimised.jpg" %}{% elif bg_number == 3 %}{% static "lca2017/images/sleepy_bay_bd_optimised.jpg" %}{% endif %}{% endblock %}
 
 {% block header_title %}{{ presentation.title }}{% endblock %}
 
