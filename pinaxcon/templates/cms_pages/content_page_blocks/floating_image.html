@@ -1,8 +1,4 @@
 {% load wagtailimages_tags %}
 
 {% image value width-800 as img %}
-<div class="right-floating-image" >
-  <div class="portrait">
-    <div style="background-image: url('{{ img.url }}');" class="portrait--img"></div>
-  </div>
-</div>
+{% include "lca2017/_right_floating_image.html" with image_url=img.url %}
