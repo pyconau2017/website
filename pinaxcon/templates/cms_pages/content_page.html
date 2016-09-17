@@ -1,7 +1,4 @@
-{% extends "lca2017/content_page.html" %}
-{% load staticfiles %}
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
+{% extends "cms_pages/abstract_content_page.html" %}
 {% load lca2017_tags %}
 
 {% load sitetree %}
@@ -9,15 +6,4 @@
 
 {% block body_class %}template-content-page{% endblock %}
 
-{% block head_title %}{{ page.title }}{% endblock %}
-
-{% if page.background_image %}
-  {% block header_background_image %}{% image page.background_image width-2000 as background_image %}{{ background_image.url }}{% endblock %}
-{% endif %}
-{% block header_title %}{{ page.title }}{% endblock %}
-{% block header_paragraph %}{{ page.intro }}{% endblock %}
 {% block header_inset_image %}{% illustration page.inset_illustration %}{% endblock %}
-
-{% block content %}
-    {{ page.body }}
-{% endblock %}
