@@ -7,7 +7,8 @@
 
 {% block head_title %}Presentation Listing{% endblock %}
 
-{% block header_title %}{{ schedule.section.name }}{% endblock %}
+{% block header_title %}{{ schedule.section.name }} List{% endblock %}
+{% block header_paragraph %}{{ schedule.header_paragraph.text }}{% endblock%}
 {% block header_inset_image %}{% illustration "lavender.svg" %}{% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}

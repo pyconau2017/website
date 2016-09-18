@@ -4,6 +4,7 @@ from django import forms
 from django.http import Http404
 from django.db import models
 from django.shortcuts import render
+from django.utils.encoding import python_2_unicode_compatible
 
 from modelcluster.fields import ParentalKey
 
@@ -20,6 +21,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailsearch import index
+from wagtail.wagtailsnippets.models import register_snippet
 
 from symposion import schedule
 
@@ -109,6 +111,7 @@ class PresentationChooserBlock(blocks.ChooserBlock):
     target_model = schedule.models.Presentation
     widget = forms.Select
 
+
 class KeynoteSpeakerBlock(blocks.StructBlock):
 
     class Meta:
@@ -124,7 +127,6 @@ class KeynoteSpeakerBlock(blocks.StructBlock):
     presentation = PresentationChooserBlock(
         help_text="This speaker's presentation",
     )
-    # TODO choice block that links to presentation page.
 
 
 class KeynotesBlock(blocks.StructBlock):
@@ -271,3 +273,22 @@ class NewsPage(AbstractContentPage):
         FieldPanel('date'),
         ImageChooserPanel('portrait_image'),
     ]
+
+
+@register_snippet
+@python_2_unicode_compatible
+class ScheduleHeaderParagraph(models.Model):
+    ''' Used to show the paragraph in the header for a schedule page. '''
+    schedule = models.OneToOneField(
+        schedule.models.Schedule,
+        related_name="header_paragraph",
+    )
+    text = models.TextField()
+
+    panels = [
+        FieldPanel('schedule'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return str(self.schedule)
