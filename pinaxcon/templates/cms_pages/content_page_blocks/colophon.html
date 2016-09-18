@@ -1,0 +1,10 @@
+{% load lca2017_tags %}
+
+<ul>
+  {% all_images as images %}
+  {% for image in images %}
+    <li>
+      <a href="{{ image.source_url }}">{{ image.title }}</a> &ndash; &copy;{{ image.copyright_year }} {{ image.licence }} by {{ image.author }}
+    </li>
+  {% endfor %}
+</ul>

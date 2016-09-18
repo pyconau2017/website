@@ -181,6 +181,8 @@ class ColophonImageListBlock(blocks.StructBlock):
     class Meta:
         template = "cms_pages/content_page_blocks/colophon.html"
 
+    do_nothing = blocks.BooleanBlock(required=False)
+
 
 class AbstractContentPage(Page):
 
@@ -196,6 +198,7 @@ class AbstractContentPage(Page):
         ("anchor", AnchorBlock(
             help_text="Add a named anchor to this point in the page"
         )),
+        ("colophon_image_list", ColophonImageListBlock()),
     ])
 
     background_image = models.ForeignKey(

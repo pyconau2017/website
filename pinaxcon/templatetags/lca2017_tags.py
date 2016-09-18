@@ -67,3 +67,8 @@ def header_paragraph(name):
         return model.objects.get(name=name).text
     except model.DoesNotExist:
         return ""
+
+
+@register.simple_tag()
+def all_images():
+    return cms_pages.models.CustomImage.objects.all().order_by("title")
