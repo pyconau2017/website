@@ -292,3 +292,22 @@ class ScheduleHeaderParagraph(models.Model):
 
     def __str__(self):
         return str(self.schedule)
+
+
+@register_snippet
+@python_2_unicode_compatible
+class NamedHeaderParagraph(models.Model):
+    ''' Used to show the paragraph in the header for a schedule page. '''
+    name = models.CharField(
+        max_length=64,
+        help_text="Pass this name to header_paragraph tag.",
+    )
+    text = models.TextField()
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return str(self.name)
