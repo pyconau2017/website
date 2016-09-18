@@ -8,9 +8,7 @@
       <a href="{{ value.link.page.url }}" class="btn">{{ value.link.title }}</a>
     {% endif %}
     {% for link in value.external_links %}
-      <a href="{{ link.url }}" title="{{ link.alt }}" class="btn-svg">
-        {% include "cms_pages/home_page_blocks/btn_svg.html" %}
-      </a>
+      {{ link }}
     {% endfor %}
   </div>
 </div>

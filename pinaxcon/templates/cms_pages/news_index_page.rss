@@ -24,7 +24,7 @@
             {{ item.intro|richtext|force_escape }}
             &lt;/p&gt;
             &lt;p&gt;
-            {{ item.body|richtext|force_escape }}
+            {{ item.body|force_escape }}
             &lt;/p&gt;
 
           </description>

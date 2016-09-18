@@ -1,0 +1,4 @@
+{% load wagtailimages_tags %}
+
+{% image value width-800 as img %}
+{% include "lca2017/_right_floating_image.html" with image_url=img.url %}

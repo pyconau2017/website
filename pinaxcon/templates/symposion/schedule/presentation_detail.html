@@ -1,31 +1,56 @@
-{% extends "site_base.html" %}
+{% extends "symposion/schedule/public_base.html" %}
 
+{% load lca2017_tags %}
 {% load sitetree %}
+{% load staticfiles %}
+{% load thumbnail %}
 
 {% block head_title %}Presentation: {{ presentation.title }}{% endblock %}
 
 {% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
 
-{% block body %}
-    {% if presentation.slot %}
-        <h4>
-            {{ presentation.slot.day.date|date:"l" }}
-            {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
-        </h4>
-    {% endif %}
-    <h2>{{ presentation.title }}</h2>
+{% block header_inset_image %}{% with audience=presentation.proposal.get_target_audience_display %}{% if audience == "Business" %}{% illustration "falls.svg" %}{% elif audience == "Community" %}{% illustration "bridge.svg" %}{% elif audience == "Developer"%}{% illustration "hobart.svg" %}{% elif audience == "User" %}{% illustration "antarctica.svg" %}{% else %}{% illustration "casino.svg" %}{% endif %}{% endwith %}{% endblock %}
 
-    <h4>
-        {% for speaker in presentation.speakers %}
-            <a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
-    </h4>
+{% block header_background_image %}{% presentation_bg_number presentation 4 as bg_number %}{% if bg_number == 0 %}{% static "lca2017/images/mt_anne_bg_optimised.jpg" %}{% elif bg_number == 1 %}{% static "lca2017/images/the_neck_bg_optimised.jpg" %}{% elif bg_number == 2 %}{% static "lca2017/images/snug_falls_bg_optimised.jpg" %}{% elif bg_number == 3 %}{% static "lca2017/images/sleepy_bay_bg_optimised.jpg" %}{% endif %}{% endblock %}
 
-    <dl class="dl-horizontal">
-        <dt>Audience level:</dt>
-        <dd style="margin-bottom: 0;">{{ presentation.proposal.get_audience_level_display }}</dd>
-    </dl>
+{% block header_title %}{{ presentation.title }}{% endblock %}
 
-    <h3>Abstract</h3>
+{% block header_paragraph %}
+  <p>
+    Presented by
+    {% for speaker in presentation.speakers %}
+      <a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  <br />
+  {% if presentation.slot %}
+    {{ presentation.slot.day.date|date:"l" }}
+    {{ presentation.slot.start}}&ndash;{{ presentation.slot.end }}
+    <br />
+  {% endif %}
+  {% if presentation.proposal.get_target_audience_display %}
+    <strong>Target audience:</strong>
+    {{ presentation.proposal.get_target_audience_display }}
+  {% endif %}
+{% endblock %}
 
-    <div class="abstract">{{ presentation.abstract_html|safe }}</div>
+{% block content %}
+
+  {% if presentation.unpublish %}
+    <p><strong>Presentation not published.</strong></p>
+  {% endif %}
+
+  <h2>Abstract</h2>
+
+  <div class="abstract">{{ presentation.abstract_html|safe }}</div>
+
+  <h2>Presented by</h2>
+  {% for speaker in presentation.speakers %}
+    {% speaker_photo speaker 512 as speaker_photo_url %}
+    {% include "lca2017/_right_floating_image.html" with image_url=speaker_photo_url %}
+
+    <h3><a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a></h3>
+    {{ speaker.biography_html|safe}}
+
+  {% endfor %}
+
 {% endblock %}
