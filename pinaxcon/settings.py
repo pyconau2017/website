@@ -26,9 +26,12 @@ ALLOWED_HOSTS = []
 # system time zone.
 TIME_ZONE = "UTC"
 
+# The date format for this installation
+DATE_FORMAT = "j F Y"
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en-au"
 
 SITE_ID = int(os.environ.get("SITE_ID", 1))
 
