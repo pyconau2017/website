@@ -35,6 +35,10 @@
 
 {% block content %}
 
+  {% if presentation.unpublish %}
+    <p><strong>Presentation not published.</strong></p>
+  {% endif %}
+
   <h2>Abstract</h2>
 
   <div class="abstract">{{ presentation.abstract_html|safe }}</div>
