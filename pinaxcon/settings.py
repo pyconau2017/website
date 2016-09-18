@@ -245,6 +245,7 @@ THEME_CONTACT_EMAIL = "team@hobart.lca2017.org"
 AUTHENTICATION_BACKENDS = [
     "symposion.teams.backends.TeamPermissionsBackend",
     "account.auth_backends.UsernameAuthenticationBackend",
+    "account.auth_backends.EmailAuthenticationBackend",
 ]
 
 CONFERENCE_ID = 1
