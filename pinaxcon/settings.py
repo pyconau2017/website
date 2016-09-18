@@ -15,6 +15,13 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
+
 ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
@@ -252,6 +259,7 @@ PROPOSAL_FORMS = {
 # Wagtail config
 WAGTAIL_SITE_NAME = 'linux.conf.au 2017'
 WAGTAIL_APPEND_SLASH = True
+WAGTAILIMAGES_IMAGE_MODEL = 'cms_pages.CustomImage'
 
 ATTENDEE_PROFILE_FORM = "pinaxcon.registrasion.forms.ProfileForm"
 

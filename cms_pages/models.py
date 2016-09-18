@@ -2,26 +2,37 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.http import Http404
+
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+
 from django.shortcuts import render
 from django.utils.encoding import python_2_unicode_compatible
 
 from modelcluster.fields import ParentalKey
 
+from wagtail.wagtailadmin.edit_handlers import InlinePanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailimages import blocks as imageblocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.models import Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailcore.url_routing import RouteResult
+
+from wagtail.wagtailimages import blocks as imageblocks
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailadmin.edit_handlers import InlinePanel
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailadmin.edit_handlers import PageChooserPanel
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+from wagtail.wagtailimages.models import AbstractImage
+from wagtail.wagtailimages.models import AbstractRendition
+from wagtail.wagtailimages.models import Image
+
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.models import register_snippet
+
 
 from symposion import schedule
 
@@ -165,6 +176,12 @@ class AnchorBlock(blocks.CharBlock):
         template = "cms_pages/content_page_blocks/anchor.html"
 
 
+class ColophonImageListBlock(blocks.StructBlock):
+
+    class Meta:
+        template = "cms_pages/content_page_blocks/colophon.html"
+
+
 class AbstractContentPage(Page):
 
     class Meta:
@@ -182,7 +199,7 @@ class AbstractContentPage(Page):
     ])
 
     background_image = models.ForeignKey(
-        'wagtailimages.Image',
+        'CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -258,7 +275,7 @@ class NewsPage(AbstractContentPage):
     date = models.DateField("Post date")
 
     portrait_image = models.ForeignKey(
-        'wagtailimages.Image',
+        'CustomImage',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -311,3 +328,55 @@ class NamedHeaderParagraph(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+# Image models -- copied from wagtail docs
+
+
+class CustomImage(AbstractImage):
+    # Add any extra fields to image here
+
+    # eg. To add a caption field:
+    copyright_year = models.CharField(
+        max_length=64,
+        help_text="The year the image was taken",
+    )
+    licence = models.CharField(
+        max_length=64,
+        help_text="The short-form code for the licence (e.g. CC-BY)",
+    )
+    author = models.CharField(
+        max_length=255,
+        help_text="The name of the author of the work",
+    )
+    source_url = models.URLField(
+        help_text="The URL where you can find the original of this image",
+    )
+
+    admin_form_fields = Image.admin_form_fields + (
+        "copyright_year",
+        "licence",
+        "author",
+        "source_url",
+    )
+
+
+class CustomRendition(AbstractRendition):
+    image = models.ForeignKey(CustomImage, related_name='renditions')
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter', 'focal_point_key'),
+        )
+
+
+# Delete the source image file when an image is deleted
+@receiver(pre_delete, sender=CustomImage)
+def image_delete(sender, instance, **kwargs):
+    instance.file.delete(False)
+
+
+# Delete the rendition image file when a rendition is deleted
+@receiver(pre_delete, sender=CustomRendition)
+def rendition_delete(sender, instance, **kwargs):
+    instance.file.delete(False)
