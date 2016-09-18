@@ -27,6 +27,7 @@
                                 <input type="submit" name="result_submit" value="undecide" class="btn btn-default btn-xs" />
                             </div>
                         </div>
+                        <input type="submit" name="publish_changes" value="Publish Changes" class="btn btn-success" />
                     {% else %}
                         {% if proposal.result.status == "rejected" %}
                             <a class="btn dropdown-toggle btn-danger" data-toggle="dropdown" href="#">Rejected <span class="caret"></span></a>
