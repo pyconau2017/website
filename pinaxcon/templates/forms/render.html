@@ -13,7 +13,6 @@
         <div data-formset-form>
         <fieldset >
           {% include "forms/render_fields.html" with form=inner_form %}
-          <br />
         </fieldset>
         </div>
       {% endfor %}
@@ -25,7 +24,6 @@
         <div data-formset-form>
         <fieldset>
           {% include "forms/render_fields.html" with form=form.empty_form %}
-          <br />
         </fieldset>
         </div>
       {% endescapescript %}
@@ -34,13 +32,18 @@
     <input type="button" class="btn" value="Add another" data-formset-add>
 
     <script type="text/javascript">
-      window.setTimeout(function() {
-        jQuery(function($) {
-            $(".formset").formset({
-              animateForms: true
+      function defer() {
+          if (window.jQuery) {
+            jQuery(function($) {
+                $(".formset").formset({
+                  animateForms: true
+                });
             });
-        });
-      }, 1);
+          } else {
+            setTimeout(function() { defer() }, 50);
+          }
+      }
+      defer();
     </script>
 
 
