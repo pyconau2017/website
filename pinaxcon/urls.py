@@ -37,11 +37,10 @@ urlpatterns = [
     # Matches *NOTHING* -- remove once site_tree is fixed
     url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
 
-
-
     # Required by registrasion
-#    url(r'^register/', include('registrasion.urls')),
-#    url(r'^nested_admin/', include('nested_admin.urls')),
+    url(r'^register/', include('registrasion.urls')),
+    url(r'^register/payments/', include('registripe.urls')),
+    url(r'^nested_admin/', include('nested_admin.urls')),
 
     # Demo payment gateway and related features
 #    url(r"^register/pinaxcon/", include("pinaxcon.registrasion.urls")),

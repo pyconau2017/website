@@ -19,4 +19,6 @@ coverage==4.0.3
 # Registrasion + Symposion
 # Install via pip repo cloned locally
 #registrasion==0.1.1
-#https://github.com/lca2017/symposion/tarball/master#egg=symposion
+
+-e git+https://github.com/chrisjrn/registrasion.git@master#egg=registrasion
+-e git+https://github.com/chrisjrn/registrasion-stripe.git@master#egg=registrasion-stripe

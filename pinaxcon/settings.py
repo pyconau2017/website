@@ -182,10 +182,15 @@ INSTALLED_APPS = [
     "pinax.boxes",
 
     # Registrasion
-    #"registrasion",
+    "registrasion",
+
+    # Registrasion-stipe
+    "pinax.stripe",
+    "django_countries",
+    "registripe",
 
     #admin - required by registrasion ??
-    #"nested_admin",
+    "nested_admin",
 
     # project
     "cms_pages",
@@ -264,6 +269,13 @@ PROPOSAL_FORMS = {
 
 #PINAX_PAGES_HOOKSET = "pinaxcon.hooks.PinaxPagesHookSet"
 #PINAX_BOXES_HOOKSET = "pinaxcon.hooks.PinaxBoxesHookSet"
+
+# Registrasion bits:
+ATTENDEE_PROFILE_MODEL = "pinaxcon.registrasion.models.AttendeeProfile"
+INVOICE_CURRENCY = "AUD"
+PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "your test public key")
+PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "your test secret key")
+PINAX_STRIPE_SEND_EMAIL_RECEIPTS = False
 
 # Wagtail config
 WAGTAIL_SITE_NAME = 'linux.conf.au 2017'
