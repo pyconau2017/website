@@ -3,13 +3,11 @@
 {% load lca2017_tags %}
 
 {% block header_title %}Buy Your Ticket{% endblock %}
-{% block header_paragraph %}Step {{ current_step }} of {{ total_steps|add:1 }}{% endblock %}
+{% block header_paragraph %}Step {{ current_step }} of {{ total_steps|add:1 }} &ndash; {{ title }} {% endblock %}
 {% block header_inset_image %}{% illustration "tuz.svg" %}{% endblock %}
 
 
 {% block content %}
-
-  <h2>{{ title }}</h2>
 
   <form method="post" action="">
     {% csrf_token %}
@@ -17,16 +15,16 @@
     {% for section in sections %}
       <h3>{{ section.title }}</h3>
 
-      {% if section.description %}
-        <p>{{ section.description }}</p>
-      {% endif %}
-
-      {% if section.discounts %}
-        <p>You have the following discounts available to you:</p>
-        {% include "registrasion/discount_list.html" with discounts=section.discounts %}
-      {% endif %}
-
       <fieldset>
+        {% if section.description %}
+          <p>{{ section.description }}</p>
+        {% endif %}
+
+        {% if section.discounts %}
+          <h4>Discounts (will be applied when you check out):</h4>
+          {% include "registrasion/discount_list.html" with discounts=section.discounts %}
+        {% endif %}
+
         {% include "_form_snippet.html" with form=section.form %}
       </fieldset>
 
