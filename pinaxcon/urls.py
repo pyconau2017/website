@@ -32,8 +32,8 @@ urlpatterns = [
     url(r'^cms/', include(wagtailadmin_urls)),
 
     # Required by registrasion
-    url(r'^register/payments/', include('registripe.urls')),
-    url(r'^register/', include('registrasion.urls')),
+    url(r'^tickets/payments/', include('registripe.urls')),
+    url(r'^tickets/', include('registrasion.urls')),
     url(r'^nested_admin/', include('nested_admin.urls')),
 
     # Default catch-all for wagtail pages.
