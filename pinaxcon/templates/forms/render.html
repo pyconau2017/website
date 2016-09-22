@@ -1,10 +1,53 @@
+{% load formset_tags %}
+
 {% if form.total_form_count and form.empty_form %}
-  {% comment %}This is a formset.{%endcomment %}
-  {% for inner_form in form %}
-    <fieldset>
-      {% include "forms/render_fields.html" with form=inner_form %}
-    </fieldset>
-  {% endfor %}
+
+  {% comment %}This is a formset.{% endcomment %}
+
+  <div class="formset" data-formset-prefix="{{ form.prefix }}">
+
+    {{ form.management_form }}
+
+    <div data-formset-body>
+      {% for inner_form in form %}
+        <div data-formset-form>
+        <fieldset >
+          {% include "forms/render_fields.html" with form=inner_form %}
+          <br />
+          <button type="button" class="btn" data-formset-delete-button>Delete</button>
+        </fieldset>
+        </div>
+      {% endfor %}
+    </div>
+
+    <script type="form-template" data-formset-empty-form>
+      {% escapescript %}
+        <br />
+        <div data-formset-form>
+        <fieldset>
+          {% include "forms/render_fields.html" with form=form.empty_form %}
+          <br />
+          <button type="button" class="btn" data-formset-delete-button>Delete</button>
+        </fieldset>
+        </div>
+      {% endescapescript %}
+    </script>
+
+    <input type="button" class="btn" value="Add another" data-formset-add>
+
+    <script type="text/javascript">
+      window.setTimeout(function() {
+        jQuery(function($) {
+            $(".formset").formset({
+              animateForms: true
+            });
+        });
+      }, 1);
+    </script>
+
+
+  </div>
+
 {% else %}
   {% include "forms/render_fields.html" %}
 {% endif %}

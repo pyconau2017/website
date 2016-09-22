@@ -197,6 +197,8 @@ INSTALLED_APPS = [
     "pinaxcon",
     "pinaxcon.proposals",
     "pinaxcon.registrasion",
+    "jquery",
+    "djangoformsetjs",
 
     #testing
     "django_nose",
