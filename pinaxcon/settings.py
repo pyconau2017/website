@@ -272,6 +272,7 @@ PROPOSAL_FORMS = {
 
 # Registrasion bits:
 ATTENDEE_PROFILE_MODEL = "pinaxcon.registrasion.models.AttendeeProfile"
+ATTENDEE_PROFILE_FORM = "pinaxcon.registrasion.forms.ProfileForm"
 INVOICE_CURRENCY = "AUD"
 PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "your test public key")
 PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "your test secret key")
