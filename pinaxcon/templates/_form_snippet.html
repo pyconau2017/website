@@ -7,7 +7,7 @@
 
 {% for field in form %}
   {% if not field.is_hidden %}
-    <div class="fieldWrapper">
+    <div class="fieldWrapper {% if field.errors %}has-errors{% endif %}">
       <div>
         {% include "forms/widget.html" %}
       </div>

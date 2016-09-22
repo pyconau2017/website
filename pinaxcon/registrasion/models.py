@@ -70,7 +70,9 @@ The linux.conf.au 2016 attendees mailing listName
 
     def clean(self):
         if self.country == "AU" and not self.state:
-            raise ValidationError("Australians must list their state")
+            raise ValidationError({
+                "state" : "Australians must list their state",
+            })
 
     def save(self):
         if not self.name_per_invoice:
@@ -102,6 +104,7 @@ The linux.conf.au 2016 attendees mailing listName
             ("VIC", "Victoria"),
             ("WA", "Western Australia"),
         ),
+        blank=True,
     )
     country = CountryField()
 
