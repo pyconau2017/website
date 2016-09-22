@@ -1,11 +1,15 @@
 {% extends "registrasion/base.html" %}
 {% load bootstrap %}
+{% load lca2017_tags %}
 
-{% block body %}
+{% block header_title %}Buy Your Ticket{% endblock %}
+{% block header_paragraph %}Step {{ current_step }} of {{ total_steps|add:1 }}{% endblock %}
+{% block header_inset_image %}{% illustration "tuz.svg" %}{% endblock %}
 
-  <h1>Conference Registration – {{ title }}</h1>
 
-  <p><em>Step {{ current_step }} of {{ total_steps|add:1 }}</em></p>
+{% block content %}
+
+  <h2>{{ title }}</h2>
 
   <form method="post" action="">
     {% csrf_token %}
@@ -25,6 +29,8 @@
       <fieldset>
         {{ section.form|bootstrap }}
       </fieldset>
+
+      <br />
     {% endfor %}
 
     <div class="form-actions">
