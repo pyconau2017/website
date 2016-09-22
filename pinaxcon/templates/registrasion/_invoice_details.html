@@ -1,8 +1,12 @@
 {% load registrasion_tags %}
+{% load lca2017_tags %}
 
-<h2>Invoice</h2>
+<h2>Tax Invoice/Statement</h2>
+<h3>Linux Australia</h3>
+<h4>ABN 56 987 117 479</h4>
 
 {% with invoice_user=invoice.cart.user %}
+  <br />
   <ul>
     <li><strong>Invoice number:</strong> {{ invoice.id }}
     <li><strong>Invoice status:</strong> {{ invoice.get_status_display }}</li>
@@ -10,11 +14,18 @@
     {% if not invoice.is_void %}
       <li><strong>Due:</strong> {{ invoice.due_time|date:"DATETIME_FORMAT"}}</li>
     {% endif %}
-    <li><strong>Recipient:</strong> {{ invoice.recipient|linebreaksbr}}</li>
   </ul>
+
+  <br />
+  <div>
+  <h4>Attention:</h4>
+    {{ invoice.recipient|linebreaksbr}}
+  </div>
+
+
 {% endwith %}
 
-<p>This invoice has been issued as a result of an application to attend (conference name).</p>
+<p>This invoice has been issued as a result of an application to attend {% conference_name %}.</p>
 
 
 <table class="table table-striped">
@@ -33,20 +44,26 @@
     </tr>
   {% endfor %}
 
+  <tr><th colspan="4"></th></tr>
+
   <tr>
-    <th colspan="3">TOTAL</th>
+    <th colspan="3">Includes 10% Australian Goods and Services Tax</th>
+    <td class="text-right">${{ invoice.value|gst}}</td>
+  </tr>
+
+  <tr>
+    <th colspan="3">Total</th>
     <td class="text-right">${{ invoice.value }}</td>
   </tr>
-</table>
 
-<table class="table table-striped">
+  <tr><th colspan="4"></th></tr>
 
   <tr>
-    <td colspan="3">Total payments:</td>
+    <th colspan="3">Total payments received:</th>
     <td class="text-right">${{ invoice.total_payments }}</td>
   </tr>
   <tr>
-    <td colspan="3">Balance due:</td>
+    <th colspan="3">Balance due:</th>
     <td class="text-right">${{ invoice.balance_due }}</td>
   </tr>
 </table>
@@ -55,3 +72,12 @@
   <h4>Payments received</h4>
   {% include "registrasion/payment_list.html" with payments=invoice.paymentbase_set.all %}
 {% endif %}
+
+<p>{% conference_name %} is a project of Linux Australia, Inc.</p>
+
+<p>
+  GPO Box 4788 <br />
+  Sydney NSW 2001 <br />
+  Australia <br />
+  ABN 56 987 117 479 <br />
+<p>
