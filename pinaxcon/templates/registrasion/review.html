@@ -1,10 +1,12 @@
 {% extends "registrasion/base.html" %}
 {% load bootstrap %}
 {% load registrasion_tags %}
+{% load lca2017_tags %}
 
-{% block body %}
+{% block header_title %}Review your selection{% endblock %}
+{% block header_inset_image %}{% illustration "wineglass.svg" %}{% endblock %}
 
-  <h1>Review your selection</h1>
+{% block content %}
 
   {% items_pending as pending %}
   {% if pending %}
@@ -14,13 +16,13 @@
   <p>You've selected the following items, which will be in your invoice when
     you check out:<p>
   {% include "registrasion/_items_list.html" with items=pending %}
+  <br />
 
   {% items_purchased as purchased %}
   {% if purchased %}
     <p>You've already paid for the following items:</p>
     {% include "registrasion/_items_list.html" with items=purchased suffix="(PAID)" %}
   {% endif %}
-
 
   {% missing_categories as missing %}
 
@@ -49,16 +51,18 @@
   {% available_categories as available %}
   {% include "registrasion/_category_list.html" with categories=available exclude=missing %}
 
+  <br />
+
   <h3>What next?</h3>
 
   <p>You can either generate an invoice and pay for your selections, or return to
       the dashboard.</p>
 
-  <div class="form-actions">
-    <a class="btn btn-primary" href="{% url "checkout" %}">
+  <div class="btn-group">
+    <a class="btn" href="{% url "checkout" %}">
       <i class="fa fa-credit-card"></i> Check out and pay
     </a>
-    <a class="btn btn-default" href="{% url "dashboard" %}">Return to dashboard</a>
+    <a class="btn btn-primary" href="{% url "dashboard" %}">Return to dashboard</a>
   </div>
 
   {% else %}
