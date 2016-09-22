@@ -1,0 +1,15 @@
+{% for field in form %}
+  {% if not field.is_hidden %}
+    <div class="fieldWrapper {% if field.errors %}has-errors{% endif %}">
+      <div>
+        {% include "forms/widget.html" %}
+      </div>
+
+      {% if field.help_text %}
+        <span class="help_text">{{ field.help_text|safe }}</span>
+      {% endif %}
+
+      <p></p>
+    </div>
+  {% endif %}
+{% endfor %}

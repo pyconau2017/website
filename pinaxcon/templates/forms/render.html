@@ -1,0 +1,10 @@
+{% if form.total_form_count and form.empty_form %}
+  {% comment %}This is a formset.{%endcomment %}
+  {% for inner_form in form %}
+    <fieldset>
+      {% include "forms/render_fields.html" with form=inner_form %}
+    </fieldset>
+  {% endfor %}
+{% else %}
+  {% include "forms/render_fields.html" %}
+{% endif %}
