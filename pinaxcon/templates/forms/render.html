@@ -14,7 +14,6 @@
         <fieldset >
           {% include "forms/render_fields.html" with form=inner_form %}
           <br />
-          <button type="button" class="btn" data-formset-delete-button>Delete</button>
         </fieldset>
         </div>
       {% endfor %}
@@ -27,7 +26,6 @@
         <fieldset>
           {% include "forms/render_fields.html" with form=form.empty_form %}
           <br />
-          <button type="button" class="btn" data-formset-delete-button>Delete</button>
         </fieldset>
         </div>
       {% endescapescript %}
