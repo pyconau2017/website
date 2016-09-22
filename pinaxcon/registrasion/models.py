@@ -1,8 +1,20 @@
-import django_countries
-
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+from django_countries.fields import CountryField
 from registrasion import models as rego
+
+
+@python_2_unicode_compatible
+class PastEvent(models.Model):
+    ''' This is populated in 0001_initial.py '''
+
+    def __str__(self):
+        return self.name
+
+    year = models.IntegerField(unique=True,)
+    name = models.CharField(max_length=255, unique=True,)
+
 
 class AttendeeProfile(rego.AttendeeProfileBase):
     '''
@@ -91,7 +103,7 @@ The linux.conf.au 2016 attendees mailing listName
             ("WA", "Western Australia"),
         ),
     )
-    country = models.CountryField()
+    country = CountryField()
 
     free_text_1 = models.CharField(
         max_length=64,
@@ -132,13 +144,14 @@ The linux.conf.au 2016 attendees mailing listName
                   "conference. We need to know whether you are over 18 to "
                   "allow us to cater for you at venues that serve alcohol.",
     )
-    dietary_restrictions = models.TextField(
+    dietary_restrictions = models.CharField(
         verbose_name="Food allergies, intolerances, or dietary restrictions",
         max_length=256,
         blank=True,
     )
-    accessibility_requirements = models.TextField(
+    accessibility_requirements = models.CharField(
         verbose_name="Accessibility-related requirements",
+        max_length=256,
         blank=True,
     )
     gender = models.CharField(
@@ -170,4 +183,8 @@ The linux.conf.au 2016 attendees mailing listName
         blank=True,
     )
 
-    past_lca = models
+    past_lca = models.ManyToManyField(
+        PastEvent,
+        verbose_name="Which past linux.conf.au events have you attended?",
+        blank=True,
+    )

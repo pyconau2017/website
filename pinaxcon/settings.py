@@ -196,7 +196,7 @@ INSTALLED_APPS = [
     "cms_pages",
     "pinaxcon",
     "pinaxcon.proposals",
-    #"pinaxcon.registrasion",
+    "pinaxcon.registrasion",
 
     #testing
     "django_nose",
