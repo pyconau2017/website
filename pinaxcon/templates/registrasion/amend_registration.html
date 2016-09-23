@@ -1,8 +1,8 @@
-{% extends "site_base.html" %}
+{% extends "registrasion/base.html" %}
 {% load bootstrap %}
 {% load registrasion_tags %}
 
-{% block body %}
+{% block content %}
 
 <h2>Item summary for {{ user.attendee.attendeeprofilebase.attendee_name }}
   (id={{user.id}})</h2>
@@ -15,32 +15,40 @@
 
 {% include "registrasion/_items_list.html" with items=paid %}
 
+<br />
+
 <h3>Cancelled Items</h3>
 
 {% include "registrasion/_items_list.html" with items=cancelled %}
+
+<br />
 
 <h3>Amend pending items</h3>
 
 <form method="POST">
   {% csrf_token %}
-  {{ form | bootstrap}}
+  {% include "_form_snippet.html" with form=form %}
   <br/>
-  <input type="submit">
+  <input class="btn" type="submit">
 </form>
+
+<br />
 
 <h3>Generate invoice</h3>
 
-<div>
-  <a class="btn btn-xs btn-default" href="{% url "checkout" user.id %}">Check out cart and view invoice</a>
+<div class="btn-group">
+  <a class="btn" href="{% url "checkout" user.id %}">Check out cart and view invoice</a>
 </div>
+
+<br />
 
 <h3>Apply voucher</h3>
 
 <form method="POST">
   {% csrf_token %}
-  {{ voucher_form | bootstrap}}
+  {% include "_form_snippet.html" with form=voucher_form %}
   <br/>
-  <input type="submit">
+  <input class="btn" type="submit">
 </form>
 
 {% endblock %}

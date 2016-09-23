@@ -1,4 +1,4 @@
-{% extends "lca2017/content_page.html" %}
+{% extends "registrasion/base.html" %}
 {% load bootstrap %}
 {% load registrasion_tags %}
 {% load lca2017_tags %}
@@ -92,7 +92,7 @@
       {% include "_form_snippet.html" with form=form %}
       <br />
       <div class="btn-group">
-        <input id="submit" class="btn btn-primary" type="submit" value="Pay {{ invoice.balance_due }}" />
+        <input id="submit" class="btn btn-primary" type="submit" value="Pay ${{ invoice.balance_due }}" />
       </div>
     </fieldset>
   </form>
