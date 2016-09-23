@@ -93,14 +93,19 @@
           <h4>Invoices</h4>
           <ul>
             {% for invoice in invoices %}
-              {% if not invoice.is_void %}
+              {% if invoice.is_void %}
+                <li class="void-invoice" style="display: none;">
+              {% else %}
                 <li>
-                  <a href="{% url "invoice" invoice.id %}">Invoice {{ invoice.id }}</a>
-                  - ${{ invoice.value }} ({{ invoice.get_status_display }})
-                </li>
               {% endif %}
+                <a href="{% url "invoice" invoice.id %}" >Invoice {{ invoice.id }}</a>
+                - ${{ invoice.value }} ({{ invoice.get_status_display }})
+              </li>
             {% endfor %}
           </ul>
+          <p>
+            <button class="btn" id="toggle-void-invoices" href="" onclick="toggleVoidInvoices();">Show void invoices</button>
+          </p>
         {% endif %}
 
         {% available_credit as credit %}
@@ -290,4 +295,30 @@
 
 {% endif %}
 
+{% endblock %}
+
+{% block scripts_extra %}
+  <script type="text/javascript">
+    function _toggleVoidInvoices() {
+      var visible = false;
+      function toggleVoidInvoices() {
+        $btn = $("#toggle-void-invoices");
+        $invoices = $(".void-invoice")
+
+        if (visible) {
+          $invoices.hide();
+          btnText = "Show void invoices";
+        } else {
+          $invoices.show();
+          btnText = "Hide void invoices";
+        }
+        $btn.text(btnText);
+        visible = !visible;
+        return true;
+      }
+      return toggleVoidInvoices;
+    }
+    var toggleVoidInvoices = _toggleVoidInvoices();
+    _toggleVoidInvoices() = undefined;
+  </script>
 {% endblock %}
