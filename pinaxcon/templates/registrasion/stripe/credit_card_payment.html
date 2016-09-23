@@ -69,11 +69,15 @@
 {% block header_title %}Credit card payment for invoice #{{ invoice.id}}{% endblock %}
 {% block header_inset_image %}{% illustration "casino.svg" %}{% endblock %}
 {% block header_paragraph %}
-  Credit card payments are processed by <a href="https://stripe.com">Stripe</a>.
-  No data on this form is stored locally by {% conference_name %}. You must allow JavaScript from <code>js.stripe.com</code>.
+  Pay for your linux.conf.au attendance with your Visa, Mastercard, or American Express credit or debit card. Credit card payments are processed by <a href="https://stripe.com">Stripe</a>.
 {% endblock %}
 
 {% block content %}
+
+  <p>
+    No data on this form is stored locally by {% conference_name %}, rather it is
+    sent to Stripe, and a token returned. You must allow JavaScript from <code>js.stripe.com</code> to complete payment.
+  </p>
 
   <p>You have ${{ invoice.balance_due }} remaining to pay on this invoice.</p>
 
