@@ -63,16 +63,41 @@ The linux.conf.au 2016 attendees mailing listName
         if self.company:
             lines.append("Care of " + self.company)
 
-        if self.address:
-            lines += self.address.splitlines()
+        if self.address_line_1:
+            lines.append(self.address_line_1)
 
-        return "\n".join(lines)
+        if self.address_line_2:
+            lines.append(self.address_line_2)
+
+        if self.address_suburb or self.address_postcode:
+            lines.append("%s %s" % (
+                self.address_suburb or "",
+                self.address_postcode or "",
+            ))
+
+        if self.state:
+            lines.append(self.state)
+
+        if self.country:
+            lines.append(self.country)
+
+        return "\n".join(unicode(line) for line in lines)
 
     def clean(self):
+        errors = []
         if self.country == "AU" and not self.state:
-            raise ValidationError({
-                "state" : "Australians must list their state",
-            })
+            errors.append(
+                ("state", "Australians must list their state"),
+            )
+
+        if self.address_line_2 and not self.address_line_1:
+            errors.append((
+                "address_line_1",
+                "Please fill in line 1 before filling line 2",
+            ))
+
+        if errors:
+            raise ValidationError(dict(errors))
 
     def save(self):
         if not self.name_per_invoice:
@@ -90,23 +115,6 @@ The linux.conf.au 2016 attendees mailing listName
         help_text="The name of your company, as you'd like it on your badge",
         blank=True,
     )
-    state = models.CharField(
-        max_length=4,
-        verbose_name="Australian State/Territory",
-        choices=(
-            ("", "Not in Australia"),
-            ("TAS", "Tasmania"),
-            ("ACT", "Australian Capital Territory"),
-            ("NSW", "New South Wales"),
-            ("NT", "Northern Territory"),
-            ("QLD", "Queensland"),
-            ("SA", "South Australia"),
-            ("VIC", "Victoria"),
-            ("WA", "Western Australia"),
-        ),
-        blank=True,
-    )
-    country = CountryField()
 
     free_text_1 = models.CharField(
         max_length=64,
@@ -133,11 +141,33 @@ The linux.conf.au 2016 attendees mailing listName
         blank=True,
         )
 
-    address = models.TextField(
-        verbose_name="Invoicing address",
+    address_line_1 = models.CharField(
+        verbose_name="Address line 1",
         help_text="This address, if provided, will appear on your invoices.",
+        max_length=1024,
         blank=True,
     )
+    address_line_2 = models.CharField(
+        verbose_name="Address line 2",
+        max_length=1024,
+        blank=True,
+    )
+    address_suburb = models.CharField(
+        verbose_name="City/Town/Suburb",
+        max_length=1024,
+        blank=True,
+    )
+    address_postcode = models.CharField(
+        verbose_name="Postal/Zip code",
+        max_length=1024,
+        blank=True,
+    )
+    state = models.CharField(
+        max_length=256,
+        verbose_name="State/Territory/Province",
+        blank=True,
+    )
+    country = CountryField()
 
     of_legal_age = models.BooleanField(
         default=False,
