@@ -2,6 +2,7 @@
 {% load bootstrap %}
 {% load registrasion_tags %}
 {% load lca2017_tags %}
+{% load staticfiles %}
 
 {% block header_title %}{% conference_name %}{% endblock %}
 {% block header_paragraph %}
@@ -9,7 +10,7 @@
   <p>Wrest Point Convention Centre, Hobart, Tasmania, Australia.</p>
 {% endblock %}
 {% block header_inset_image %}{% illustration "tuz.svg" %}{% endblock %}
-
+{% block header_background_image %}{% static "lca2017/images/wp_bg_optimised.jpg" %}{% endblock %}
 {% block content %}
 
 
