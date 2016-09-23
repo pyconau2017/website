@@ -54,3 +54,53 @@ class MiniconfProposal(ProposalBase):
 
     class Meta:
         verbose_name = "miniconf proposal"
+
+class SysAdminProposal(Proposal):
+
+    TYPE_SHORT_PRESENTATION = 1
+    TYPE_LIGHTNING_TALK = 2
+    
+    TALK_FORMATS = [
+        (TYPE_SHORT_PRESENTATION, "Short Presentation (20 min)"),
+        (TYPE_LIGHTNING_TALK, "Lightning Talk (5 min)"),
+    ]
+    
+    talk_format = models.IntegerField(choices=TALK_FORMATS)
+    
+    class Meta:
+        verbose_name = "System Administration Miniconf Proposal"
+
+class WriteTheDocsProposal(Proposal):
+
+    TYPE_LONG_PRESENTATION = 1 
+    TYPE_SHORT_PRESENTATION = 2
+    
+    TALK_FORMATS = [
+        (TYPE_LONG_PRESENTATION, "Long Presentation (40 min)"),  
+        (TYPE_SHORT_PRESENTATION, "Short Presentation (20 min)"),
+    ]
+    
+    talk_format = models.IntegerField(choices=TALK_FORMATS)
+    
+    class Meta:
+        verbose_name = "WriteThe Docs Miniconf Proposal"
+
+class OpenRadioProposal(ProposalBase):
+
+    class Meta:
+        verbose_name = "OpenRadio Miniconf Proposal"
+
+class WootconfProposal(ProposalBase):
+
+    class Meta:
+        verbose_name = "WOOTCONF Miniconf Proposal"
+
+class KernelProposal(ProposalBase):
+
+    class Meta:
+        verbose_name = "Kernel Miniconf Proposal"
+
+class SecurityProposal(ProposalBase):
+
+    class Meta:
+        verbose_name = "Security/Privacy Miniconf Proposal"

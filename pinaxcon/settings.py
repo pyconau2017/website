@@ -253,7 +253,14 @@ PROPOSAL_FORMS = {
     "talk": "pinaxcon.proposals.forms.TalkProposalForm",
     "tutorial": "pinaxcon.proposals.forms.TutorialProposalForm",
     "miniconf": "pinaxcon.proposals.forms.MiniconfProposalForm",
+    "sysadmin-miniconf": "pinaxcon.proposals.forms.SysAdminProposalForm",
+    "radio-miniconf": "pinaxcon.proposals.forms.RadioProposalForm",
+    "wootconf-miniconf": "pinaxcon.proposals.forms.WootconfProposalForm",
+    "writethedocs-miniconf": "pinaxcon.proposals.forms.WriteTheDocsProposalForm",
+    "security-miniconf": "pinaxcon.proposals.forms.SecurityProposalForm",
+    "kernel-miniconf": "pinaxcon.proposals.forms.KernelProposalForm",
 }
+
 #PINAX_PAGES_HOOKSET = "pinaxcon.hooks.PinaxPagesHookSet"
 #PINAX_BOXES_HOOKSET = "pinaxcon.hooks.PinaxBoxesHookSet"
 
