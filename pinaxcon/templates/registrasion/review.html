@@ -5,6 +5,10 @@
 
 {% block header_title %}Review your selection{% endblock %}
 {% block header_inset_image %}{% illustration "wineglass.svg" %}{% endblock %}
+{% block header_paragraph %}
+  Please ensure that you have selected all of the products you require, including
+  t-shirts and social event tickets.
+{% endblock %}
 
 {% block content %}
 
@@ -34,9 +38,9 @@
   {% if missing %}
 
     <p>
-      <strong>You have <em>not</em> selected any items from the following
-        categories. Even if your ticket includes complimentary tickets to social
-        events, or t-shirts, you must still add them to your selection.
+      <strong>You have <em>not</em> selected anything from the following
+        categories. If your ticket includes any of these, you still need to
+        make a selection:
       </strong>
     </p>
 
