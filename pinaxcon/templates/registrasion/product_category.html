@@ -6,6 +6,11 @@
 {% block header_title %}Product Category: {{ category.name }}{% endblock %}
 {% block header_inset_image %}{% illustration "lavender.svg" %}{% endblock %}
 
+{% block scripts_extra %}
+  {{ voucher_form.media.js }}
+  {{ form.media.js }}
+{% endblock %}
+
 {% block content %}
 
   <form method="post" action="">

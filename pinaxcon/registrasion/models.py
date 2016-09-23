@@ -162,12 +162,14 @@ The linux.conf.au 2016 attendees mailing listName
         max_length=1024,
         blank=True,
     )
+    country = CountryField(
+        default="AU",
+    )
     state = models.CharField(
         max_length=256,
         verbose_name="State/Territory/Province",
         blank=True,
     )
-    country = CountryField()
 
     of_legal_age = models.BooleanField(
         default=False,

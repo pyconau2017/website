@@ -9,6 +9,12 @@
   to order catered food at the conference.
 {% endblock %}
 
+{% block scripts_extra %}
+  {{ form.media.js }}
+    <script type="text/javascript">
+  </script>
+{% endblock %}
+
 {% block content %}
 
   <form method="post" action="">

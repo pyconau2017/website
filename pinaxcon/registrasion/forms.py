@@ -11,3 +11,6 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             "past_lca" : forms.widgets.CheckboxSelectMultiple(),
         }
+
+    class Media:
+        js = ("lca2017/js/profile_form.js", )

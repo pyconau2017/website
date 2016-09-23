@@ -6,6 +6,12 @@
 {% block header_paragraph %}Step {{ current_step }} of {{ total_steps|add:1 }} &ndash; {{ title }} {% endblock %}
 {% block header_inset_image %}{% illustration "tuz.svg" %}{% endblock %}
 
+{% block scripts_extra %}
+  {% for section in sections %}
+    {{ section.form.media.js }}
+  {% endfor %}
+{% endblock %}
+
 {% block content %}
 
   <form method="post" action="">
