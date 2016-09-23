@@ -175,21 +175,23 @@ def patch_stripe_payment_form():
 
         # Find request context maybe?
         frame = inspect.currentframe()
+        attendee_profile = None
         if frame:
             context = frame.f_back.f_locals
             for name, value in (context.items() or {}):
                 if not isinstance(value, HttpRequest):
                     continue
                 user = value.user
+                if not user.is_authenticated():
+                    break
                 try:
                     attendee_profile = models.AttendeeProfile.objects.get(
                         attendee__user=user
                     )
                 except models.AttendeeProfile.DoesNotExist:
-                    attendee_profile = None
+                    # Profile is still none.
+                    pass
                 break
-            else:
-                attendee_profile = None
 
         if attendee_profile:
             for us, stripe in mappings:
