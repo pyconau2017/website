@@ -62,10 +62,12 @@
     <th colspan="3">Total payments received:</th>
     <td class="text-right">${{ invoice.total_payments }}</td>
   </tr>
-  <tr>
-    <th colspan="3">Balance due:</th>
-    <td class="text-right">${{ invoice.balance_due }}</td>
-  </tr>
+  {% if invoice.is_unpaid or invoice.is_paid %}
+    <tr>
+      <th colspan="3">Balance due:</th>
+      <td class="text-right">${{ invoice.balance_due }}</td>
+    </tr>
+  {% endif %}
 </table>
 
 {% if invoice.paymentbase_set.all %}
