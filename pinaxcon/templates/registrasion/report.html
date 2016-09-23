@@ -6,11 +6,13 @@
 
   <h2>{{ title }}</h2>
 
+  <p><a href="{% url 'reports_list' %}">Return to reports list</a></p>
+
   {% if form %}
     <form method="GET">
       {{ form | bootstrap}}
       <br/>
-      <input type="submit">
+      <input class="btn btn-primary" type="submit">
     </form>
   {% endif %}
 <hr />
