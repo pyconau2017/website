@@ -116,6 +116,10 @@ class BasicContentBlock(blocks.StructBlock):
         ("title", blocks.CharBlock(required=True)),
     ])
     external_links = blocks.ListBlock(ExternalLinksBlock)
+    compact = blocks.BooleanBlock(
+        required=False,
+        help_text="True if this block is to be displayed in 'compact' mode",
+    )
 
 
 class PresentationChooserBlock(blocks.ChooserBlock):

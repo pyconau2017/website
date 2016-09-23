@@ -56,6 +56,11 @@ def speaker_photo(context, speaker, size):
 
 
 @register.simple_tag()
+def define(value):
+    return value
+
+
+@register.simple_tag()
 def presentation_bg_number(presentation, count):
     return sum(ord(i) for i in presentation.title) % count
 
