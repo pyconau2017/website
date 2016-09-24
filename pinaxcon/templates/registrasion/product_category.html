@@ -9,14 +9,25 @@
 {% block scripts_extra %}
   {{ voucher_form.media.js }}
   {{ form.media.js }}
+
+  <script type="text/javascript">
+    function showVoucherForm() {
+      $("#voucher-form").show();
+      $("#voucher-form-button").hide();
+    }
+
+  </script>
+
 {% endblock %}
 
 {% block content %}
 
+  <button id="voucher-form-button" class="btn" onclick="showVoucherForm()">Enter voucher code</button>
+
   <form method="post" action="">
     {% csrf_token %}
 
-    <fieldset>
+    <fieldset id="voucher-form" style="display: none;">
       {% include "_form_snippet.html" with form=voucher_form %}
       <div class="btn-group" />
         <input class="btn btn-primary" type="submit" value="Add voucher" />
@@ -52,7 +63,7 @@
 
       {% endif %}
 
-      <h3>Select your products</h3>
+      <h3>Make a selection</h3>
       {% include "_form_snippet.html" with form=form %}
 
       <br />
