@@ -18,16 +18,28 @@
     {% csrf_token %}
 
     {% for section in sections %}
-      <h3>{{ section.title }}</h3>
+      <h2>{{ section.title }}</h2>
+
+      {% if section.description %}
+        <blockquote>{{ section.description }}</blockquote>
+      {% endif %}
 
       <fieldset>
-        {% if section.description %}
-          <p>{{ section.description }}</p>
-        {% endif %}
 
         {% if section.discounts %}
-          <h4>Discounts (will be applied when you check out):</h4>
+          <h3>Discounts and Complimentary Items</h3>
+
+          <br />
+
           {% include "registrasion/discount_list.html" with discounts=section.discounts %}
+
+          <blockquote><small>
+            You must select a product to receive any discounts.<br/>
+            Applicable discounts will be applied automatically when you check out.
+          </small></blockquote>
+
+          <hr />
+
         {% endif %}
 
         {% include "_form_snippet.html" with form=section.form %}
