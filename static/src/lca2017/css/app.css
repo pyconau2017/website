@@ -1017,6 +1017,11 @@ table.alt tr:not(:last-of-type) {
   padding-top: 0.625rem 0;
 }
 
+.panel__compact.panel__first {
+  padding-top: 0 0;
+  padding-top: 0 0;
+}
+
 .panel__compact.panel__last {
   padding-bottom: 10px;
   padding-bottom: 0.625rem;
@@ -1058,6 +1063,11 @@ table.alt tr:not(:last-of-type) {
   .panel__compact {
     padding-top: 5rem;
   }
+
+  .panel__compact.panel__first {
+    padding-top: 0rem;
+  }
+
   .panel__compact.panel__last {
     padding-bottom: 2.5rem;
   }
