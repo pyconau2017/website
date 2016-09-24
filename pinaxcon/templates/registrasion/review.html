@@ -28,13 +28,14 @@
     {% include "registrasion/_items_list.html" with items=purchased suffix="(PAID)" %}
   {% endif %}
 
-  {% missing_categories as missing %}
+  <br />
 
   <h3>Add to your selection</h3>
 
   <p>You can add these items now, or you can come back and add them in a
     later purchase.</p>
 
+  {% missing_categories as missing %}
   {% if missing %}
 
     <p>
