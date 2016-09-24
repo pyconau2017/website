@@ -99,12 +99,15 @@
         <h3>Sponsors</h3>
         <p class="lede">We thank our Emperor Penguin sponsors for their
           generous contribution to linux.conf.au 2017.</p>
-        <a href="#" class="btn btn__white">Other Sponsors</a>
+        <a href="/sponsors" class="btn btn__white">Other Sponsors</a>
       </div>
       <div class="l-footer--logos">
-        <img src="{% static 'lca2017/images/HPE.svg' %}" class="sponsor-logo" role="presentation">
-        <br />
-        <img src="{% static 'lca2017/images/IBM.svg' %}" class="sponsor-logo" role="presentation">
+        <div class="l-footer--logo">
+          <img src="{% static 'lca2017/images/HPE.svg' %}">
+        </div>
+        <div class="l-footer--logo">
+          <img src="{% static 'lca2017/images/IBM.svg' %}">
+        </div>
         <br />
       </div>
 
@@ -115,9 +118,11 @@
 {% endblock %}
     </main>
     {% block scripts %}
+    {% comment%}
     <script src="{% static 'lca2017/js/app.js' %}"></script>
     {% include "_scripts.html" %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
+    {% endcomment %}
     {% block extra_script %}{% endblock %}
     {% endblock %}
 {% block extra_body_base %}
