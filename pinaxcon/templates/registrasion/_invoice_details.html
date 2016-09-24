@@ -5,25 +5,21 @@
 <h3>Linux Australia</h3>
 <h4>ABN 56 987 117 479</h4>
 
-{% with invoice_user=invoice.cart.user %}
-  <br />
-  <ul>
-    <li><strong>Invoice number:</strong> {{ invoice.id }}
-    <li><strong>Invoice status:</strong> {{ invoice.get_status_display }}</li>
-    <li><strong>Issue date:</strong> {{ invoice.issue_time|date:"DATE_FORMAT" }}
-    {% if not invoice.is_void %}
-      <li><strong>Due:</strong> {{ invoice.due_time|date:"DATETIME_FORMAT"}}</li>
-    {% endif %}
-  </ul>
+<br />
+<ul>
+  <li><strong>Invoice number:</strong> {{ invoice.id }}
+  <li><strong>Invoice status:</strong> {{ invoice.get_status_display }}</li>
+  <li><strong>Issue date:</strong> {{ invoice.issue_time|date:"DATE_FORMAT" }}
+  {% if not invoice.is_void %}
+    <li><strong>Due:</strong> {{ invoice.due_time|date:"DATETIME_FORMAT"}}</li>
+  {% endif %}
+</ul>
 
-  <br />
-  <div>
-  <h4>Attention:</h4>
-    {{ invoice.recipient|linebreaksbr}}
-  </div>
-
-
-{% endwith %}
+<br />
+<div>
+<h4>Attention:</h4>
+  {{ invoice.recipient|linebreaksbr}}
+</div>
 
 <p>This invoice has been issued as a result of an application to attend {% conference_name %}.</p>
 

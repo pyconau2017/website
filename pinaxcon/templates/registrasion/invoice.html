@@ -26,7 +26,7 @@
     You can give this URL to your accounts department to pay for this invoice.</p>
 
   <div class="btn-group">
-    <a class="btn btn-default" href='{% url "registripe_card" invoice.id %}'>Pay this invoice with Stripe</a>
+    <a class="btn btn-default" href='{% url "registripe_card" invoice.id %}'>Pay this invoice by card</a>
     {% if user.is_staff %}
       <a class="btn btn-default" href="{% url "manual_payment" invoice.id %}">Apply manual payment</a>
     {% endif %}
