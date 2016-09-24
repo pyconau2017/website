@@ -1,12 +1,12 @@
 from __future__ import unicode_literals
 
 from django import forms
-from django.http import Http404
-
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-
+from django.forms.utils import ErrorList
+from django.http import Http404
 from django.shortcuts import render
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -84,6 +84,19 @@ class ExternalLinksBlock(blocks.StructBlock):
     url = blocks.URLBlock(required=True)
 
 
+class BasicContentLink(blocks.StructBlock):
+
+    page = blocks.PageChooserBlock(
+        required=False,
+        help_text="You must specify either this, or the URL.",
+    )
+    url = blocks.CharBlock(
+        required=False,
+        help_text="You must specify either this, or the URL.",
+    )
+    title = blocks.CharBlock(required=True)
+
+
 class BasicContentBlock(blocks.StructBlock):
 
     class Meta:
@@ -111,10 +124,7 @@ class BasicContentBlock(blocks.StructBlock):
                   "blue-left block. It's not used for white-right."
     )
     body = blocks.RichTextBlock(required=True)
-    link = blocks.StructBlock([
-        ("page", blocks.PageChooserBlock()),
-        ("title", blocks.CharBlock(required=True)),
-    ])
+    link = BasicContentLink()
     external_links = blocks.ListBlock(ExternalLinksBlock)
     compact = blocks.BooleanBlock(
         required=False,
@@ -125,6 +135,13 @@ class BasicContentBlock(blocks.StructBlock):
 class PresentationChooserBlock(blocks.ChooserBlock):
     target_model = schedule.models.Presentation
     widget = forms.Select
+
+    # Return the key value for the select field
+    def value_for_form(self, value):
+        if isinstance(value, self.target_model):
+            return value.pk
+        else:
+            return value
 
 
 class KeynoteSpeakerBlock(blocks.StructBlock):
