@@ -570,7 +570,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_fairy,
-                price=Decimal("200.00"),
+                price=Decimal("150.00"),
                 quantity=1,  # Per user
             )
             self.find_or_make(
@@ -578,7 +578,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_professional,
-                price=Decimal("200.00"),
+                price=Decimal("150.00"),
                 quantity=1,  # Per user
             )
             self.find_or_make(
@@ -586,7 +586,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_hobbyist,
-                price=Decimal("150.00"),
+                price=Decimal("100.00"),
                 quantity=1,  # Per user
             )
 
