@@ -5,7 +5,10 @@
 <h3>Linux Australia</h3>
 <h4>ABN 56 987 117 479</h4>
 
-<br />
+<p>
+  Enquiries: please e-mail <a href="mailto{{ THEME_CONTACT_EMAIL}}">{{ THEME_CONTACT_EMAIL }}</a>
+</p>
+
 <ul>
   <li><strong>Invoice number:</strong> {{ invoice.id }}
   <li><strong>Invoice status:</strong> {{ invoice.get_status_display }}</li>
@@ -16,6 +19,7 @@
 </ul>
 
 <br />
+
 <div>
 <h4>Attention:</h4>
   {{ invoice.recipient|linebreaksbr}}
