@@ -11,8 +11,10 @@
 {% endif %}
 
 {% url "invoice" invoice.id invoice.user.attendee.access_code as access_url %}
-<p>This invoice is available at <a href="http://{{ current_site }}{{ access_url }}">http://{{ current_site }}{{ access_url }}</a> --
-  You can give this URL to your accounts department to pay your registration.
+<p>This invoice is available at <a href="http://{{ current_site }}{{ access_url }}">http://{{ current_site }}{{ access_url }}</a>
+  {% if invoice.is_unpaid %}
+    --  You can give this URL to your accounts department to pay your registration.
+  {% endif %}
 </p>
 
 <hr />
