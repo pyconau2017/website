@@ -5,6 +5,7 @@ from pinaxcon import widgets
 from .models import TalkProposal, TutorialProposal, MiniconfProposal
 from .models import SysAdminProposal, WriteTheDocsProposal, WootconfProposal
 from .models import KernelProposal, OpenRadioProposal, SecurityProposal
+from .models import GamesProposal
 
 class ProposalForm(forms.ModelForm):
 
