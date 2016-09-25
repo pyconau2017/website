@@ -43,6 +43,10 @@ urlpatterns = [
     url(r'^tickets/', include('registrasion.urls')),
     url(r'^nested_admin/', include('nested_admin.urls')),
 
+    # Wiki
+    url(r'^notifications/', get_nyt_pattern()),
+    url(r'^wiki/', get_wiki_pattern()),
+
     # Default catch-all for wagtail pages.
     url(r'^', include(wagtail_urls)),
 

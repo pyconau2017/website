@@ -315,6 +315,9 @@ WIKI_CHECK_SLUG_URL_AVAILABLE = False
 
 ADMIN_USERNAMES = []
 
+# Wiki settings
+WIKI_CHECK_SLUG_URL_AVAILABLE = False
+
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 NOSE_ARGS = [
     '--with-coverage',
