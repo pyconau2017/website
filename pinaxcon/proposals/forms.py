@@ -137,6 +137,10 @@ class RadioProposalForm(ProposalForm):
             "abstract",
             "private_abstract",
             "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
         ]
 
         widgets = {
@@ -154,6 +158,10 @@ class KernelProposalForm(ProposalForm):
             "abstract",
             "private_abstract",
             "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
         ]
 
         widgets = {
@@ -171,6 +179,10 @@ class WootconfProposalForm(ProposalForm):
             "abstract",
             "private_abstract",
             "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
         ]
 
         widgets = {
@@ -188,6 +200,33 @@ class SecurityProposalForm(ProposalForm):
             "abstract",
             "private_abstract",
             "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
+        ]
+
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }
+
+class GamesProposalForm(ProposalForm):
+
+    class Meta:
+        model = GamesProposal
+        fields = [
+            "title",
+            "talk_format",
+            "target_audience",  
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
         ]
 
         widgets = {

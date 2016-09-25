@@ -61,11 +61,12 @@ class SysAdminProposal(Proposal):
     TYPE_LIGHTNING_TALK = 2
     
     TALK_FORMATS = [
-        (TYPE_SHORT_PRESENTATION, "Short Presentation (20 min)"),
-        (TYPE_LIGHTNING_TALK, "Lightning Talk (5 min)"),
+        (TYPE_SHORT_PRESENTATION, "Short Presentation (15-25 min)"),
+        (TYPE_LIGHTNING_TALK, "Lightning Talk (5-10 min)"),
     ]
     
-    talk_format = models.IntegerField(choices=TALK_FORMATS)
+    talk_format = models.IntegerField(choices=TALK_FORMATS,
+        help_text="Please indicate your preferred talk length in the private abstract field below.")
     
     class Meta:
         verbose_name = "System Administration Miniconf Proposal"
@@ -104,3 +105,20 @@ class SecurityProposal(ProposalBase):
 
     class Meta:
         verbose_name = "Security/Privacy Miniconf Proposal"
+
+class GamesProposal(Proposal):
+
+    TYPE_PRESENTATION = 1 
+    TYPE_DEMONSTRATION = 2
+    TYPE_OTHER = 3
+    
+    TALK_FORMATS = [
+        (TYPE_PRESENTATION, "Presentation"),  
+        (TYPE_DEMONSTRATION, "Demonstration"),
+        (TYPE_OTHER, "Other"),
+    ]
+    
+    talk_format = models.IntegerField(choices=TALK_FORMATS)
+    
+    class Meta:
+        verbose_name = "Games and FOSS Miniconf Proposal"
