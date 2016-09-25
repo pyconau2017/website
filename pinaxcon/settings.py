@@ -108,6 +108,7 @@ TEMPLATES = [
                 "account.context_processors.account",
                 "pinax_theme_bootstrap.context_processors.theme",
                 "symposion.reviews.context_processors.reviews",
+                "sekizai.context_processors.sekizai",
             ],
         },
     },
@@ -140,7 +141,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.staticfiles",
-
+    "django.contrib.humanize",
+    
     # theme
     "bootstrapform",
     "pinax_theme_bootstrap",
@@ -192,6 +194,18 @@ INSTALLED_APPS = [
     "pinaxcon",
     "pinaxcon.proposals",
     #"pinaxcon.registrasion",
+
+    # wiki
+    "django_nyt",
+    "mptt",
+    "sekizai",
+    "sorl.thumbnail",
+    "wiki",
+    "wiki.plugins.attachments",
+    "wiki.plugins.notifications",
+    "wiki.plugins.images",
+    "wiki.plugins.macros",
+
 
     #testing
     "django_nose",
@@ -277,6 +291,9 @@ CSRF_FAILURE_VIEW = "pinaxcon.csrf_view.csrf_failure"
 
 # Use nose to run all tests
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Wiki settings
+WIKI_CHECK_SLUG_URL_AVAILABLE = False
 
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 NOSE_ARGS = [

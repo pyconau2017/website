@@ -1,0 +1,47 @@
+{% extends "site_base.html" %}
+{% load sekizai_tags i18n wiki_tags static %}
+
+{% block head_title_base %}
+	{% block wiki_pagetitle %}{% endblock %}
+	{% block wiki_site_title %} - linux.conf.au 2017{% endblock %}
+{% endblock %}
+
+{% block extra_style %}
+	<link href="{% static "css/wiki.css" %}" rel="stylesheet">
+	{{ block.super }}
+{% endblock extra_style %}
+
+{% block body_base %}
+    <div style="height: 100px;" />
+    <main role="main">
+    <div class="l-content-page">
+        <section id="content_body">
+        <div class="container">
+            {% include "_messages.html" %}
+            <div class="row">
+                <div class="col-md-12">
+
+    {% block wiki_body %}
+      <!-- Reserved for breadcrumbs -->
+      {% block wiki_breadcrumbs %}{% endblock %}
+
+      <!-- Main page contents go here -->
+      {% block content %}
+          {% block wiki_contents %}{% endblock %}
+      {% endblock %}
+
+{% endblock wiki_body %}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static "wiki/js/jquery.min.js" %}"></script>
+<script src="{% static "wiki/js/core.js" %}"></script>
+<script src="{% static "wiki/bootstrap/js/bootstrap.min.js" %}"></script>
+<!-- Optionally enable responsive features in IE8 -->
+<script src="{% static "wiki/js/respond.min.js" %}"></script>
+{% endblock %}
