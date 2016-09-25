@@ -86,22 +86,22 @@ class WriteTheDocsProposal(Proposal):
     class Meta:
         verbose_name = "WriteThe Docs Miniconf Proposal"
 
-class OpenRadioProposal(ProposalBase):
+class OpenRadioProposal(Proposal):
 
     class Meta:
         verbose_name = "OpenRadio Miniconf Proposal"
 
-class WootconfProposal(ProposalBase):
+class WootconfProposal(Proposal):
 
     class Meta:
         verbose_name = "WOOTCONF Miniconf Proposal"
 
-class KernelProposal(ProposalBase):
+class KernelProposal(Proposal):
 
     class Meta:
         verbose_name = "Kernel Miniconf Proposal"
 
-class SecurityProposal(ProposalBase):
+class SecurityProposal(Proposal):
 
     class Meta:
         verbose_name = "Security/Privacy Miniconf Proposal"
