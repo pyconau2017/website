@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "UTC"
+TIME_ZONE = "Australia/Hobart"
 
 # The date format for this installation
 DATE_FORMAT = "j F Y"
