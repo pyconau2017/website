@@ -13,6 +13,7 @@ from symposion.proposals import models as symposion_models
 @admin.register(models.SecurityProposal)
 @admin.register(models.WootconfProposal)
 @admin.register(models.KernelProposal)
+@admin.register(models.GamesProposal)
 class CategoryAdmin(admin.ModelAdmin):
 
     class AdditionalSpeakerInline(admin.TabularInline):
