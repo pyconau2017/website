@@ -254,7 +254,7 @@ PROPOSAL_FORMS = {
     "tutorial": "pinaxcon.proposals.forms.TutorialProposalForm",
     "miniconf": "pinaxcon.proposals.forms.MiniconfProposalForm",
     "sysadmin-miniconf": "pinaxcon.proposals.forms.SysAdminProposalForm",
-    "radio-miniconf": "pinaxcon.proposals.forms.RadioProposalForm",
+    "openradio-miniconf": "pinaxcon.proposals.forms.RadioProposalForm",
     "wootconf-miniconf": "pinaxcon.proposals.forms.WootconfProposalForm",
     "writethedocs-miniconf": "pinaxcon.proposals.forms.WriteTheDocsProposalForm",
     "security-miniconf": "pinaxcon.proposals.forms.SecurityProposalForm",

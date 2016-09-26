@@ -135,6 +135,7 @@ class RadioProposalForm(ProposalForm):
         model = OpenRadioProposal
         fields = [
             "title",
+            "target_audience",  
             "abstract",
             "private_abstract",
             "technical_requirements",
@@ -156,6 +157,7 @@ class KernelProposalForm(ProposalForm):
         model = KernelProposal
         fields = [
             "title",
+            "target_audience",  
             "abstract",
             "private_abstract",
             "technical_requirements",
@@ -177,6 +179,7 @@ class WootconfProposalForm(ProposalForm):
         model = WootconfProposal
         fields = [
             "title",
+            "target_audience",  
             "abstract",
             "private_abstract",
             "technical_requirements",
@@ -198,6 +201,7 @@ class SecurityProposalForm(ProposalForm):
         model = SecurityProposal
         fields = [
             "title",
+            "target_audience",  
             "abstract",
             "private_abstract",
             "technical_requirements",
