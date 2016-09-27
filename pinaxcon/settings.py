@@ -274,6 +274,9 @@ PROPOSAL_FORMS = {
     "security-miniconf": "pinaxcon.proposals.forms.SecurityProposalForm",
     "kernel-miniconf": "pinaxcon.proposals.forms.KernelProposalForm",
     "games-miniconf": "pinaxcon.proposals.forms.GamesProposalForm",
+    "testing-miniconf": "pinaxcon.proposals.forms.TestingProposalForm",
+    "knowledge-miniconf": "pinaxcon.proposals.forms.KnowledgeProposalForm",
+    "lawpolicy-miniconf": "pinaxcon.proposals.forms.LawProposalForm",
 }
 
 #PINAX_PAGES_HOOKSET = "pinaxcon.hooks.PinaxPagesHookSet"
