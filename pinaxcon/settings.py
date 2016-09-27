@@ -281,6 +281,8 @@ CSRF_FAILURE_VIEW = "pinaxcon.csrf_view.csrf_failure"
 # Use nose to run all tests
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
+ADMIN_USERNAMES = []
+
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 NOSE_ARGS = [
     '--with-coverage',
