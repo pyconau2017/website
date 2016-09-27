@@ -5,7 +5,8 @@ from pinaxcon import widgets
 from .models import TalkProposal, TutorialProposal, MiniconfProposal
 from .models import SysAdminProposal, WriteTheDocsProposal, WootconfProposal
 from .models import KernelProposal, OpenRadioProposal, SecurityProposal
-from .models import GamesProposal
+from .models import GamesProposal, TestingProposal, LawProposal
+from .models import KnowledgeProposal
 
 class ProposalForm(forms.ModelForm):
 
@@ -224,6 +225,72 @@ class GamesProposalForm(ProposalForm):
         fields = [
             "title",
             "talk_format",
+            "target_audience",  
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
+        ]
+
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }
+
+class TestingProposalForm(ProposalForm):
+
+    class Meta:
+        model = TestingProposal
+        fields = [
+            "title",
+            "target_audience",  
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
+        ]
+
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }
+
+class KnowledgeProposalForm(ProposalForm):
+
+    class Meta:
+        model = KnowledgeProposal
+        fields = [
+            "title",
+            "target_audience",  
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
+        ]
+
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }
+
+class LawProposalForm(ProposalForm):
+
+    class Meta:
+        model = LawProposal
+        fields = [
+            "title",
             "target_audience",  
             "abstract",
             "private_abstract",

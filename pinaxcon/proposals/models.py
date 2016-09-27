@@ -108,12 +108,12 @@ class SecurityProposal(Proposal):
 
 class GamesProposal(Proposal):
 
-    TYPE_PRESENTATION = 1 
+    TYPE_PRESENTATION = 1
     TYPE_DEMONSTRATION = 2
     TYPE_OTHER = 3
-    
+
     TALK_FORMATS = [
-        (TYPE_PRESENTATION, "Presentation"),  
+        (TYPE_PRESENTATION, "Presentation"),
         (TYPE_DEMONSTRATION, "Demonstration"),
         (TYPE_OTHER, "Other"),
     ]
@@ -122,3 +122,18 @@ class GamesProposal(Proposal):
     
     class Meta:
         verbose_name = "Games and FOSS Miniconf Proposal"
+
+class TestingProposal(Proposal):
+
+    class Meta:
+        verbose_name = "Testing/Automation Miniconf Proposal"
+
+class KnowledgeProposal(Proposal):
+
+    class Meta:
+        verbose_name = "Open Knowledge Australia Miniconf Proposal"
+
+class LawProposal(Proposal):
+
+    class Meta:
+        verbose_name = "Open Law and Policy Miniconf Proposal"
