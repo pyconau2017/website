@@ -516,7 +516,7 @@ class Command(BaseCommand):
             is_presenter=True,
             is_copresenter=True,
         )
-        speaker_dinner_tickets.proposal_kind.set([])
+        primary_speaker.proposal_kind.set(self.main_conference_proposals)
         speaker_dinner_tickets.categories.set([self.speakers_dinner_ticket, ])
 
         # PDNS tickets are complicated.
@@ -631,6 +631,7 @@ class Command(BaseCommand):
             is_presenter=True,
             is_copresenter=False,
         )
+        primary_speaker.proposal_kind.set(self.main_conference_proposals)
         free_category(primary_speaker, self.speakers_dinner_ticket)
 
         # Professional-Like ticket inclusions
