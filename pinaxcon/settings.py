@@ -298,6 +298,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Wiki settings
 WIKI_CHECK_SLUG_URL_AVAILABLE = False
 
+ADMIN_USERNAMES = []
+
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
 NOSE_ARGS = [
     '--with-coverage',
