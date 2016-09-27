@@ -516,7 +516,7 @@ class Command(BaseCommand):
             is_presenter=True,
             is_copresenter=True,
         )
-        primary_speaker.proposal_kind.set(self.main_conference_proposals)
+        speaker_dinner_tickets.proposal_kind.set(self.main_conference_proposals)
         speaker_dinner_tickets.categories.set([self.speakers_dinner_ticket, ])
 
         # PDNS tickets are complicated.
