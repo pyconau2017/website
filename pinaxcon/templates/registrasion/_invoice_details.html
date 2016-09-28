@@ -18,15 +18,12 @@
   {% endif %}
 </ul>
 
-<br />
-
 <div>
 <h4>Attention:</h4>
   {{ invoice.recipient|linebreaksbr}}
 </div>
 
 <p>This invoice has been issued as a result of an application to attend {% conference_name %}. All amounts are in Australian Dollars (AUD).</p>
-
 
 <table class="table table-striped">
   <tr>
@@ -71,10 +68,13 @@
 </table>
 
 {% if invoice.paymentbase_set.all %}
-  <br />
+  <hr />
   <h3>Payments received</h3>
   {% include "registrasion/payment_list.html" with payments=invoice.paymentbase_set.all %}
 {% endif %}
+
+
+<hr />
 
 <p>{% conference_name %} is a project of Linux Australia, Inc.</p>
 

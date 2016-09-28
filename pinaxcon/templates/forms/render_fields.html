@@ -9,9 +9,5 @@
         <span class="help_text">{{ field.help_text|safe }}</span>
       {% endif %}
     </div>
-    
-    {% if not forloop.last %}
-      <br />
-    {% endif %}
   {% endif %}
 {% endfor %}

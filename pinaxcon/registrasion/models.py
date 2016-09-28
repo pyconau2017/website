@@ -61,7 +61,7 @@ The linux.conf.au 2016 attendees mailing listName
         ]
 
         if self.company:
-            lines.append("Care of " + self.company)
+            lines.append("C/- " + self.company)
 
         if self.address_line_1:
             lines.append(self.address_line_1)
@@ -79,7 +79,7 @@ The linux.conf.au 2016 attendees mailing listName
             lines.append(self.state)
 
         if self.country:
-            lines.append(self.country)
+            lines.append(self.country.name)
 
         return "\n".join(unicode(line) for line in lines)
 

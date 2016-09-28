@@ -11,17 +11,19 @@
     <div data-formset-body>
       {% for inner_form in form %}
         <div data-formset-form>
-        <fieldset >
+        <fieldset>
           {% include "forms/render_fields.html" with form=inner_form %}
         </fieldset>
         </div>
-          <br />
+        {% if not forloop.last %}
+          <div class="vertical-small"></div>
+        {% endif %}
       {% endfor %}
     </div>
 
     <script type="form-template" data-formset-empty-form>
       {% escapescript %}
-        <br />
+        <div class="vertical-small"></div>
         <div data-formset-form>
         <fieldset>
           {% include "forms/render_fields.html" with form=form.empty_form %}
@@ -30,6 +32,7 @@
       {% endescapescript %}
     </script>
 
+    <div class="vertical-small"></div>
     <input type="button" class="btn" value="Add another" data-formset-add>
 
     <script type="text/javascript">

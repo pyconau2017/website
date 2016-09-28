@@ -20,15 +20,12 @@
   <p>You've selected the following items, which will be in your invoice when
     you check out:<p>
   {% include "registrasion/_items_list.html" with items=pending %}
-  <br />
 
   {% items_purchased as purchased %}
   {% if purchased %}
     <p>You've already paid for the following items:</p>
-    {% include "registrasion/_items_list.html" with items=purchased suffix="(PAID)" %}
+    {% include "registrasion/_items_list.html" with items=purchased suffix="<em>(PAID)</em>" %}
   {% endif %}
-
-  <br />
 
   <h3>Add to your selection</h3>
 
@@ -56,11 +53,9 @@
   {% available_categories as available %}
   {% include "registrasion/_category_list.html" with categories=available exclude=missing %}
 
-  <br />
-
   <h3>What next?</h3>
 
-  <p>You can either generate an invoice and pay for your selections, or return to
+  <p>You can either check out an invoice and pay for your selections, or return to
       the dashboard.</p>
 
   <div class="btn-group">

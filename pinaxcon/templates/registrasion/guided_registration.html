@@ -27,10 +27,6 @@
       <fieldset>
 
         {% if section.discounts %}
-          <h3>Discounts and Complimentary Items</h3>
-
-          <br />
-
           {% include "registrasion/discount_list.html" with discounts=section.discounts %}
 
           <blockquote><small>
@@ -41,6 +37,8 @@
           <hr />
 
         {% endif %}
+
+        <h3>Available options</h3>
 
         {% include "_form_snippet.html" with form=section.form %}
       </fieldset>

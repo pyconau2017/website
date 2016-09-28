@@ -871,6 +871,7 @@ table.alt tr:not(:last-of-type) {
 .boolean-group {
   border: 0;
   list-style: none;
+  margin-bottom: 0;
 }
 
 .boolean-group--row {
@@ -1575,6 +1576,11 @@ table.alt tr:not(:last-of-type) {
   padding: 20px;
 }
 
+.fieldWrapper {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 .has-errors {
   margin-bottom: 0.5em;
   padding: 0.5em;
@@ -1590,6 +1596,14 @@ table.alt tr:not(:last-of-type) {
 
 .text-right {
   text-align: right;
+}
+
+.vertical-small {
+  margin-top: 1em;
+}
+
+.vertical-bigger {
+  margin-top: 2em;
 }
 
 /* ------------------------------------------------------------------------------------------------

@@ -34,16 +34,13 @@
       </div>
     </fieldset>
 
-    <br />
+    <div class="vertical-bigger"></div>
 
     {% items_purchased category as items %}
     {% if items %}
-      <br />
       <h3>Paid items</h3>
       <p>You have already paid for the following items:</p>
       {% include "registrasion/_items_list.html" with items=items %}
-
-      <br />
 
     {% endif %}
 
@@ -55,7 +52,7 @@
 
       {% if discounts %}
         <h3>Discounts and Complimentary Items</h3>
-        <br />
+        <div class="vertical-small"></div>
         {% include "registrasion/discount_list.html" with discounts=discounts %}
         <blockquote><small>Any applicable discounts will be applied automatically when you check out.</small></blockquote>
 
