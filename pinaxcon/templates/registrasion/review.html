@@ -1,0 +1,78 @@
+{% extends "registrasion/base.html" %}
+{% load bootstrap %}
+{% load registrasion_tags %}
+{% load lca2017_tags %}
+
+{% block header_title %}Review your selection{% endblock %}
+{% block header_inset_image %}{% illustration "wineglass.svg" %}{% endblock %}
+{% block header_paragraph %}
+  Please ensure that you have selected all of the products you require, including
+  t-shirts and social event tickets.
+{% endblock %}
+
+{% block content %}
+
+  {% items_pending as pending %}
+  {% if pending %}
+
+  <h3>Current selection</h3>
+
+  <p>You've selected the following items, which will be in your invoice when
+    you check out:<p>
+  {% include "registrasion/_items_list.html" with items=pending %}
+
+  {% items_purchased as purchased %}
+  {% if purchased %}
+    <p>You've already paid for the following items:</p>
+    {% include "registrasion/_items_list.html" with items=purchased suffix="<em>(PAID)</em>" %}
+  {% endif %}
+
+  <h3>Add to your selection</h3>
+
+  <p>You can add these items now, or you can come back and add them in a
+    later purchase.</p>
+
+  {% missing_categories as missing %}
+  {% if missing %}
+
+    <p>
+      <strong>You have <em>not</em> selected anything from the following
+        categories. If your ticket includes any of these, you still need to
+        make a selection:
+      </strong>
+    </p>
+
+    {% include "registrasion/_category_list.html" with categories=missing %}
+
+  {% endif %}
+
+  <p>
+    <strong>You can also change your selection from these categories:</strong>
+  </p>
+
+  {% available_categories as available %}
+  {% include "registrasion/_category_list.html" with categories=available exclude=missing %}
+
+  <h3>What next?</h3>
+
+  <p>You can either check out an invoice and pay for your selections, or return to
+      the dashboard.</p>
+
+  <div class="btn-group">
+    <a class="btn" href="{% url "checkout" %}">
+      <i class="fa fa-credit-card"></i> Check out and pay
+    </a>
+    <a class="btn btn-primary" href="{% url "dashboard" %}">Return to dashboard</a>
+  </div>
+
+  {% else %}
+
+  <p>You have no items that need to be paid.</p>
+
+  <div class="form-actions">
+    <a class="btn btn-default" href="{% url "dashboard" %}">Return to dashboard</a>
+  </div>
+
+  {% endif %}
+
+{% endblock %}

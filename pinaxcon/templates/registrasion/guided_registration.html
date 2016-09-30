@@ -1,34 +1,53 @@
 {% extends "registrasion/base.html" %}
 {% load bootstrap %}
+{% load lca2017_tags %}
 
-{% block body %}
+{% block header_title %}Buy Your Ticket{% endblock %}
+{% block header_paragraph %}Step {{ current_step }} of {{ total_steps|add:1 }} &ndash; {{ title }} {% endblock %}
+{% block header_inset_image %}{% illustration "tuz.svg" %}{% endblock %}
 
-  <h1>Conference Registration – {{ title }}</h1>
+{% block scripts_extra %}
+  {% for section in sections %}
+    {{ section.form.media.js }}
+  {% endfor %}
+{% endblock %}
 
-  <p><em>Step {{ current_step }} of {{ total_steps|add:1 }}</em></p>
+{% block content %}
 
   <form method="post" action="">
     {% csrf_token %}
 
     {% for section in sections %}
-      <h3>{{ section.title }}</h3>
+      <h2>{{ section.title }}</h2>
 
       {% if section.description %}
-        <p>{{ section.description }}</p>
-      {% endif %}
-
-      {% if section.discounts %}
-        <p>You have the following discounts available to you:</p>
-        {% include "registrasion/discount_list.html" with discounts=section.discounts %}
+        <blockquote>{{ section.description }}</blockquote>
       {% endif %}
 
       <fieldset>
-        {{ section.form|bootstrap }}
+
+        {% if section.discounts %}
+          {% include "registrasion/discount_list.html" with discounts=section.discounts %}
+
+          <blockquote><small>
+            You must select a product to receive any discounts.<br/>
+            Applicable discounts will be applied automatically when you check out.
+          </small></blockquote>
+
+          <hr />
+
+        {% endif %}
+
+        <h3>Available options</h3>
+
+        {% include "_form_snippet.html" with form=section.form %}
       </fieldset>
+
+      <br />
     {% endfor %}
 
-    <div class="form-actions">
-      <input class="btn btn-primary" type="submit" value="Next" />
+    <div class="btn-group">
+      <input class="btn btn-primary" type="submit" value="Next Step" />
     </div>
   </form>
 

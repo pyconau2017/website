@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "UTC"
+TIME_ZONE = "Australia/Hobart"
 
 # The date format for this installation
 DATE_FORMAT = "j F Y"
@@ -182,16 +182,23 @@ INSTALLED_APPS = [
     "pinax.boxes",
 
     # Registrasion
-    #"registrasion",
+    "registrasion",
+
+    # Registrasion-stipe
+    "pinax.stripe",
+    "django_countries",
+    "registripe",
 
     #admin - required by registrasion ??
-    #"nested_admin",
+    "nested_admin",
 
     # project
     "cms_pages",
     "pinaxcon",
     "pinaxcon.proposals",
-    #"pinaxcon.registrasion",
+    "pinaxcon.registrasion",
+    "jquery",
+    "djangoformsetjs",
 
     #testing
     "django_nose",
@@ -267,6 +274,14 @@ PROPOSAL_FORMS = {
 
 #PINAX_PAGES_HOOKSET = "pinaxcon.hooks.PinaxPagesHookSet"
 #PINAX_BOXES_HOOKSET = "pinaxcon.hooks.PinaxBoxesHookSet"
+
+# Registrasion bits:
+ATTENDEE_PROFILE_MODEL = "pinaxcon.registrasion.models.AttendeeProfile"
+ATTENDEE_PROFILE_FORM = "pinaxcon.registrasion.forms.ProfileForm"
+INVOICE_CURRENCY = "AUD"
+PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "your test public key")
+PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "your test secret key")
+PINAX_STRIPE_SEND_EMAIL_RECEIPTS = False
 
 # Wagtail config
 WAGTAIL_SITE_NAME = 'linux.conf.au 2017'

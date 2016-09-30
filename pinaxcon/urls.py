@@ -31,17 +31,16 @@ urlpatterns = [
 
     url(r'^cms/', include(wagtailadmin_urls)),
 
+    # Required by registrasion
+    url(r'^tickets/payments/', include('registripe.urls')),
+    url(r'^tickets/', include('registrasion.urls')),
+    url(r'^nested_admin/', include('nested_admin.urls')),
+
     # Default catch-all for wagtail pages.
     url(r'^', include(wagtail_urls)),
 
     # Matches *NOTHING* -- remove once site_tree is fixed
     url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
-
-
-
-    # Required by registrasion
-#    url(r'^register/', include('registrasion.urls')),
-#    url(r'^nested_admin/', include('nested_admin.urls')),
 
     # Demo payment gateway and related features
 #    url(r"^register/pinaxcon/", include("pinaxcon.registrasion.urls")),

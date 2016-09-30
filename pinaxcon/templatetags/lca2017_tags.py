@@ -2,10 +2,14 @@ import cms_pages
 import hashlib
 import urllib
 
+from decimal import Decimal
 from django import template
+from django.conf import settings
 from django.contrib.staticfiles.templatetags import staticfiles
 from easy_thumbnails.files import get_thumbnailer
+from symposion.conference import models as conference_models
 
+CONFERENCE_ID = settings.CONFERENCE_ID
 
 register = template.Library()
 
@@ -77,3 +81,14 @@ def header_paragraph(name):
 @register.simple_tag()
 def all_images():
     return cms_pages.models.CustomImage.objects.all().order_by("title")
+
+
+@register.filter()
+def gst(amount):
+    two_places = Decimal(10) ** -2
+    return Decimal(amount / 11).quantize(two_places)
+
+
+@register.simple_tag()
+def conference_name():
+    return conference_models.Conference.objects.get(id=CONFERENCE_ID).title

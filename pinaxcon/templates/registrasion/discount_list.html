@@ -1,7 +1,12 @@
 {% if discounts %}
+
+  {% regroup discounts by discount.description as discounts_grouped %}
+  {% for discount_type in discounts_grouped %}
+  <h4>{{ discount_type.grouper }}</h4>
   <ul>
-    {% for discount in discounts %}
+    {% for discount in discount_type.list %}
       <li>{{ discount.quantity }} &times; {{ discount.clause }}</li>
     {% endfor %}
   </ul>
+  {% endfor %}
 {% endif %}
