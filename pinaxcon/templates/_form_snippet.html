@@ -1,22 +1,13 @@
+{% load lca2017_tags %}
 {% if form.non_field_errors %}
-  {{ form.non_field_errors }}
+  <div class="has-errors">
+    {{ form.non_field_errors }}
+  </div>
   <br/>
 {% endif %}
 
-<p>Fields marked with <strong>(*)</strong> are required.</p>
+<blockquote><small>
+  Fields marked with <strong>(*)</strong> are required.
+</small></blockquote>
 
-{% for field in form %}
-  {% if not field.is_hidden %}
-    <div class="fieldWrapper">
-      <div>
-        {% include "forms/widget.html" %}
-      </div>
-
-      {% if field.help_text %}
-        <span class="help_text">{{ field.help_text|safe }}</span>
-      {% endif %}
-
-      <p></p>
-    </div>
-  {% endif %}
-{% endfor %}
+{% include "forms/render.html" with form=form %}

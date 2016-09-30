@@ -3,9 +3,9 @@
 {% classname field.field.widget as widget %}
 {% if widget == "CheckboxInput" %}
   {% include "forms/widget_boolean_single.html" %}
-{% elif widget == "RadioSelect" %}
+{% elif widget == "RadioSelect" or widget == "CheckboxSelectMultiple" %}
   {% include "forms/widget_boolean_multiple.html" %}
-{% elif widget == "Select" or widget == "SelectMultiple" %}
+{% elif widget == "Select" or widget == "SelectMultiple" or widget == "LazySelect" or widget == "CountrySelectWidget" %}
   {% include "forms/widget_basic.html" with widget_class="select" %}
 {% else %}
   {% include "forms/widget_basic.html" %}

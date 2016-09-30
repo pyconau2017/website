@@ -15,6 +15,7 @@ def do_monkey_patch():
     patch_mail_to_send_bcc()
     fix_sitetree_check_access_500s()
     never_cache_login_page()
+    patch_stripe_payment_form()
 
     # Remove this function from existence
     global do_monkey_patch
@@ -103,7 +104,7 @@ def patch_mail_to_send_bcc():
         return k
 
     to_wrap = message.EmailMessage.__init__
-    
+
     @wraps(to_wrap)
     def email_message__init__(*a, **k):
 
@@ -142,3 +143,62 @@ def never_cache_login_page():
     from django.views.decorators.cache import never_cache
     from account.views import LoginView
     LoginView.get = never_cache(LoginView.get)
+
+
+def patch_stripe_payment_form():
+
+    import inspect  # Oh no.
+    from django.http.request import HttpRequest
+    from registripe.forms import CreditCardForm
+    from pinaxcon.registrasion import models
+
+    old_init = CreditCardForm.__init__
+
+    @wraps(old_init)
+    def new_init(self, *a, **k):
+
+        # Map the names from our attendee profile model
+        # To the values expected in the Stripe card model
+        mappings = (
+            ("address_line_1", "address_line1"),
+            ("address_line_2", "address_line2"),
+            ("address_suburb", "address_city"),
+            ("address_postcode", "address_zip"),
+            ("state", "address_state"),
+            ("country", "address_country"),
+        )
+
+        initial = "initial"
+        if initial not in k:
+            k[initial] = {}
+        initial = k[initial]
+
+        # Find request context maybe?
+        frame = inspect.currentframe()
+        attendee_profile = None
+        if frame:
+            context = frame.f_back.f_locals
+            for name, value in (context.items() or {}):
+                if not isinstance(value, HttpRequest):
+                    continue
+                user = value.user
+                if not user.is_authenticated():
+                    break
+                try:
+                    attendee_profile = models.AttendeeProfile.objects.get(
+                        attendee__user=user
+                    )
+                except models.AttendeeProfile.DoesNotExist:
+                    # Profile is still none.
+                    pass
+                break
+
+        if attendee_profile:
+            for us, stripe in mappings:
+                i = getattr(attendee_profile, us, None)
+                if i:
+                    initial[stripe] = i
+
+        old_init(self, *a, **k)
+
+    CreditCardForm.__init__ = new_init

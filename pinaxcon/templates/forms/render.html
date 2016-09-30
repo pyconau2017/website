@@ -1,0 +1,58 @@
+{% load formset_tags %}
+
+{% if form.total_form_count and form.empty_form %}
+
+  {% comment %}This is a formset.{% endcomment %}
+
+  <div class="formset" data-formset-prefix="{{ form.prefix }}">
+
+    {{ form.management_form }}
+
+    <div data-formset-body>
+      {% for inner_form in form %}
+        <div data-formset-form>
+        <fieldset>
+          {% include "forms/render_fields.html" with form=inner_form %}
+        </fieldset>
+        </div>
+        {% if not forloop.last %}
+          <div class="vertical-small"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <script type="form-template" data-formset-empty-form>
+      {% escapescript %}
+        <div class="vertical-small"></div>
+        <div data-formset-form>
+        <fieldset>
+          {% include "forms/render_fields.html" with form=form.empty_form %}
+        </fieldset>
+        </div>
+      {% endescapescript %}
+    </script>
+
+    <div class="vertical-small"></div>
+    <input type="button" class="btn" value="Add another" data-formset-add>
+
+    <script type="text/javascript">
+      function defer() {
+          if (window.jQuery) {
+            jQuery(function($) {
+                $(".formset").formset({
+                  animateForms: true
+                });
+            });
+          } else {
+            setTimeout(function() { defer() }, 50);
+          }
+      }
+      defer();
+    </script>
+
+
+  </div>
+
+{% else %}
+  {% include "forms/render_fields.html" %}
+{% endif %}

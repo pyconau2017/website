@@ -4,7 +4,8 @@
 {% load proposal_tags %}
 {% load review_tags %}
 {% load teams_tags %}
-{# {% load registrasion_tags %} #}
+{% load registrasion_tags %}
+{% load lca2017_tags %}
 
 {% block head_title %}Dashboard{% endblock %}
 
@@ -19,7 +20,101 @@
 {% load staticfiles %}
 {% load wagtailimages_tags %}
 
-<div class="panel panel__compact panel__bg">
+{% available_categories as categories %}
+{% if categories %}
+  <div class="panel panel__compact panel__bg panel__last">
+    <div style="background-image: url('{% static "lca2017/images/wp_bg_optimised.jpg" %}');" class="panel--bg"></div>
+    <div class="panel--content">
+      <div >
+        <h2>{% trans "Attend" %} {% conference_name %}</h2>
+        <div class="vertical-bigger"></div>
+        <div class="btn-group">
+          {% if not user.attendee.completed_registration %}
+            <a href="{% url "guided_registration" %}" class="btn btn__white">
+              Get your ticket
+            </a>
+          {% else %}
+            <a href="{% url "attendee_edit" %}" class="btn btn__white">
+              Edit attendee profile
+            </a>
+
+            {% items_pending as pending %}
+            {% if pending %}
+              <a href="{% url "checkout" %}" class="btn btn__white">
+                Check out and pay
+              </a>
+            {% endif %}
+          {% endif %}
+
+          {% if user.is_staff %}
+            <a class="btn btn__white" href="{% url "reports_list" %}">Reports</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-content-page">
+    <div class="l-content-page--richtext">
+      {% if not user.attendee.completed_registration %}
+        <p>To attend the conference, you must purchase a ticket. <a href="{% url "guided_registration" %}">Use our registration form to purchase your ticket</a>.
+
+      {% else %}
+
+        <h3>Your items</h3>
+          {% items_pending as pending %}
+
+          {% if pending %}
+            <h4>Items pending payment</h4>
+            {% include "registrasion/_items_list.html" with items=pending %}
+            <p><a href="{% url "checkout" %}" class="btn btn-xs btn-default">
+              <i class="fa fa-credit-card"></i>
+              Check out and pay for these items.</a>
+            </p>
+          {% endif %}
+
+          {% items_purchased as purchased %}
+          {% if purchased %}
+            <h4>Paid items</h4>
+            {% include "registrasion/_items_list.html" with items=purchased %}
+          {% endif %}
+
+          <h4>Add/Update items</h4>
+          {% include "registrasion/_category_list.html" with categories=categories %}
+
+        {% invoices as invoices %}
+        {% if invoices %}
+          <h4>Invoices</h4>
+          <ul>
+            {% for invoice in invoices %}
+              {% if invoice.is_void %}
+                <li class="void-invoice" style="display: none;">
+              {% else %}
+                <li>
+              {% endif %}
+                <a href="{% url "invoice" invoice.id %}" >Invoice {{ invoice.id }}</a>
+                - ${{ invoice.value }} ({{ invoice.get_status_display }})
+              </li>
+            {% endfor %}
+          </ul>
+          <p>
+            <button class="btn" id="toggle-void-invoices" href="" onclick="toggleVoidInvoices();">Show void invoices</button>
+          </p>
+        {% endif %}
+
+        {% available_credit as credit %}
+        {% if credit %}
+          <p>You have ${{ credit }} leftover from refunded invoices. This credit will be automatically applied to new invoices. Contact the conference organisers to
+          for a refund to your original payment source.</p>
+        {% endif %}
+      {% endif %}
+      <p></p>
+    </div>
+  </div>
+{% endif %}
+
+
+<div class="panel panel__compact panel__bg panel__last">
   <div style="background-image: url('{% static "lca2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
   <div class="panel--content">
     <div class="panel--2-3">
@@ -39,7 +134,6 @@
           </a>
         {% endif %}
       </div>
-      <br />
     </div>
   </div>
 </div>
@@ -109,12 +203,11 @@
 
 {% if review_sections %}
 
-  <div class="panel panel__compact panel__bg">
+  <div class="panel panel__compact panel__bg panel__last">
     <div style="background-image: url('{% static "lca2017/images/conference_bg_optimised.jpg" %}');" class="panel--bg"></div>
     <div class="panel--content">
       <div class="panel--2-3">
         <h2>{% trans "Reviews" %}</h2>
-        <br />
       </div>
     </div>
   </div>
@@ -194,4 +287,30 @@
 
 {% endif %}
 
+{% endblock %}
+
+{% block scripts_extra %}
+  <script type="text/javascript">
+    function _toggleVoidInvoices() {
+      var visible = false;
+      function toggleVoidInvoices() {
+        $btn = $("#toggle-void-invoices");
+        $invoices = $(".void-invoice")
+
+        if (visible) {
+          $invoices.hide();
+          btnText = "Show void invoices";
+        } else {
+          $invoices.show();
+          btnText = "Hide void invoices";
+        }
+        $btn.text(btnText);
+        visible = !visible;
+        return true;
+      }
+      return toggleVoidInvoices;
+    }
+    var toggleVoidInvoices = _toggleVoidInvoices();
+    _toggleVoidInvoices() = undefined;
+  </script>
 {% endblock %}
