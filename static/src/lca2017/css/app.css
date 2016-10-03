@@ -663,7 +663,8 @@ ol {
 
 ul > li,
 ol > li {
-  list-style-position: outside;
+  list-style-position: inside;
+  margin-left: 1em;
 }
 
 blockquote {
