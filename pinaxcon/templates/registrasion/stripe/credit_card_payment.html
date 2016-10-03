@@ -56,9 +56,7 @@
 
         // Submit the form:
 
-        $submit.prop('disabled', false);
-        $submit.click();
-        $submit.prop('disabled', true);
+        $form.get(0).submit();
         $form.append($('<p>').text("Processing your payment. Please do not refresh."));
       }
     };
@@ -97,7 +95,7 @@
       {% include "_form_snippet.html" with form=form %}
       <br />
       <div class="btn-group">
-        <input id="submit" class="btn btn-primary" type="submit" value="Pay ${{ invoice.balance_due }}" />
+        <input id="pay" class="btn btn-primary" type="submit" value="Pay ${{ invoice.balance_due }}" />
       </div>
     </fieldset>
   </form>
