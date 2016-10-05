@@ -663,7 +663,7 @@ ol {
 
 ul > li,
 ol > li {
-  list-style-position: inside;
+  list-style-position: outside;
   margin-left: 1em;
 }
 

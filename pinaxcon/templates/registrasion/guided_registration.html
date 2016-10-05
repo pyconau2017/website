@@ -21,7 +21,7 @@
       <h2>{{ section.title }}</h2>
 
       {% if section.description %}
-        <blockquote>{{ section.description }}</blockquote>
+        <blockquote>{{ section.description|safe }}</blockquote>
       {% endif %}
 
       <fieldset>
