@@ -1607,6 +1607,42 @@ table.alt tr:not(:last-of-type) {
   margin-top: 2em;
 }
 
+/* Schedule timetable needs some more specific font sizes */
+
+.calendar td {
+  vertical-align: top;
+  font-size: 0.9vw;
+}
+
+.slot {
+  padding-left: 0.625rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.625rem;
+  padding-right: 0.625rem;
+}
+
+.calendar th {
+  border-bottom: 1px solid #0c486c;
+  border-left: 0px !important;
+}
+
+.calendar .title {
+  display: block;
+  padding-bottom: 0.5vh;
+}
+
+.slot-shortbreak {
+  color: #fff ;
+}
+
+.time {
+  font-size: 0.5vw;
+  line-height: 0.4;
+  vertical-align: top;
+  padding-top: 0.25rem;
+}
+
+
 /* ------------------------------------------------------------------------------------------------
 
 Shame
