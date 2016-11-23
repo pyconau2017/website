@@ -1,0 +1,36 @@
+{% extends "site_base_wagtail.html" %}
+{% load sekizai_tags i18n wiki_tags static %}
+
+{% block head_title %}
+	{% block wiki_pagetitle %}{% endblock %}
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'css/site-0a247b924d.css' %}">
+	<link href="{% static "css/wiki.css" %}" rel="stylesheet">
+	{{ block.super }}
+	<style>
+		.wiki {
+			font-size: 70%;
+		}
+	</style>
+{% endblock styles %}
+
+{% block content %}
+	<div class="l-content-page">
+		<div class="l-content-page--richtext">
+			<div class="wiki">
+				{% block wiki_breadcrumbs %}{% endblock %}
+		  	{% block wiki_contents %}{% endblock %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts_extra %}
+	{{ block.super }}
+	<script src="{% static "wiki/js/core.js" %}"></script>
+	<script src="{% static "wiki/bootstrap/js/bootstrap.min.js" %}"></script>
+	<!-- Optionally enable responsive features in IE8 -->
+	<script src="{% static "wiki/js/respond.min.js" %}"></script>
+{% endblock %}
