@@ -23,6 +23,7 @@
                   {{ slot.content.speakers|join:", " }}
                 </span>
               {% endif %}
+            {% elif slot.kind.label == "shortbreak" %}
             {% else %}
               {% if slot.content_override.raw %}
                 {{ slot.content_override.rendered|safe }}

@@ -1610,7 +1610,6 @@ table.alt tr:not(:last-of-type) {
 /* Schedule timetable needs some more specific font sizes */
 
 .calendar td {
-  vertical-align: top;
   font-size: 0.9vw;
 }
 
@@ -1619,6 +1618,7 @@ table.alt tr:not(:last-of-type) {
   padding-top: 0.2rem;
   padding-bottom: 0.625rem;
   padding-right: 0.625rem;
+  vertical-align: middle;
 }
 
 .calendar th {
@@ -1635,10 +1635,14 @@ table.alt tr:not(:last-of-type) {
   color: #fff ;
 }
 
+.slot-tutorial {
+  vertical-align: top;
+}
+
 .time {
   font-size: 0.5vw;
   line-height: 0.4;
-  vertical-align: top;
+  vertical-align: middle;
   padding-top: 0.25rem;
 }
 
