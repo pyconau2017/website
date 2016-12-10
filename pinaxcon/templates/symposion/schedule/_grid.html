@@ -10,7 +10,7 @@
   <tbody>
     {% for row in timetable %}
       <tr>
-        <td class="time">{{ row.time|date:"h:iA" }}</td>
+        <td class="time"><h4>{{ row.time|date:"h:iA" }}</h4></td>
         {% for slot in row.slots %}
           <td class="slot slot-{{ slot.kind.label }}" colspan="{{ slot.colspan }}" rowspan="{{ slot.rowspan }}">
             {% if slot.kind.label == "talk" or slot.kind.label == "tutorial" %}
@@ -22,11 +22,14 @@
                 <span class="speaker">
                   {{ slot.content.speakers|join:", " }}
                 </span>
+                <span class="room">
+                  {{ slot.rooms|join:", "}}
+                </span>
               {% endif %}
             {% elif slot.kind.label == "shortbreak" %}
             {% else %}
-              {% if slot.content_override.raw %}
-                {{ slot.content_override.rendered|safe }}
+              {% if slot.content_override %}
+                {{ slot.content_override_html|safe }}
               {% else %}
                 {{ slot.kind.label }}
               {% endif %}

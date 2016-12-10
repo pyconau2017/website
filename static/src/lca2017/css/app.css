@@ -1607,43 +1607,89 @@ table.alt tr:not(:last-of-type) {
   margin-top: 2em;
 }
 
+
+/* Schedule timetable for mobile */
+
+@media only screen and (max-width: 480px)  {
+
+  .calendar {
+    line-height: 1.0;
+  }
+
+  .calendar thead {
+    display: none;
+  }
+
+  .calendar tr,
+  .calendar td
+  {
+    display: block;
+    padding: 0.5ex;
+  }
+
+  .calendar td,
+  .calendar td:not(:first-of-type) {
+    border: 0px;
+  }
+
+  .calendar .slot .title,
+  .calendar .slot .speaker,
+  .calendar .slot .room
+  {
+    display: block;
+    line-height: 1.2;
+  }
+
+  .calendar .slot .room
+  {
+    font-style: italic;
+  }
+}
+
 /* Schedule timetable needs some more specific font sizes */
 
-.calendar td {
-  font-size: 0.9vw;
-}
+@media not screen and (max-width: 480px)  {
 
-.slot {
-  padding-left: 0.625rem;
-  padding-top: 0.2rem;
-  padding-bottom: 0.625rem;
-  padding-right: 0.625rem;
-  vertical-align: middle;
-}
+  .calendar td {
+    font-size: 0.9vw;
+  }
 
-.calendar th {
-  border-bottom: 1px solid #0c486c;
-  border-left: 0px !important;
-}
+  .slot {
+    padding-left: 0.625rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.625rem;
+    padding-right: 0.625rem;
+    vertical-align: middle;
+  }
 
-.calendar .title {
-  display: block;
-  padding-bottom: 0.5vh;
-}
+  .calendar th {
+    border-bottom: 1px solid #0c486c;
+    border-left: 0px !important;
+  }
 
-.slot-shortbreak {
-  color: #fff ;
-}
+  .calendar .title {
+    display: block;
+    padding-bottom: 0.5vh;
+  }
 
-.slot-tutorial {
-  vertical-align: top;
-}
+  .slot-shortbreak {
+    color: #fff ;
+  }
 
-.time {
-  font-size: 0.5vw;
-  line-height: 0.4;
-  vertical-align: middle;
-  padding-top: 0.25rem;
+  .slot-tutorial {
+    vertical-align: top;
+  }
+
+  .time {
+    font-size: 0.5vw;
+    line-height: 0.4;
+    vertical-align: middle;
+    padding-top: 0.25rem;
+  }
+
+  .calendar .slot .room {
+    display: none;
+  }
 }
 
 

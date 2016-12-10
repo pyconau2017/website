@@ -15,19 +15,36 @@
 {% block right %}
 {% endblock %}
 
-{% block content %}
+{% block content_base %}
 
   <div class="page-head">
     {% block breadcrumbs %}{% endblock %}
   </div>
 
-  {% for section in sections %}
-   {% cache 600 "schedule-table" section.schedule.section %}
-      {% for timetable in section.days %}
-        <h3>{{ section.schedule.section.name }} — {{ timetable.day.date|date:"l" }}, {{ timetable.day.date }}</h3>
-        {% include "symposion/schedule/_grid.html" %}
-      {% endfor %}
-    {% endcache %}
-  {% endfor %}
+  <div class="panel panel__compact">
+    <div class="panel--content">
 
+      <div class="panel--tab-controls">
+        <div class="panel--tabs">
+          {% for section in sections %}
+            {% for timetable in section.days %}
+              <a data-tab-control="{{ timetable.day.date|date:"l"}}" class="panel--tab-switch {% if forloop.is_first and forloop.parentloop.is_first %}is-active{% endif %}">{{ timetable.day.date|date:"l"}}</a>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {% for section in sections %}
+         {% cache 600 "schedule-table" section.schedule.section %}
+            {% for timetable in section.days %}
+              <div data-tab-content="{{ timetable.day.date|date:"l"}}" class="panel--tab-content is-active">
+                <h3>{{ section.schedule.section.name }} — {{ timetable.day.date|date:"l" }}, {{ timetable.day.date }}</h3>
+                {% include "symposion/schedule/_grid.html" %}
+              </div>
+            {% endfor %}
+          {% endcache %}
+      {% endfor %}
+
+    </div>
+  </div>
 {% endblock %}

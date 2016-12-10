@@ -49,6 +49,24 @@
     {% include "lca2017/_right_floating_image.html" with image_url=speaker_photo_url %}
 
     <h3><a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a></h3>
+
+    {% if speaker.homepage or speaker.twitter_username %}
+      <p><div class="btn-group">
+        {% if speaker.homepage %}
+          <a href="{{ speaker.homepage}}" class="btn-svg" title="Homepage">
+            {% include "cms_pages/home_page_blocks/btn_generic_link.html" %}
+          </a>
+        {% endif %}
+        {% if speaker.twitter_username %}
+          <a href="https://twitter.com/{{ speaker.twitter_username }}" class="btn-svg" title="{{ speaker}} on twitter">
+            {% include "cms_pages/home_page_blocks/btn_twitter.html" %}
+          </a>
+        {% endif %}
+      </div></p>
+    {% endif %}
+
+
+
     {{ speaker.biography_html|safe}}
 
   {% endfor %}
