@@ -321,6 +321,11 @@ NOSE_ARGS = [
     '--cover-package=registrasion.controllers,registrasion.models',
 ]
 
+WIKI_CAN_READ = True
+WIKI_CAN_WRITE = True
+WIKI_CAN_DELETE = True
+WIKI_ACCOUNT_HANDLING = False
+
 # Production settings have their own file to override stuff here
 try:
     LOCAL_SETTINGS
