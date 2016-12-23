@@ -137,3 +137,18 @@ class LawProposal(Proposal):
 
     class Meta:
         verbose_name = "Open Law and Policy Miniconf Proposal"
+
+class OpenHardwareProposal(Proposal):
+
+    TYPE_NORMAL_PRESENTATION = 1 
+    TYPE_LIGHTNING_TALK = 2
+    
+    TALK_FORMATS = [
+        (TYPE_NORMAL_PRESENTATION, "Presentation (20 min)"),  
+        (TYPE_LIGHTNING_TALK, "Lightning Talk (5 min)"),
+    ]
+    
+    talk_format = models.IntegerField(choices=TALK_FORMATS)
+    
+    class Meta:
+        verbose_name = "Open Hardware Miniconf Proposal"

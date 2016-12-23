@@ -17,6 +17,7 @@ from symposion.proposals import models as symposion_models
 @admin.register(models.TestingProposal)
 @admin.register(models.KnowledgeProposal)
 @admin.register(models.LawProposal)
+@admin.register(models.OpenHardwareProposal)
 
 class CategoryAdmin(admin.ModelAdmin):
 

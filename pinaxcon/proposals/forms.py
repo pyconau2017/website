@@ -5,7 +5,7 @@ from pinaxcon import widgets
 from .models import TalkProposal, TutorialProposal, MiniconfProposal
 from .models import SysAdminProposal, WriteTheDocsProposal, WootconfProposal
 from .models import KernelProposal, OpenRadioProposal, SecurityProposal
-from .models import GamesProposal, TestingProposal, LawProposal
+from .models import GamesProposal, TestingProposal, LawProposal, OpenHardwareProposal
 from .models import KnowledgeProposal
 
 class ProposalForm(forms.ModelForm):
@@ -291,6 +291,29 @@ class LawProposalForm(ProposalForm):
         model = LawProposal
         fields = [
             "title",
+            "target_audience",  
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "recording_release",
+            "materials_release",
+        ]
+
+        widgets = {
+            "abstract" : widgets.AceMarkdownEditor(),
+            "private_abstract" : widgets.AceMarkdownEditor(),
+            "technical_requirements" : widgets.AceMarkdownEditor(),
+        }
+
+class OpenHardwareProposalForm(ProposalForm):
+
+    class Meta:
+        model = OpenHardwareProposal
+        fields = [
+            "title",
+            "talk_format",
             "target_audience",  
             "abstract",
             "private_abstract",
