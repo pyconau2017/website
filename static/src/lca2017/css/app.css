@@ -681,6 +681,14 @@ table th {
   text-transform: uppercase;
 }
 
+.track-name {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: bold;
+  text-transform: none;
+  font-size: 20px;
+}
+
 table th, table td {
   padding: 10px;
   padding: 0.625rem;

@@ -33,9 +33,10 @@ function setupTabs() {
 	for (var x = 0; x < elements.length; x++) {
 		u.addEventListener(elements[x], 'click', tabClickhandler);
 	}
-	//Activate the first
+	// Activate the first element with 'is-active' found
 	var event = document.createEvent('Events');
 	event.initEvent('click', true, false);
+	elements = document.querySelectorAll('[data-tab-control].is-active');
 	elements[0].dispatchEvent(event);
 }
 

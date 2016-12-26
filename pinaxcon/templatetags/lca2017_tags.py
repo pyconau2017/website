@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.staticfiles.templatetags import staticfiles
 from easy_thumbnails.files import get_thumbnailer
 from symposion.conference import models as conference_models
+from symposion.schedule.models import Track
 
 CONFERENCE_ID = settings.CONFERENCE_ID
 
@@ -92,3 +93,11 @@ def gst(amount):
 @register.simple_tag()
 def conference_name():
     return conference_models.Conference.objects.get(id=CONFERENCE_ID).title
+
+@register.filter()
+def trackname(room, day):
+    try:
+        track_name = room.track_set.get(day=day).name
+    except Track.DoesNotExist:
+        track_name = None
+    return track_name

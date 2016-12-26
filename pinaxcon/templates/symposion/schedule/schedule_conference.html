@@ -28,21 +28,25 @@
         <div class="panel--tabs">
           {% for section in sections %}
             {% for timetable in section.days %}
-              <a data-tab-control="{{ timetable.day.date|date:"l"}}" class="panel--tab-switch {% if forloop.is_first and forloop.parentloop.is_first %}is-active{% endif %}">{{ timetable.day.date|date:"l"}}</a>
+              {% if day_switch == None %}
+              <a data-tab-control="{{ timetable.day.date|date:"l"}}" class="panel--tab-switch {% if forloop.first and forloop.parentloop.first %}is-active{% endif %}">{{ timetable.day.date|date:"l"}}</a>
+              {% else %}
+              <a data-tab-control="{{ timetable.day.date|date:"l"}}" class="panel--tab-switch {% if timetable.day.date|date:"l"|lower == day_switch|lower %}is-active{% endif %}">{{ timetable.day.date|date:"l"}}</a>
+              {% endif %}
             {% endfor %}
           {% endfor %}
         </div>
       </div>
 
       {% for section in sections %}
-         {% cache 600 "schedule-table" section.schedule.section %}
+        {% cache 600 "schedule-table" section.schedule.section %}
             {% for timetable in section.days %}
-              <div data-tab-content="{{ timetable.day.date|date:"l"}}" class="panel--tab-content is-active">
+              <div data-tab-content="{{ timetable.day.date|date:"l"}}" class="panel--tab-content {% if timetable.day.date|date:"l"|lower == day_switch|lower %}is-active{% endif %}">
                 <h3>{{ section.schedule.section.name }} — {{ timetable.day.date|date:"l" }}, {{ timetable.day.date }}</h3>
                 {% include "symposion/schedule/_grid.html" %}
               </div>
             {% endfor %}
-          {% endcache %}
+         {% endcache %}
       {% endfor %}
 
     </div>
