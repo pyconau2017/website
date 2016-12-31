@@ -686,7 +686,6 @@ table th {
   margin-bottom: 0;
   font-weight: bold;
   text-transform: none;
-  font-size: 20px;
 }
 
 table th, table td {
@@ -1633,6 +1632,7 @@ table.alt tr:not(:last-of-type) {
   {
     display: block;
     padding: 0.5ex;
+    font-size: small;
   }
 
   .calendar td,
@@ -1659,7 +1659,7 @@ table.alt tr:not(:last-of-type) {
 @media not screen and (max-width: 480px)  {
 
   .calendar td {
-    font-size: 0.9vw;
+    font-size: small;
   }
 
   .slot {
@@ -1689,7 +1689,7 @@ table.alt tr:not(:last-of-type) {
   }
 
   .time {
-    font-size: 0.5vw;
+    font-size: xx-small;
     line-height: 0.4;
     vertical-align: middle;
     padding-top: 0.25rem;
