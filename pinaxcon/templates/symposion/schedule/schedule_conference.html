@@ -28,20 +28,21 @@
         <div class="panel--tabs">
           {% for section in sections %}
             {% for timetable in section.days %}
-              {% if day_switch == None %}
-              <a data-tab-control="{{ timetable.day.date|date:"l"}}" class="panel--tab-switch {% if forloop.first and forloop.parentloop.first %}is-active{% endif %}">{{ timetable.day.date|date:"l"}}</a>
-              {% else %}
-              <a data-tab-control="{{ timetable.day.date|date:"l"}}" class="panel--tab-switch {% if timetable.day.date|date:"l"|lower == day_switch|lower %}is-active{% endif %}">{{ timetable.day.date|date:"l"}}</a>
-              {% endif %}
+              <a
+                data-tab-control="{{ timetable.day.date|date:"l"}}"
+                id="schedule_day_{{ timetable.day.date|date:"l"|lower}}"
+                class="panel--tab-switch is-active">
+                  {{ timetable.day.date|date:"l"}}
+              </a>
             {% endfor %}
           {% endfor %}
         </div>
       </div>
 
       {% for section in sections %}
-        {% cache 600 "schedule-table" section.schedule.section %}
+         {% cache 600 "schedule-table" section.schedule.section %}
             {% for timetable in section.days %}
-              <div data-tab-content="{{ timetable.day.date|date:"l"}}" class="panel--tab-content {% if timetable.day.date|date:"l"|lower == day_switch|lower %}is-active{% endif %}">
+              <div data-tab-content="{{ timetable.day.date|date:"l"}}" class="panel--tab-content is-active">
                 <h3>{{ section.schedule.section.name }} — {{ timetable.day.date|date:"l" }}, {{ timetable.day.date }}</h3>
                 {% include "symposion/schedule/_grid.html" %}
               </div>
@@ -51,4 +52,77 @@
 
     </div>
   </div>
+{% endblock %}
+
+{% block scripts_extra %}
+  <script type="text/javascript">
+
+    fragment = window.location.hash.toLowerCase().substring(1);
+
+    if (!fragment) {
+      OFFSET = -11 * (60 * 60 * 1000); // Hobart is 11 hours ahead of UTC in Jan.
+      JAN = 0; // because January is 0, not 1
+
+      fragments = [
+        {"day": "monday", "time": Date.UTC(2017, JAN, 16)},
+        {"day": "tuesday", "time": Date.UTC(2017, JAN, 17)},
+        {"day": "wednesday", "time": Date.UTC(2017, JAN, 18)},
+        {"day": "thursday", "time": Date.UTC(2017, JAN, 19)},
+        {"day": "friday", "time": Date.UTC(2017, JAN, 20)},
+        {"day": "saturday", "time": Date.UTC(2017, JAN, 21)},
+      ];
+
+      now = new Date().getTime();
+
+      for (i = 0; i < 5; i++) {
+        f = fragments[i];
+        g = fragments[i+1];
+        if ((f.time + OFFSET) <= now && now < (g.time + OFFSET)) {
+          fragment = f.day;
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+      if (!fragment) {
+        return;
+      }
+
+      fragmentSwitch = "schedule_day_" + fragment;
+
+      switches = document.getElementsByClassName("panel--tab-switch");
+      tabs = document.getElementsByClassName("panel--tab-content");
+
+      for (i = 0; i < switches.length; i++) {
+
+        if (switches[i].id == fragmentSwitch) {
+          switches[i].classList.add("is-active");
+          tabs[i].classList.add("is-active");
+        } else {
+          switches[i].classList.remove("is-active");
+          tabs[i].classList.remove("is-active");
+        }
+      }
+
+    });
+
+    window.addEventListener("load", function(event) {
+
+      $(".panel--tab-switch").click(function(event) {
+        // This updates the window location fragment so that
+        // the URL bar is updated, and so that when you go
+        // back, it loads the right page.
+
+        // len("schedule_day_") == 13
+        day = event.target.id.substring(13);
+
+        if(history.pushState) {
+            history.pushState(null, null, "#" + day);
+        }
+      });
+    });
+
+  </script>
+  {{ block.super }}
 {% endblock %}
