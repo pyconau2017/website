@@ -1,7 +1,7 @@
-lca2017/website
+pyconau2017/website
 ===============
 
-This is a fork of the PinaxCon demo site.
+This is a fork of the lca2017/website repo.
 
 Launchifying
 ------------
