@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "Australia/Hobart"
+TIME_ZONE = "Australia/Melbourne"
 
 # The date format for this installation
 DATE_FORMAT = "j F Y"
@@ -261,7 +261,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_USE_AUTH_AUTHENTICATE = True
 
-THEME_CONTACT_EMAIL = "team@hobart.lca2017.org"
+THEME_CONTACT_EMAIL = "pyconau-orgs@lists.linux.org.au"
 
 AUTHENTICATION_BACKENDS = [
     "symposion.teams.backends.TeamPermissionsBackend",
