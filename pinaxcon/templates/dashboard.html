@@ -5,7 +5,7 @@
 {% load review_tags %}
 {% load teams_tags %}
 {% load registrasion_tags %}
-{% load lca2017_tags %}
+{% load pyconau2017_tags %}
 
 {% block head_title %}Dashboard{% endblock %}
 
@@ -23,7 +23,7 @@
 {% available_categories as categories %}
 {% if categories %}
   <div class="panel panel__compact panel__bg panel__last">
-    <div style="background-image: url('{% static "lca2017/images/wp_bg_optimised.jpg" %}');" class="panel--bg"></div>
+    <div style="background-image: url('{% static "pyconau2017/images/wp_bg_optimised.jpg" %}');" class="panel--bg"></div>
     <div class="panel--content">
       <div >
         <h2>{% trans "Attend" %} {% conference_name %}</h2>
@@ -115,7 +115,7 @@
 
 
 <div class="panel panel__compact panel__bg panel__last">
-  <div style="background-image: url('{% static "lca2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
+  <div style="background-image: url('{% static "pyconau2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
   <div class="panel--content">
     <div class="panel--2-3">
       <h2>{% trans "Speaking and Miniconfs" %}</h2>
@@ -204,7 +204,7 @@
 {% if review_sections %}
 
   <div class="panel panel__compact panel__bg panel__last">
-    <div style="background-image: url('{% static "lca2017/images/conference_bg_optimised.jpg" %}');" class="panel--bg"></div>
+    <div style="background-image: url('{% static "pyconau2017/images/conference_bg_optimised.jpg" %}');" class="panel--bg"></div>
     <div class="panel--content">
       <div class="panel--2-3">
         <h2>{% trans "Reviews" %}</h2>
@@ -233,7 +233,7 @@
 {% available_teams as available_teams %}
 {% if user.memberships.exists or available_teams %}
     <div class="panel panel__compact panel__bg">
-      <div style="background-image: url('{% static "lca2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
+      <div style="background-image: url('{% static "pyconau2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
       <div class="panel--content">
         <div class="panel--2-3">
           <h2>{% trans "Teams" %}</h2>

@@ -1,4 +1,5 @@
 *.pyc
+*.sublime-workspace
 node_modules/
 _build/
 .DS_Store

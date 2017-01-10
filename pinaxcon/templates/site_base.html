@@ -27,15 +27,15 @@
 {% endblock %}
     <!--Twitter-->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@linuxconfau">
-    <meta name="twitter:title" content="linux.conf.au – 16-20 January 2017 – Hobart, Tasmania"
+    <meta name="twitter:site" content="@pyconau2017">
+    <meta name="twitter:title" content="Pycon AU – 3 - 8 2017 – Melbourne, Victoria"
     <meta name="twitter:description"content="Discover the future of Open Source at linux.conf.au 2017. Tickets on sale from October.">
-    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'lca2017/images/socmed/twitter-tuz.png' %}">
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'pyconau2017/images/socmed/twitter-tuz.png' %}">
     <meta name="twitter:image:alt" content="Tuz">
     <!--Open Graph-->
-    <meta property="og:url" content="https://linux.conf.au/">
-    <meta property="og:title" content="linux.conf.au – 16-20 January 2017 – Hobart, Tasmania">
-    <meta property="og:description" content="Discover the future of Open Source at linux.conf.au 2017. Tickets on sale from October.">
+    <meta property="og:url" content="https://2017.pycon-au.org/">
+    <meta property="og:title" content="Pycon AU – 3 - 8 2017 – Melbourne, Victoria">
+    <meta property="og:description" content="Discover Python at Pycon AU 2017. Tickets on sale from February.">
     <meta property="og:type" content="website">
     <meta property="fb:admins" content="729577430">
     <meta property="fb:profile_id" content="293907417664731">
@@ -49,11 +49,11 @@
       <div class="l-header--logo">
         {% block site_brand %}
           <a href="/"
-            title="linux.conf.au | 16–20 January, Hobart | The Future of Open Source"
+            title="2017.pycon-au.org | 3-8 August, Melbourne | Python FTW!"
           >
-            <img src="{% static 'lca2017/images/svgs/lca2017-website-logo.svg' %}"
+            <img src="{% static 'pyconau2017/images/logo-mel-17.png' %}"
               width="100%"
-              title="linux.conf.au | 16–20 January, Hobart | The Future of Open Source"
+              title="pycon-au.org | 3-8 August, Melbourne | Python FTW!"
               />
           </a>
         {% endblock %}
@@ -97,8 +97,8 @@
     {% block footer %}
       <div class="l-footer--text">
         <h3>Sponsors</h3>
-        <p class="lede">We thank our Emperor Penguin sponsors for their
-          generous contribution to linux.conf.au 2017.</p>
+        <p class="lede">We thank our sponsors for their
+          generous contribution to Pycon Australia 2017.</p>
         <a href="/sponsors" class="btn btn__white">Other Sponsors</a>
       </div>
       <div class="l-footer--logos">
@@ -111,7 +111,7 @@
         <br />
       </div>
 
-      <p class="lede">©2016 Linux Australia and linux.conf.au 2017. Linux is a registered trademark of Linus Torvalds. Site design by <a href="http://takeflight.com.au" >Takeflight</a>. Image credits can be found on our <a href="/about/colophon">Colophon</a>.</p>
+      <p class="lede">©2016 Pycon Australia 2017. Linux is a registered trademark of Linus Torvalds. Site design by <a href="http://takeflight.com.au" >Takeflight</a>. Image credits can be found on our <a href="/about/colophon">Colophon</a>.</p>
 
     {% endblock %}
   </footer>
@@ -119,7 +119,7 @@
     </main>
     {% block scripts %}
     {% comment%}
-    <script src="{% static 'lca2017/js/app.js' %}"></script>
+    <script src="{% static 'pyconau2017/js/app.js' %}"></script>
     {% include "_scripts.html" %}
     <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
     {% endcomment %}

@@ -44,6 +44,8 @@ ILLUSTRATION_DEVIL = "devil.svg"
 ILLUSTRATION_FALLS = "falls.svg"
 ILLUSTRATION_HOBART = "hobart.svg"
 ILLUSTRATION_LAVENDER = "lavender.svg"
+ILLUSTRATION_PYCONAU = "logo-mel.png"
+ILLUSTRATION_PYTHON = "Python-logo-notext.svg"
 ILLUSTRATION_TUZ = "tuz.svg"
 ILLUSTRATION_WINEGLASS = "wineglass.svg"
 
@@ -56,6 +58,8 @@ ILLUSTRATION_TYPES = (
     (ILLUSTRATION_FALLS, "Waterfall"),
     (ILLUSTRATION_HOBART, "Hobart"),
     (ILLUSTRATION_LAVENDER, "Lavender"),
+    (ILLUSTRATION_PYCONAU, "Pycon AU"),
+    (ILLUSTRATION_PYTHON, "Python"),
     (ILLUSTRATION_TUZ, "Tuz"),
     (ILLUSTRATION_WINEGLASS, "Wineglass"),
 )

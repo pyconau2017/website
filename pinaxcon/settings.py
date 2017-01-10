@@ -142,7 +142,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
-    
+
     # theme
     "bootstrapform",
     "pinax_theme_bootstrap",
@@ -299,7 +299,7 @@ PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "your test secret 
 PINAX_STRIPE_SEND_EMAIL_RECEIPTS = False
 
 # Wagtail config
-WAGTAIL_SITE_NAME = 'linux.conf.au 2017'
+WAGTAIL_SITE_NAME = 'Pycon Australia 2017'
 WAGTAIL_APPEND_SLASH = True
 WAGTAILIMAGES_IMAGE_MODEL = 'cms_pages.CustomImage'
 

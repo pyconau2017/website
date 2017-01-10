@@ -55,7 +55,7 @@ def speaker_photo(context, speaker, size):
     else:
         email = speaker.user.email.encode("utf-8")
         md5sum = hashlib.md5(email.strip().lower()).hexdigest()
-        url = "https://secure.gravatar.com/avatar/%s?s=%d&d=%s" % (md5sum, size, "https://linux.conf.au/site_media/static/lca2017/images/speaker-fallback-devil.jpg")
+        url = "https://secure.gravatar.com/avatar/%s?s=%d&d=%s" % (md5sum, size, "https://2017.pycon-au.org/site_media/static/pyconau23017/images/speaker-fallback-devil.jpg")
 
         return url
 
