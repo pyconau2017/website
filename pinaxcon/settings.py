@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 BASE_DIR = PACKAGE_ROOT
 
-DEBUG = bool(int(os.environ.get("DEBUG", "1")))
+DEBUG = False #bool(int(os.environ.get("DEBUG", "1")))
 
 DATABASES = {
     "default": {
@@ -22,7 +22,7 @@ CACHES = {
 }
 
 
-ALLOWED_HOSTS = ['uat2017.pycon-au.org']
+ALLOWED_HOSTS = ['2017.pycon-au.org', 'zookeepr1.linux.org.au']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
