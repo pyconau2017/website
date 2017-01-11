@@ -8,6 +8,7 @@ Launchifying
 
 - create a virtualenv with python 2.7
 - activate the virtualenv
+- cd into the virtual env and clone this repo into it  (creates ``website`` subdir)
 - cd into the ``website`` directory
 - ``pip install -r requirements.txt``
 - ``python manage.py migrate``
