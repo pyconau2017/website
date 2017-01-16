@@ -15,7 +15,7 @@ import symposion.views
 
 
 urlpatterns = [
-    url(r"^$", TemplateView.as_view(template_name="pyconau2017-homepage.html"), name="home"),
+    #url(r"^$", TemplateView.as_view(template_name="pyconau2017-homepage.html"), name="home"),
     url(r"^admin/", include(admin.site.urls)),
 
     url(r"^account/", include("account.urls")),
