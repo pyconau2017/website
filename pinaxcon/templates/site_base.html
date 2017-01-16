@@ -9,16 +9,25 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
+
+    <!-- disable browser cache (for now) -->
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1990 12:00:00 GMT" />
+
+
 {% block viewport %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 {% endblock %}
     <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
 {% block styles %}
     <link rel="stylesheet" href="{% static 'pyconau2017/css/app.css' %}">
-    <link rel="stylesheet" href="{% static 'pycon2017/css/print.css' %}" media="print">
+    <link rel="stylesheet" href="{% static 'pyconau2017/css/print.css' %}" media="print">
+    <link href="{% static 'pyconau2017/css/pyconau.css' %}" rel="stylesheet">
+    <link href="{% static 'pyconau2017/css/bootstrap.css' %}" rel="stylesheet">
+
     <link rel="icon" href="{% static 'pycon2017/images/favicon.ico' %}"
-    <!--FIXME: download-->
-    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900|Roboto:400italic,400,700,700italic" rel="stylesheet" type="text/css">
     <!--Meta tags-->
     <meta name="theme-color" content="#0c486c">
     {% block extra_style %}
@@ -34,7 +43,7 @@
     <meta name="twitter:image:alt" content="Tuz">
     <!--Open Graph-->
     <meta property="og:url" content="https://2017.pycon-au.org/">
-    <meta property="og:title" content="Pycon AU – 3 - 8 2017 – Melbourne, Victoria">
+    <meta property="og:title" content="Pycon AU – 3 - 8  2017 – Melbourne, Victoria">
     <meta property="og:description" content="Discover Python at Pycon AU 2017. Tickets on sale from February.">
     <meta property="og:type" content="website">
     <meta property="fb:admins" content="729577430">
@@ -43,79 +52,37 @@
             {% block extra_head %}{% endblock %}
         {% endblock %}
   </head>
-  <body class="{% block body_class %}{% endblock %}">
+  <body class="{% block body_class %}{% endblock %}"
+      style="background-image: url({% static 'pyconau2017/images/pyconau-2016-collage.jpg' %});">
 {% block topbar_base %}
-    <header role="banner" class="l-header">
-      <div class="l-header--logo">
-        {% block site_brand %}
-          <a href="/"
-            title="2017.pycon-au.org | 3-8 August, Melbourne | Python FTW!"
-          >
-            <img src="{% static 'pyconau2017/images/logo-mel-17.png' %}"
-              width="100%"
-              title="pycon-au.org | 3-8 August, Melbourne | Python FTW!"
-              />
-          </a>
-        {% endblock %}
-      </div>
+    {#
     {% block nav %}
         {% sitetree_menu from "main" include "trunk" template "sitetree_header.html" %}
       <a href="#" data-menu-opener="" class="l-header--menu-opener"></a>
     </header>
       {% sitetree_menu from "main" include "trunk" template "sitetree_opener.html" %}
     {% endblock %}
+    #}
 {% endblock %}
 
 {% block body_base %}
-    <div style="height: 100px;" />
+  <div style="height: 100px;" />
     <main role="main">
-<div class="l-content-page">
-        <section id="content_body">
-        <div class="container">
-            {% include "_messages.html" %}
-            <div class="row">
-                <div class="col-md-9">
     {% block body %}
       {% block content %}
       {% endblock %}
     {% endblock %}
-                </div>
-                <div class="col-md-3">
-                    {% block sidebar %}
-                        {% include "_default_sidebar.html" %}
-                    {% endblock %}
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+  </div>
 {% endblock %}
 
 {% block footer_base %}
   <!-- https://gist.github.com/geedmo/5682742-->
   <footer class="l-footer l-footer__alt">
     {% block footer %}
-      <div class="l-footer--text">
-        <h3>Sponsors</h3>
-        <p class="lede">We thank our sponsors for their
-          generous contribution to Pycon Australia 2017.</p>
-        <a href="/sponsors" class="btn btn__white">Other Sponsors</a>
-      </div>
-      <div class="l-footer--logos">
-        <div class="l-footer--logo">
-          <img src="{% static 'lca2017/images/HPE.svg' %}">
-        </div>
-        <div class="l-footer--logo">
-          <img src="{% static 'lca2017/images/IBM.svg' %}">
-        </div>
-        <br />
-      </div>
-
-      <p class="lede">©2016 Pycon Australia 2017. Linux is a registered trademark of Linus Torvalds. Site design by <a href="http://takeflight.com.au" >Takeflight</a>. Image credits can be found on our <a href="/about/colophon">Colophon</a>.</p>
-
     {% endblock %}
   </footer>
 {% endblock %}
+
     </main>
     {% block scripts %}
     {% comment%}

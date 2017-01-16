@@ -1493,7 +1493,8 @@ table.alt tr:not(:last-of-type) {
 
 
 .l-footer__alt {
-  background-color: #0c486c;
+  /* background-color: #0c486c; */
+  background-color: transparent;
   color: white;
 }
 
