@@ -11,11 +11,11 @@
 
 {% if value.panel_type == "simple" %}
 
-<div class="panel panel__bg {{ compact }}">
-  <div class="panel--content">
+    {% comment %}
     {% include "cms_pages/home_page_blocks/basic_content_text_and_links.html" %}
-  </div>
-</div>
+    {% endcomment %}
+
+    {{ value.body }}
 
 {% elif value.panel_type == "blue_left" %}
 

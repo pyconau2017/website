@@ -1,15 +1,18 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
 {% block extra_style %}{% endblock %}
+{% comment %}
 {% block body_base %}
-    <div style="height: 100px;" />
-    <main role="main">
     {% include "_messages.html" %}
+    {% endcomment %}
     {% block body %}
       {% block content %}
       {% endblock %}
+
     {% endblock %}
+        {% comment %}
 {% endblock %}
+{% endcomment %}
 
 {% block scripts %}
 
