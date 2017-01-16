@@ -9,8 +9,15 @@
   {% define "" as compact %}
 {% endif %}
 
+{% if value.panel_type == "simple" %}
 
-{% if value.panel_type == "blue_left" %}
+    {% comment %}
+    {% include "cms_pages/home_page_blocks/basic_content_text_and_links.html" %}
+    {% endcomment %}
+
+    {{ value.body }}
+
+{% elif value.panel_type == "blue_left" %}
 
 <div class="panel panel__bg {{ compact }}">
   {% image value.background_image width-2000 as background_image %}
