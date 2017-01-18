@@ -106,9 +106,11 @@ class BasicContentBlock(blocks.StructBlock):
     class Meta:
         template = "cms_pages/home_page_blocks/basic_content.html"
 
+    PANEL_SIMPLE = "simple"
     PANEL_BLUE_LEFT = "blue_left"
     PANEL_WHITE_RIGHT = "white_right"
     PANEL_TYPES = (
+        (PANEL_SIMPLE, "Simple panel, no image."),
         (PANEL_BLUE_LEFT, "Left-aligned image, blue-filtered image BG"),
         (PANEL_WHITE_RIGHT, "Right-aligned image, white background"),
     )
@@ -127,7 +129,8 @@ class BasicContentBlock(blocks.StructBlock):
         help_text="This is used as the background image of a "
                   "blue-left block. It's not used for white-right."
     )
-    body = blocks.RichTextBlock(required=True)
+    #body = blocks.RichTextBlock(required=True)
+    body = blocks.RawHTMLBlock(required=True)
     link = BasicContentLink()
     external_links = blocks.ListBlock(ExternalLinksBlock)
     compact = blocks.BooleanBlock(
