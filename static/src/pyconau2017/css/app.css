@@ -247,7 +247,7 @@ a:hover {
  */
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
+  /* margin: 0.67em 0; */
 }
 
 /**
@@ -632,8 +632,8 @@ body {
 
 a {
   color: #337ab7;
-  text-decoration: none;
-  border-bottom: 1px solid #3ab1c9;
+  text-decoration: none  !important;
+  /* border-bottom: 1px solid #3ab1c9; */
   transition: color 300ms;
 }
 
@@ -641,11 +641,7 @@ a:hover, a:focus, a:active {
   color: #3ab1c9;
 }
 
-ul,
-ol {
-  padding: 0;
-  /* margin: 0; */
-}
+
 
 ul > li,
 ol > li {
