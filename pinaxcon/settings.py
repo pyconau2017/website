@@ -268,6 +268,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
+        'symposion.request': {
+            'handlers': ['mail_admins'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
         'apps': { # I keep all my of apps under 'apps' folder, but you can also add them one by one, and this depends on how your virtualenv/paths are set
             'handlers': ['log_file'],
             'level': 'DEBUG',
@@ -276,7 +281,7 @@ LOGGING = {
     },
     # you can also shortcut 'loggers' and just configure logging for EVERYTHING at once
     'root': {
-        'handlers': ['console', 'mail_admins'],
+        'handlers': ['console', 'log_file'], #'mail_admins'],
         'level': 'DEBUG'
     },
 }
