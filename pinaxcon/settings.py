@@ -9,9 +9,17 @@ BASE_DIR = PACKAGE_ROOT
 DEBUG = True #bool(int(os.environ.get("DEBUG", "1")))
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(PROJECT_ROOT, "dev.db"),
+    #"default": {
+    #    "ENGINE": "django.db.backends.sqlite3",
+    #    "NAME": os.path.join(PROJECT_ROOT, "dev.db"),
+    #}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'pycontest',
+        'USER': 'nicks',
+        'PASSWORD': 'spam&eggs',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
