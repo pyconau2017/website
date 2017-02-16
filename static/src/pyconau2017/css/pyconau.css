@@ -27,6 +27,13 @@ body {
     margin-bottom: 60px;
 }
 
+.jumbotron-white {
+    background-color: rgba(240,240,240,0.9);
+    color: black;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
 @font-face {
     font-family: 'Flux Regular';
     src: url('fonts/FLUXRegular.ttf');
@@ -38,15 +45,32 @@ body {
 }
 
 #announcements {
+    /*
     background-color: rgba(0,0,0,0.9);
     color: white;
+    */
     border-radius: 6px;
     padding: 2em;
     margin-top: 60px;
     margin-bottom: 60px;
 }
+
 #announcements h2 {
     font-size: 2em;
     font-family: 'Flux Regular';
-    color: white;
+    /*color: white;*/
+}
+
+nav {
+    background-color: #000;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+}
+
+.l-header--nav  {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #a6e9f5;
 }
