@@ -1,23 +1,18 @@
+<!-- site_base.html -->
 {% load staticfiles %}
 {% load metron_tags %}
 {% load i18n %}
 {% load sitetree %}
 {# <!-- https://gist.github.com/geedmo/5682742--> #}
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js" manifest="{% static 'pyconau2017/manifest.appcache' %}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
 
-    <!-- disable browser cache (for now) -->
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="expires" content="Tue, 01 Jan 1990 12:00:00 GMT" />
-
     {% block viewport %}
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <!-- meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" -->
     {% endblock %}
     <title>{% block head_title_base %}{% if SITE_NAME %}{{ SITE_NAME }} | {% endif %}{% block head_title %}{% endblock %}{% endblock %}</title>
 
@@ -28,7 +23,7 @@
       <link href="{% static 'pyconau2017/css/pyconau.css' %}" rel="stylesheet">
       <link href="{% static 'pyconau2017/css/pyconau2016.css' %}" rel="stylesheet">
 
-      <link rel="icon" href="{% static 'pyconau2017/images/favicon.png' %}"
+      <link rel="icon" href="{% static 'pyconau2017/images/favicon.png' %}">
 
       <!--Meta tags-->
       <meta name="theme-color" content="#0c486c">
@@ -37,8 +32,8 @@
     <!--Twitter-->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@pyconau2017">
-    <meta name="twitter:title" content="Pycon AU – 3 - 8 2017 – Melbourne, Victoria"
-    <meta name="twitter:description"content="Discover the future of Open Source at linux.conf.au 2017. Tickets on sale from October.">
+    <meta name="twitter:title" content="Pycon AU – 3 - 8 2017 – Melbourne, Victoria">
+    <meta name="twitter:description" content="Discover the future of Open Source at linux.conf.au 2017. Tickets on sale from October.">
     <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'pyconau2017/images/socmed/twitter-tuz.png' %}">
     <meta name="twitter:image:alt" content="Tuz">
     <!--Open Graph-->
@@ -54,7 +49,7 @@
     {% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}"
-      style="background-image: url({% static 'pyconau2017/images/pyconau-2016-collage.jpg' %});">
+      style="background-image: url({% static 'pyconau2017/images/pyconau-2016-collage-faded.jpg' %});">
     {% block topbar_base %}
 
       {% block nav %}
@@ -65,23 +60,27 @@
 
     {% endblock %}
 
+    <!-- site_base block body_base -->
     {% block body_base %}
       <!--div style="height: 100px;" /-->
         <!--main role="main"-->
+        <!-- site_base block body -->
         {% block body %}
           {% block content %}
           {% endblock %}
         {% endblock %}
+        <!-- site_base endblock body -->
         <!--/main-->
       <!--/div-->
     {% endblock %}
+    <!-- site_base endblock body_base -->
 
     {% block footer_base %}
       <!-- https://gist.github.com/geedmo/5682742-->
       <!-- footer class="l-footer l-footer__alt" -->
         {% block footer %}
         {% endblock %}
-      </footer>
+      <!-- /footer -->
     {% endblock %}
 
     {% block scripts %}
@@ -99,3 +98,4 @@
     {% endblock %}
   </body>
 </html>
+<!-- end site_base.html -->

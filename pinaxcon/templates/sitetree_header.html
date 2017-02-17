@@ -1,5 +1,6 @@
 {% load sitetree %}
-<nav role="navigation" id="LOL" class="l-header--links">
+<nav id="LOL" class="l-header--links">
+  <ul>
   {% for item in sitetree_items %}
     <li class="l-header--nav">
       <a
@@ -19,4 +20,5 @@
       {% endif %}
     </li>
   {% endfor %}
+  </ul>
 </nav>

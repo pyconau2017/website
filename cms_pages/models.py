@@ -122,7 +122,7 @@ class BasicContentBlock(blocks.StructBlock):
     heading = blocks.CharBlock(required=True)
     inset_illustration = blocks.ChoiceBlock(
         choices=ILLUSTRATION_TYPES,
-        required=True,
+        required=False,
     )
     background_image = imageblocks.ImageChooserBlock(
         required=False,
@@ -254,6 +254,7 @@ class ContentPage(AbstractContentPage):
     inset_illustration = models.CharField(
         choices=ILLUSTRATION_TYPES,
         max_length=256,
+        required=False,
     )
 
     content_panels = AbstractContentPage.content_panels + [

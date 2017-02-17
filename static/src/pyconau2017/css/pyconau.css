@@ -28,7 +28,7 @@ body {
 }
 
 .jumbotron-white {
-    background-color: rgba(240,240,240,0.9);
+    background-color: rgba(255,255,255,1.0);
     color: black;
     margin-top: 60px;
     margin-bottom: 60px;
@@ -61,6 +61,8 @@ body {
     /*color: white;*/
 }
 
+/* getting nav bar sorted ... (n6) */
+
 nav {
     background-color: #000;
     width: 100%;
@@ -74,3 +76,17 @@ nav {
     font-weight: bold;
     color: #a6e9f5;
 }
+
+.menu-dropdown {
+    background: #4c4c4b;
+}
+
+#sponsors {
+    border-radius: 6px;
+    padding: 1em;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    text-align: center;
+    width: 150px;  /* this is a hack.  need to figure out exactly where (else) it's being set. */
+}
+
