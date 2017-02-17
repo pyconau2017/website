@@ -217,7 +217,7 @@ class AbstractContentPage(Page):
     class Meta:
         abstract = True
 
-    intro = models.CharField(max_length=250)
+    intro = models.CharField(max_length=250, blank=True)
 
     body = StreamField([
         ("rich_text", blocks.RichTextBlock(required=False)),
@@ -254,7 +254,6 @@ class ContentPage(AbstractContentPage):
     inset_illustration = models.CharField(
         choices=ILLUSTRATION_TYPES,
         max_length=256,
-        required=False,
     )
 
     content_panels = AbstractContentPage.content_panels + [
