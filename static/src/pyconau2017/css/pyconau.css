@@ -90,3 +90,18 @@ nav {
     width: 150px;  /* this is a hack.  need to figure out exactly where (else) it's being set. */
 }
 
+.thumbnail {
+    width: auto;
+    height: auto;
+    max-width: 100px;
+    max-height: 100px;
+    border: 0;
+
+}
+
+div.sponsor-list {
+  min-width: 100px;
+  display: block;
+  margin: 0 auto;
+}
+

@@ -243,6 +243,10 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
+# To use the debug toolbar on a "remote" site (i.e., not on localhost) change 
+# SHOW_TOOLBAR_CALLBACK's definition, below, to return True, rather than False.
+# If you're using this on a local(host) for development, there's no need to
+# change it so long as DEBUG (above) is defined as True.
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     'SHOW_TOOLBAR_CALLBACK': lambda x: False,

@@ -2,6 +2,8 @@ import cms_pages
 import hashlib
 import urllib
 
+import os
+
 from decimal import Decimal
 from django import template
 from django.conf import settings
@@ -101,3 +103,12 @@ def trackname(room, day):
     except Track.DoesNotExist:
         track_name = None
     return track_name
+
+@register.simple_tag()
+def sponsor_thumbnail(sponsor_logo):
+    if sponsor_logo is not None:
+        if sponsor_logo.upload:
+            logo_file = os.path.join(settings.MEDIA_URL, str(sponsor_logo.upload))
+            return logo_file
+
+    return ""
