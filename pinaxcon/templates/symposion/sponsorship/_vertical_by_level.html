@@ -6,7 +6,7 @@
 {% for level in levels %}
     <h3>{{ level.name }}</h3>
     {% for sponsor in level.sponsors %}
-        <div>
+        <div class="sponsor-list">
             {% include "symposion/sponsorship/_sponsor_link.html" with sponsor=sponsor %}
         </div>
     {% endfor %}

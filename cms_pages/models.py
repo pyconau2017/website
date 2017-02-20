@@ -122,7 +122,7 @@ class BasicContentBlock(blocks.StructBlock):
     heading = blocks.CharBlock(required=True)
     inset_illustration = blocks.ChoiceBlock(
         choices=ILLUSTRATION_TYPES,
-        required=True,
+        required=False,
     )
     background_image = imageblocks.ImageChooserBlock(
         required=False,
@@ -217,7 +217,7 @@ class AbstractContentPage(Page):
     class Meta:
         abstract = True
 
-    intro = models.CharField(max_length=250)
+    intro = models.CharField(max_length=250, blank=True)
 
     body = StreamField([
         ("rich_text", blocks.RichTextBlock(required=False)),

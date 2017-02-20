@@ -12,6 +12,10 @@ pinax-boxes==2.1.2
 wagtail==1.6.2
 pylibmc==1.5.1
 raven==5.27.0
+django-debug-toolbar==1.6
+
+# database
+psycopg2==2.6.2
 
 #Wiki
 wiki==0.1.2
