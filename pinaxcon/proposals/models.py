@@ -21,7 +21,7 @@ class Proposal(ProposalBase):
 
     recording_release = models.BooleanField(
         default=True,
-        help_text="I allow Linux Australia to release any recordings of "
+        help_text="I allow PyCon Australia to release any recordings of "
         "presentations covered by this proposal, under the <a "
         "href='https://creativecommons.org/licenses/by-sa/3.0/au/deed.en'> "
         "Creative Commons Attribution-Share Alike Australia 3.0 Licence</a>"
@@ -29,7 +29,7 @@ class Proposal(ProposalBase):
 
     materials_release = models.BooleanField(
         default=True,
-        help_text="I allow Linux Australia to release any other material "
+        help_text="I allow PyCon Australia to release any other material "
         "(such as slides) from presentations covered by this proposal, under "
         "the <a "
         "href='https://creativecommons.org/licenses/by-sa/3.0/au/deed.en'> "

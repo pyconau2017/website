@@ -4,19 +4,23 @@
 {% load i18n %}
 {% load pinax_boxes_tags %}
 
-{% block head_title %}{% trans "Add a Sponsor" %}{% endblock %}
+
+{% block head_title %}<div style="color: white;">{% trans "Add a Sponsor" %}</div>{% endblock %}
 
 {% block body_class %}sponsorships{% endblock %}
 
-{% block body %}
+{% block content %}
+    <div class="jumbotron"
     <form method="POST" action="{% url "sponsor_add" %}" class="form-horizontal">
         {% csrf_token %}
         <legend>{% trans "Add a Sponsor" %}</legend>
         {{ form|bootstrap_horizontal }}
-        <div class="form-actions">
+
+        <div class="form-actions pad-buttons">
+            <br/>
             <input class="btn btn-primary" type="submit" value="Add" />
             <a class="btn btn-default" href="{% url "dashboard" %}">Cancel</a>
         </div>
     </form>
-
+    </div>
 {% endblock %}

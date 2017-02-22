@@ -105,3 +105,10 @@ div.sponsor-list {
   margin: 0 auto;
 }
 
+legend {
+  color: #a6e9f5;
+}
+
+.pad-buttons {
+  padding: 200px 0 20px 0;
+}
