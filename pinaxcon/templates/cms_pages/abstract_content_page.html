@@ -19,22 +19,12 @@
 {% block header_inset_image %}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-1">xxx</div>
-        <div class="col-md-10" >
-            <div id="announcements" class="jumbotron-white">
-                <h1>{{ page.title }}</h1>
-                <p>{{ page.intro }}</p>
-                <span>{{ page.body }}</span>
-            </div>
-        </div>
-        <div class="col-md-1">
-            <div id="sponsors" class="wrapper jumbotron-white">
-                <h4>Sponsors</h4>
-                {% include "symposion/sponsorship/_vertical_by_level.html" %}
-            </div>
-        </div>
+    <div id="announcements" class="jumbotron-white">
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.intro }}</p>
+        <span>{{ page.body }}</span>
     </div>
-</div>
+    {% block content_base %}
+    {% endblock %}
 {% endblock %}
+

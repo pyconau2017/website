@@ -5,7 +5,7 @@
 {% load sitetree %}
 {# <!-- https://gist.github.com/geedmo/5682742--> #}
 <!DOCTYPE html>
-<html lang="en" class="no-js" manifest="{% static 'pyconau2017/manifest.appcache' %}">
+<html lang="en" class="no-js" manifest="{% static 'manifest.appcache' %}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,7 @@
       <link rel="stylesheet" href="{% static 'pyconau2017/css/app.css' %}">
       <link rel="stylesheet" href="{% static 'pyconau2017/css/print.css' %}" media="print">
       <link href="{% static 'pyconau2017/css/pyconau.css' %}" rel="stylesheet">
-      <link href="{% static 'pyconau2017/css/pyconau2016.css' %}" rel="stylesheet">
+      <!-- link href="{% static 'pyconau2017/css/pyconau2016.css' %}" rel="stylesheet" -->
 
       <link rel="icon" href="{% static 'pyconau2017/images/favicon.png' %}">
 
@@ -66,8 +66,21 @@
         <!--main role="main"-->
         <!-- site_base block body -->
         {% block body %}
-          {% block content %}
-          {% endblock %}
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="col-md-10" >
+                    {% block content %}
+                    {% endblock %}
+                  </div>
+                  <div class="col-md-1">
+                      <div id="sponsors" class="wrapper jumbotron-white">
+                          <h4>Sponsors</h4>
+                          {% include "symposion/sponsorship/_vertical_by_level.html" %}
+                      </div>
+                  </div>
+              </div>
+          </div>
         {% endblock %}
         <!-- site_base endblock body -->
         <!--/main-->

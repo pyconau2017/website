@@ -606,25 +606,25 @@ body {
 .lede {
   margin: 30px 0;
   margin: 1.875rem 0;
-  font-size: 4.2vw;
+  font-size: 2.2vw;
 }
 
 @media (min-width: 25em) {
   .lede {
-    font-size: 3vw;
+    font-size: 1.5vw;
   }
 }
 
 @media (min-width: 64em) {
   .lede {
     font-size: 2vw;
-    margin: 3.375rem 0;
+    margin: 3rem 0;
   }
 }
 
 @media (min-width: 80em) {
   .lede {
-    font-size: 28px;
+    font-size: 14px;
   }
 }
 

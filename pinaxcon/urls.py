@@ -22,15 +22,14 @@ urlpatterns = [
     #url(r"^$", TemplateView.as_view(template_name="pyconau2017-homepage.html"), name="home"),
     url(r"^admin/", include(admin.site.urls)),
 
-    # Debug toolbar
-
     url(r"^account/", include("account.urls")),
 
+    url(r'^__debug__', include(debug_toolbar.urls)),
     url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
 
     url(r"^speaker/", include("symposion.speakers.urls")),
     url(r"^proposals/", include("symposion.proposals.urls")),
-    #url(r"^sponsors/", include("symposion.sponsorship.urls")),
+    url(r"^sponsors/", include("symposion.sponsorship.urls")),
     url(r"^reviews/", include("symposion.reviews.urls")),
     url(r"^schedule/", include("symposion.schedule.urls")),
 
@@ -53,16 +52,16 @@ urlpatterns = [
     url(r'^', include(wagtail_urls)),
 
     # Matches *NOTHING* -- remove once site_tree is fixed
-    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
+    #url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
 
     # Demo payment gateway and related features
     #url(r"^register/pinaxcon/", include("pinaxcon.registrasion.urls")),
 
 ]
 
-if settings.DEBUG:
-   import debug_toolbar
-   urlpatterns += [ url(r'^__debug__/', include(debug_toolbar.urls)), ]
+#if settings.DEBUG:
+#   import debug_toolbar
+#   urlpatterns += [ url(r'^__debug__/', include(debug_toolbar.urls)), ]
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

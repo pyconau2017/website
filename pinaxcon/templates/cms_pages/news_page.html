@@ -15,6 +15,9 @@
 {% endif %}
 
 {% block content %}
+    <div id="announcements" class="jumbotron-white">
+
   <p><em>{{ page.date|date:"j F Y" }}</em></p>
   {{ page.body }}
+  </div>
 {% endblock %}
