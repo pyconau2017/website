@@ -13,6 +13,10 @@ from django.contrib import admin
 
 import symposion.views
 
+import debug_toolbar
+
+
+import sys
 
 urlpatterns = [
 #    url(r"^admin/", include(admin.site.urls)),
@@ -31,7 +35,7 @@ urlpatterns = [
 #
 #    url(r"^boxes/", include("pinax.boxes.urls")),
 #
-    url(r'^cms/', include(wagtailadmin_urls)),
+#    url(r'^cms/', include(wagtailadmin_urls)),
 #
 #    # Required by registrasion
 #    url(r'^tickets/payments/', include('registripe.urls')),
@@ -43,7 +47,7 @@ urlpatterns = [
 #    url(r'^wiki/', get_wiki_pattern()),
 #
 #    # Default catch-all for wagtail pages.
-#    url(r'^', include(wagtail_urls)),
+    url(r'^', include(wagtail_urls)),
 #
 #    # Matches *NOTHING* -- remove once site_tree is fixed
 #    #url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
@@ -51,5 +55,6 @@ urlpatterns = [
 #    # Demo payment gateway and related features
 ##    url(r"^register/pinaxcon/", include("pinaxcon.registrasion.urls")),
 ]
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
