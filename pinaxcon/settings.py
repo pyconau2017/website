@@ -12,8 +12,17 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.path.join(PROJECT_ROOT, "dev.db"),
-    }
+    },
+    #'default': {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #    'NAME': 'pycon2017_prod',
+    #    'USER': 'pycon2017_prod',
+    #    'PASSWORD': 'udoo9YooEa0eutei',
+    #    'HOST': '172.16.0.100',
+    #    'PORT': '',
+    #}
 }
+
 
 CACHES = {
     'default': {
