@@ -6,6 +6,7 @@
 {% block head_title %}Submit a Proposal for a {{ kind.name }}{% endblock %}
 
 {% block proposals_body %}
+<div class="dashboard-panel">
     <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset>
@@ -20,4 +21,5 @@
           </div>
         </fieldset>
     </form>
+</div>
 {% endblock %}
