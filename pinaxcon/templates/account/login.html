@@ -8,7 +8,7 @@
 {% block page_title %}{% trans "Log in to an existing account" %}{% endblock %}
 
 {% block utility_body %}
-
+<div class="dashboard-panel">
   {% if ACCOUNT_OPEN_SIGNUP %}
       <p class="login-signup">
               {% trans "Don't have an account?" %}  <strong><a href="{% urlnext 'account_signup' %}">{% trans "Sign up" %}</a></strong>
@@ -31,6 +31,7 @@
                   <a href="{% url "account_password_reset" %}" class="btn btn-link">{% trans "Forgot your password?" %}</a>
                 </fieldset>
             </form>
+</div>
 {% endblock %}
 
 {% block scripts %}

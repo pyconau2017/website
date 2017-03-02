@@ -34,6 +34,7 @@ body {
     margin-bottom: 60px;
     border-radius: 6px;
     padding: 2em;
+    border: solid #15B 2px;
 }
 
 @font-face {
@@ -130,4 +131,8 @@ legend {
 .btn__black {
   color: black;
   border-color: black;
+}
+
+.error-border {
+  border: solid #f12 5px;
 }

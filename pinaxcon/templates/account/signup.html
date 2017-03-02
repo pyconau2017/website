@@ -8,6 +8,7 @@
 {% block page_title %}{% trans "Sign up" %}{% endblock %}
 
 {% block utility_body %}
+<div class="dashboard-panel">
   <p>
     {% trans "Already have an account?" %}  <strong><a href="{% urlnext 'account_login' %}">{% trans "Log in" %}</a></strong>
   </p>
@@ -21,6 +22,7 @@
                 {% endif %}
                 <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
             </form>
+</div>
 {% endblock %}
 
 {% block scripts %}
