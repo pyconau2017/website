@@ -18,7 +18,7 @@ DATABASES = {
         'NAME': 'pycon2017_uat',
         'USER': 'pycon2017_uat',
         'PASSWORD': 'Eishuqu5johZee3G',
-        'HOST': '172.16.0.100',
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
@@ -30,7 +30,7 @@ CACHES = {
 }
 
 
-ALLOWED_HOSTS = ['uat2017.pycon-au.org',]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'uat2017.pycon-au.org',]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -245,7 +245,7 @@ DEBUG_TOOLBAR_PANELS = [
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': lambda x: True,
+    'SHOW_TOOLBAR_CALLBACK': lambda x: DEBUG,
 }
 
 LOGGING = {
@@ -278,7 +278,7 @@ LOGGING = {
          'log_file':{
              'level': 'DEBUG',
              'class': 'logging.handlers.RotatingFileHandler',
-             'filename': os.path.join('/srv/http/uat.2017.pycon-au.org', 'log/django.log'),
+             'filename': os.path.join('/home/nicks/lavoro/pycon2017', 'log/django.log'),
              'maxBytes': '16777216', # 16megabytes
              'formatter': 'verbose'
          },
