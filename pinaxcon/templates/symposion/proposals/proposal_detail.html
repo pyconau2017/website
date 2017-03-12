@@ -8,9 +8,8 @@
 {% block page_title %}#{{ proposal.number }}: {{ proposal.title }} ({{ proposal.speaker }}){% endblock %}
 
 {% block proposals_body_outer %}
-
-<div class="panel panel__compact">
-  <div class="panel--content">
+{% block proposals_body %}
+<div class="dashboard-panel">
 
         <div class="panel--tab-controls">
           <div class="panel--tabs"><a data-tab-control="Details" class="panel--tab-switch is-active">{% trans "Proposal Details" %}</a><a data-tab-control="Documents" class="panel--tab-switch">{% trans "Supporting Documents" %}</a><a data-tab-control="Feedback" class="panel--tab-switch">{% trans "Reviewer Feedback" %} ({{ proposal.messages.all|length }})</a>
@@ -85,8 +84,8 @@
           </form>
         </div>
       </div>
-    </div>
 
+{% endblock %}
 {% endblock %}
 
 {% block extra_script %}

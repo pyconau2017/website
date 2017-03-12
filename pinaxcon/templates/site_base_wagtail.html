@@ -2,10 +2,11 @@
 {% extends "site_base.html" %}
 {% load staticfiles %}
 {% block extra_style %}{% endblock %}
+
+{% comment %}
 {% block body_base %}
-   {% comment %}
     {% include "_messages.html" %}
-    {% endcomment %}
+
     <!-- site_base_wagtail.html block body -->
     {% block body %}
       <!-- begin content -->
@@ -15,6 +16,7 @@
     {% endblock %}
     <!-- site_base_wagtail.html enblock body -->
 {% endblock %}
+{% endcomment %}
 
 {% block scripts %}
 

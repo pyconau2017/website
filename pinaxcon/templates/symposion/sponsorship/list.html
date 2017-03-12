@@ -1,16 +1,19 @@
 {% extends "site_base.html" %}
 
 {% load sponsorship_tags %}
-{% load thumbnail %}
+{% load pyconau2017_tags %}
 {% load i18n %}
 
 {% block head_title %}{% trans "About Our Sponsors" %}{% endblock %}
 
 {% block body_class %}sponsorships{% endblock %}
 
-{% block body_outer %}
+{% block content %}
+    <div class="jumbotron-white" id="sponsors" style="width: 100%;">
     <h1>{% trans "About Our Sponsors" %}</h1>
+    {% comment %}
     <a href="{% url "pages_page" "sponsors/prospectus/" %}" class="btn">Learn how to become a sponsor <span class="arrow"></span></a>
+    {% endcomment %}
 
     {% sponsor_levels as levels %}
     {% for level in levels %}
@@ -18,16 +21,16 @@
             <h3>{{ level.name }}</h3>
 
             {% for sponsor in level.sponsors %}
-                {% if sponsor.website_logo %}
+                {% if sponsor.sponsor_logo %}
                     <div class="row">
                         <div class="col-md-2">
                             <h2>
                                 <a href="{{ sponsor.external_url }}">
-                                    <img src="{% thumbnail sponsor.website_logo '150x80' %}" alt="{{ sponsor.name }}" />
+                                    <img src="{% sponsor_thumbnail sponsor.sponsor_logo %}" alt="{{ sponsor.name }}" class="thumbnail"/>
                                 </a>
                             </h2>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-7">
                             <h5>{{ sponsor.name }}</h5>
                             <p><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
                             <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
@@ -37,4 +40,5 @@
             {% endfor %}
         {% endif %}
     {% endfor %}
+    </div> <!-- jumbotron-white -->
 {% endblock %}

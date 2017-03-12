@@ -1,19 +1,20 @@
-{% extends "lca2017/content_page.html" %}
+{% extends "pyconau2017/content_page.html" %}
 {% load staticfiles %}
 
-{% block header_background_image %}{% static 'lca2017/images/wineglass_bg_optimised.jpg' %}{% endblock %}
+{% comment %}
+{% block header_background_image %}{% static 'pyconau2017/images/wineglass_bg_optimised.jpg' %}{% endblock %}
+{% endcomment %}
+
 {% block header_title %}{% block page_title %}{% endblock %}{% endblock %}
 {% block header_inset_image_base %}{% endblock %}
 
 {% block content_base %}
   {% block utility_body_outer %}
-    <div class="l-content-page">
-      <div class="l-content-page--richtext">
         {% block content %}
+          <div class="jumbotron-white">
           {% block utility_body %}
           {% endblock %}
+          </div>
         {% endblock content %}
-      </div>
-    </div>
   {% endblock %}
 {% endblock %}

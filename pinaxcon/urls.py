@@ -16,42 +16,38 @@ import symposion.views
 import sys
 
 urlpatterns = [
-#    url(r"^admin/", include(admin.site.urls)),
-#
-#    url(r"^account/", include("account.urls")),
-#
-#    url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
-#
-#    url(r"^speaker/", include("symposion.speakers.urls")),
-#    url(r"^proposals/", include("symposion.proposals.urls")),
-#    url(r"^sponsors/", include("symposion.sponsorship.urls")),
-#    url(r"^reviews/", include("symposion.reviews.urls")),
-#    url(r"^schedule/", include("symposion.schedule.urls")),
-#
-#    url(r"^teams/", include("symposion.teams.urls")),
-#
-#    url(r"^boxes/", include("pinax.boxes.urls")),
-#
-#    url(r'^cms/', include(wagtailadmin_urls)),
-#
-#    # Required by registrasion
-#    url(r'^tickets/payments/', include('registripe.urls')),
-#    url(r'^tickets/', include('registrasion.urls')),
-#    url(r'^nested_admin/', include('nested_admin.urls')),
-#
-#    # Wiki
-#    url(r'^notifications/', get_nyt_pattern()),
-#    url(r'^wiki/', get_wiki_pattern()),
-#
-#    # Default catch-all for wagtail pages.
-    url(r'^', include(wagtail_urls)),
-#
-#    # Matches *NOTHING* -- remove once site_tree is fixed
-#    #url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
-#
-#    # Demo payment gateway and related features
-##    url(r"^register/pinaxcon/", include("pinaxcon.registrasion.urls")),
-]
+    url(r"^admin/", include(admin.site.urls)),
+
+    url(r"^account/", include("account.urls")),
+
+    url(r"^dashboard/", symposion.views.dashboard, name="dashboard"),
+
+    url(r"^speaker/", include("symposion.speakers.urls")),
+    url(r"^proposals/", include("symposion.proposals.urls")),
+    url(r"^sponsors/", include("symposion.sponsorship.urls")),
+    url(r"^reviews/", include("symposion.reviews.urls")),
+    url(r"^schedule/", include("symposion.schedule.urls")),
+
+    url(r"^teams/", include("symposion.teams.urls")),
+
+    url(r"^boxes/", include("pinax.boxes.urls")),
+
+    url(r'^cms/', include(wagtailadmin_urls)),
+
+    # Required by registrasion
+    url(r'^tickets/payments/', include('registripe.urls')),
+    url(r'^tickets/', include('registrasion.urls')),
+    url(r'^nested_admin/', include('nested_admin.urls')),
+
+    # Wiki
+    url(r'^notifications/', get_nyt_pattern()),
+    url(r'^wiki/', get_wiki_pattern()),
+
+    # Default catch-all for wagtail pages.
+
+if settings.DEBUG:
+   import debug_toolbar
+   urlpatterns.insert(0, url(r'^__debug__/', include(debug_toolbar.urls)))
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

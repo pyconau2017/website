@@ -6,9 +6,11 @@
 {% block page_title %}{% trans "Log out" %}{% endblock %}
 
 {% block utility_body %}
+<div class="dashboard-panel error-border">
             <form method="POST" action="{% url "account_logout" %}">
                     {% csrf_token %}
                     <p>{% trans "Are you sure you want to log out?" %}</p>
                     <button type="submit" class="btn btn-primary">{% trans "Log out" %}</button>
             </form>
+</div>
 {% endblock %}
