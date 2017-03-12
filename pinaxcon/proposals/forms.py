@@ -2,7 +2,7 @@ from django import forms
 
 from pinaxcon import widgets
 
-from .models import TalkProposal, TutorialProposal, MiniconfProposal
+from .models import PyConAuProposal, TalkProposal, TutorialProposal, MiniconfProposal
 from .models import SysAdminProposal, WriteTheDocsProposal, WootconfProposal
 from .models import KernelProposal, OpenRadioProposal, SecurityProposal
 from .models import GamesProposal, TestingProposal, LawProposal, OpenHardwareProposal
@@ -41,6 +41,27 @@ class TalkProposalForm(ProposalForm):
             "private_abstract" : widgets.AceMarkdownEditor(),
             "technical_requirements" : widgets.AceMarkdownEditor(),
         }
+
+
+class PyConAuProposalForm(TalkProposalForm):
+    class Meta:
+        model = PyConAuProposal
+        fields = [
+            "title",
+            "target_audience",
+        ] + [
+            "area",
+            "length",
+        ] + [
+            "abstract",
+            "private_abstract",
+            "technical_requirements",
+            "project",
+            "project_url",
+            "video_url",
+            "recording_release",
+            "materials_release",
+        ]
 
 
 class TutorialProposalForm(ProposalForm):

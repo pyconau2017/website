@@ -1,6 +1,7 @@
 from django.db import models
 
 from symposion.proposals.models import ProposalBase
+from symposion.conference.models import Section
 
 
 class Proposal(ProposalBase):
@@ -44,6 +45,29 @@ class TalkProposal(Proposal):
 
     class Meta:
         verbose_name = "talk proposal"
+
+
+class PyConAuProposal(Proposal):
+    class Meta:
+        verbose_name = "PyCon Australia talk proposal"
+
+    area = models.ManyToManyField(
+        Section,
+        help_text="Please select the areas of the conference that you think your talk is applicable to. The paper committee may ask you to reconsider your desired areas.")
+
+    LENGTH_SHORT = 1
+    LENGTH_LONG = 2
+
+    LENGTH_FORMATS = [
+        (LENGTH_SHORT, "Short presentation (30mins)"),
+        (LENGTH_LONG, "Long presentation (70mins)"),
+    ]
+
+    length = models.IntegerField(
+        choices=LENGTH_FORMATS,
+        help_text="Please select the desired length of your presentation. The paper committee may ask you to reconsider your desired length.")
+
+
 
 class TutorialProposal(Proposal):
 
