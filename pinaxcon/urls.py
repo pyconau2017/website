@@ -13,9 +13,6 @@ from django.contrib import admin
 
 import symposion.views
 
-import debug_toolbar
-
-
 import sys
 
 urlpatterns = [
