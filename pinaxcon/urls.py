@@ -13,6 +13,8 @@ from django.contrib import admin
 
 import symposion.views
 
+
+
 import sys
 
 urlpatterns = [
@@ -44,6 +46,15 @@ urlpatterns = [
     url(r'^wiki/', get_wiki_pattern()),
 
     # Default catch-all for wagtail pages.
+    url(r'^', include(wagtail_urls)),
+
+    # Matches *NOTHING* -- remove once site_tree is fixed
+    url(r"^$", TemplateView.as_view(template_name="homepage.html"), name="home"),
+
+    # Demo payment gateway and related features
+    #url(r"^register/pinaxcon/", include("pinaxcon.registrasion.urls")),
+
+]
 
 if settings.DEBUG:
    import debug_toolbar
