@@ -67,6 +67,11 @@ class PyConAuProposal(Proposal):
         choices=LENGTH_FORMATS,
         help_text="Please select the desired length of your presentation. The paper committee may ask you to reconsider your desired length.")
 
+    agreement = models.BooleanField(
+        default=False,
+        help_text="I agree to abide by our <a href=\"///cms/Terms_Conditions\">terms and conditions of attendance</a>, and "
+        "that all parts of my presentation will adhere to our <a href=\"///cms/CoC\">Code of Conduct</a> "
+    )
 
 
 class TutorialProposal(Proposal):
