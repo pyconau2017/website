@@ -10,6 +10,16 @@
     <h4>{% trans "Target Audience" %}</h4>
     <p>{{ proposal.get_target_audience_display }}&nbsp;</p>
 
+    <h4>{% trans "Conference Areas" %}</h4>
+    <ul>
+      {% for area in proposal.area.all %}
+      <li>{{ area.name }}</li>
+      {% endfor %}
+    </ul>
+
+    <h4>{% trans "Proposal length" %}</h4>
+    <p>{{ proposal.get_length_display }}</p>
+
     {% if proposal.additional_speakers.all %}
         <h4>{% trans "Additional Speakers" %}</h4>
         <ul>

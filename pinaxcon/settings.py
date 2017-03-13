@@ -21,6 +21,14 @@ DATABASES = {
         'HOST': '172.16.0.100',
         'PORT': '',
     }
+    #'default': {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #    'NAME': 'pycon2017_uat',
+    #    'USER': 'pycon2017_uat',
+    #    'PASSWORD': 'Eishuqu5johZee3G',
+    #    'HOST': '127.0.0.1',
+    #    'PORT': '',
+    #}
 }
 
 
@@ -336,6 +344,7 @@ AUTHENTICATION_BACKENDS = [
 CONFERENCE_ID = 1
 PROPOSAL_FORMS = {
     "talk": "pinaxcon.proposals.forms.TalkProposalForm",
+    "pyconautalk": "pinaxcon.proposals.forms.PyConAuProposalForm",
     "tutorial": "pinaxcon.proposals.forms.TutorialProposalForm",
     "miniconf": "pinaxcon.proposals.forms.MiniconfProposalForm",
     "sysadmin-miniconf": "pinaxcon.proposals.forms.SysAdminProposalForm",
