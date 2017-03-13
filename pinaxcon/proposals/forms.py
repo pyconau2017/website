@@ -61,7 +61,13 @@ class PyConAuProposalForm(TalkProposalForm):
             "video_url",
             "recording_release",
             "materials_release",
+        ] + [
+            "agreement",
         ]
+
+    def __init__(self, *a, **k):
+        super(TalkProposalForm, self).__init__(*a, **k)
+        self.fields['agreement'].required = True
 
 
 class TutorialProposalForm(ProposalForm):
