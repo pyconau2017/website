@@ -78,7 +78,8 @@ nav {
 }
 
 .menu-dropdown {
-    background: #4c4c4b;
+    background: black;
+    padding-top: 1rem;
 }
 
 #sponsors {
