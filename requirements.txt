@@ -28,6 +28,6 @@ coverage==4.0.3
 # Install via pip repo cloned locally
 #registrasion==0.1.1
 
--e git+https://github.com/lca2017/symposion.git@lca2017#egg=symposion
+-e git+https://github.com/pyconau2017/symposion.git@pycon2017#egg=symposion
 -e git+https://github.com/chrisjrn/registrasion.git@master#egg=registrasion
 -e git+https://github.com/chrisjrn/registrasion-stripe.git@master#egg=registrasion-stripe
