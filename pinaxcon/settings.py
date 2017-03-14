@@ -9,18 +9,18 @@ BASE_DIR = PACKAGE_ROOT
 DEBUG = True #bool(int(os.environ.get("DEBUG", "1")))
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(PROJECT_ROOT, "dev.db"),
-    }
-    #'default': {
-    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #    'NAME': 'pycon2017_uat',
-    #    'USER': 'pycon2017_uat',
-    #    'PASSWORD': 'Eishuqu5johZee3G',
-    #    'HOST': '127.0.0.1',
-    #    'PORT': '',
+    #"default": {
+    #    "ENGINE": "django.db.backends.sqlite3",
+    #    "NAME": os.path.join(PROJECT_ROOT, "dev.db"),
     #}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'pycon2017_uat',
+        'USER': 'pycon2017_uat',
+        'PASSWORD': 'Eishuqu5johZee3G',
+        'HOST': '127.0.0.1',
+        'PORT': '',
+    }
 }
 
 CACHES = {
@@ -278,7 +278,7 @@ LOGGING = {
          'log_file':{
              'level': 'DEBUG',
              'class': 'logging.handlers.RotatingFileHandler',
-             'filename': '/tmp/django.log',
+             'filename': os.path.join('/home/nicks/lavoro/pycon2017', 'log/django.log'),
              'maxBytes': '16777216', # 16megabytes
              'formatter': 'verbose'
          },
