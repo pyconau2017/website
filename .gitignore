@@ -9,6 +9,6 @@ dev.db
 pinaxcon/site_media/
 local_settings.py
 log
-
+src
 \.#*
 *#*#
