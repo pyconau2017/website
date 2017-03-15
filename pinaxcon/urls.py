@@ -13,15 +13,12 @@ from django.contrib import admin
 
 import symposion.views
 
-import debug_toolbar
 
 
 import sys
 
 urlpatterns = [
     url(r"^admin/", include(admin.site.urls)),
-
-    # Debug toolbar
 
     url(r"^account/", include("account.urls")),
 
@@ -61,7 +58,7 @@ urlpatterns = [
 
 if settings.DEBUG:
    import debug_toolbar
-   urlpatterns += [ url(r'^__debug__/', include(debug_toolbar.urls)), ]
+   urlpatterns.insert(0, url(r'^__debug__/', include(debug_toolbar.urls)))
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

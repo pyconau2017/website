@@ -17,12 +17,10 @@
 {% endblock styles %}
 
 {% block content %}
-	<div class="l-content-page">
-		<div class="l-content-page--richtext">
-			<div class="wiki">
-				{% block wiki_breadcrumbs %}{% endblock %}
+	<div class="jumbotron-white">
+		<div class="wiki">
+			{% block wiki_breadcrumbs %}{% endblock %}
 		  	{% block wiki_contents %}{% endblock %}
-			</div>
 		</div>
 	</div>
 {% endblock %}

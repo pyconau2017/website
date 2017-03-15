@@ -6,5 +6,7 @@
 {% block page_title %}{% trans "Email confirmed" %}{% endblock %}
 
 {% block utility_body %}
+<div class="dashboard-panel">
     <p>{% blocktrans with email=confirmation.email_address.email %}You have confirmed <b>{{ email }}</b>{% endblocktrans %}</p>
+</div>
 {% endblock %}

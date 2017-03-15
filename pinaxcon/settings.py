@@ -6,20 +6,18 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 BASE_DIR = PACKAGE_ROOT
 
-DEBUG = False #bool(int(os.environ.get("DEBUG", "1")))
+# Change this in local_settings.py
+SITE_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
+
+# Change/set this in local_settings.py
+DEBUG = False
+
+# Set this in local_settings.py
 DATABASES = {
-    #"default": {
-    #    "ENGINE": "django.db.backends.sqlite3",
-    #    "NAME": os.path.join(PROJECT_ROOT, "dev.db"),
-    #}
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pycon2017_uat',
-        'USER': 'pycon2017_uat',
-        'PASSWORD': 'Eishuqu5johZee3G',
-        'HOST': '172.16.0.100',
-        'PORT': '',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(PROJECT_ROOT, "dev.db"),
     }
 }
 
@@ -29,8 +27,8 @@ CACHES = {
     }
 }
 
-
-ALLOWED_HOSTS = ['2017.pycon-au.org', 'zookeepr1.linux.org.au']
+# Set this in local_settings.py
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', ]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -245,79 +243,14 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
-# To use the debug toolbar on a "remote" site (i.e., not on localhost) change 
-# SHOW_TOOLBAR_CALLBACK's definition, below, to return True, rather than False.
-# If you're using this on a local(host) for development, there's no need to
-# change it so long as DEBUG (above) is defined as True.
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': lambda x: False,
+    'SHOW_TOOLBAR_CALLBACK': lambda x: DEBUG,
 }
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-    },
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        # 'null': {
-        #     'level':'DEBUG',
-        #     'class':'django.utils.log.NullHandler',
-        # },
-         'console':{
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
-        # I always add this handler to facilitate separating loggings
-         'log_file':{
-             'level': 'DEBUG',
-             'class': 'logging.handlers.RotatingFileHandler',
-             'filename': os.path.join('/srv/http/2017.pycon-au.org', 'log/django.log'),
-             'maxBytes': '16777216', # 16megabytes
-             'formatter': 'verbose'
-         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'symposion.request': {
-            'handlers': ['mail_admins'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'apps': { # I keep all my of apps under 'apps' folder, but you can also add them one by one, and this depends on how your virtualenv/paths are set
-            'handlers': ['log_file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-    # you can also shortcut 'loggers' and just configure logging for EVERYTHING at once
-    'root': {
-        'handlers': ['console', 'log_file'], #'mail_admins'],
-        'level': 'DEBUG'
-    },
-}
+# LOGGING configuratoin can be found in local_settings.py
+# Using django default logging config otherwise.
+
 FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),
 ]
@@ -343,6 +276,7 @@ AUTHENTICATION_BACKENDS = [
 CONFERENCE_ID = 1
 PROPOSAL_FORMS = {
     "talk": "pinaxcon.proposals.forms.TalkProposalForm",
+    "pyconautalk": "pinaxcon.proposals.forms.PyConAuProposalForm",
     "tutorial": "pinaxcon.proposals.forms.TutorialProposalForm",
     "miniconf": "pinaxcon.proposals.forms.MiniconfProposalForm",
     "sysadmin-miniconf": "pinaxcon.proposals.forms.SysAdminProposalForm",

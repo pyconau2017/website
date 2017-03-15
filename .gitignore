@@ -4,7 +4,11 @@ node_modules/
 _build/
 .DS_Store
 dev.db
+*.pg
 .coverage
 pinaxcon/site_media/
 local_settings.py
 log
+src
+\.#*
+*#*#

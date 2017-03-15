@@ -32,6 +32,9 @@ body {
     color: black;
     margin-top: 60px;
     margin-bottom: 60px;
+    border-radius: 6px;
+    padding: 2em;
+    border: solid #15B 2px;
 }
 
 @font-face {
@@ -105,3 +108,31 @@ div.sponsor-list {
   margin: 0 auto;
 }
 
+legend {
+  color: #a6e9f5;
+}
+
+.pad-buttons {
+  padding: 200px 0 20px 0;
+}
+
+.team-table {
+  width: 80%;
+}
+
+.dashboard-panel {
+  border: solid black 1px;
+  border-radius: 6px;
+  background-color: #eee;
+  padding: 20px 20px 20px 20px;
+  margin-top: 20px;
+}
+
+.btn__black {
+  color: black;
+  border-color: black;
+}
+
+.error-border {
+  border: solid #f12 5px;
+}

@@ -10,21 +10,15 @@
     <h4>{% trans "Target Audience" %}</h4>
     <p>{{ proposal.get_target_audience_display }}&nbsp;</p>
 
-    {% if proposal.additional_speakers.all %}
-        <h4>{% trans "Additional Speakers" %}</h4>
-        <ul>
-            {% for speaker in proposal.additional_speakers.all %}
-                <li>
-                    {% if speaker.user %}
-                        <strong>{{ speaker.name }}</strong> &lt;{{ speaker.email }}&gt;
-                    {% else %}
-                        {{ speaker.email }} ({% trans "Invitation Sent" %})
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-        <p></p>
-    {% endif %}
+    <h4>{% trans "Conference Areas" %}</h4>
+    <ul>
+      {% for area in proposal.area.all %}
+      <li>{{ area.name }}</li>
+      {% endfor %}
+    </ul>
+
+    <h4>{% trans "Proposal length" %}</h4>
+    <p>{{ proposal.get_length_display }}</p>
 
     <h4>{% trans "Abstract" %}</h4>
     <div class="abstract">{{ proposal.abstract_html|safe }}&nbsp;</div>

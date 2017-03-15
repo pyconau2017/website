@@ -1,6 +1,7 @@
 from django.db import models
 
 from symposion.proposals.models import ProposalBase
+from symposion.conference.models import Section
 
 
 class Proposal(ProposalBase):
@@ -21,7 +22,7 @@ class Proposal(ProposalBase):
 
     recording_release = models.BooleanField(
         default=True,
-        help_text="I allow Linux Australia to release any recordings of "
+        help_text="I allow PyCon Australia to release any recordings of "
         "presentations covered by this proposal, under the <a "
         "href='https://creativecommons.org/licenses/by-sa/3.0/au/deed.en'> "
         "Creative Commons Attribution-Share Alike Australia 3.0 Licence</a>"
@@ -29,7 +30,7 @@ class Proposal(ProposalBase):
 
     materials_release = models.BooleanField(
         default=True,
-        help_text="I allow Linux Australia to release any other material "
+        help_text="I allow PyCon Australia to release any other material "
         "(such as slides) from presentations covered by this proposal, under "
         "the <a "
         "href='https://creativecommons.org/licenses/by-sa/3.0/au/deed.en'> "
@@ -44,6 +45,37 @@ class TalkProposal(Proposal):
 
     class Meta:
         verbose_name = "talk proposal"
+
+
+class PyConAuProposal(Proposal):
+    class Meta:
+        verbose_name = "PyCon Australia talk proposal"
+
+    area = models.ManyToManyField(
+        Section,
+        help_text="Please select the areas of the conference that you think your talk is applicable to. "
+                  "Allowing us to place your talk in any track will give the greatest likelihood of your talk being accepted and "
+                  "also allows us to design the best possible program schedule. "
+                  "The paper committee may ask you to reconsider your desired areas.")
+
+    LENGTH_SHORT = 1
+    LENGTH_LONG = 2
+
+    LENGTH_FORMATS = [
+        (LENGTH_SHORT, "Short presentation (30mins)"),
+        (LENGTH_LONG, "Long presentation (70mins)"),
+    ]
+
+    length = models.IntegerField(
+        choices=LENGTH_FORMATS,
+        help_text="Please select the desired length of your presentation. The paper committee may ask you to reconsider your desired length.")
+
+    agreement = models.BooleanField(
+        default=False,
+        help_text="I agree to abide by our <a href=\"///cms/Terms_Conditions\">terms and conditions of attendance</a>, and "
+        "that all parts of my presentation will adhere to our <a href=\"///cms/CoC\">Code of Conduct</a> "
+    )
+
 
 class TutorialProposal(Proposal):
 

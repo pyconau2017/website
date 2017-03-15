@@ -1,4 +1,4 @@
-{% extends "site_base_wagtail.html" %}
+{% extends "utility_page.html" %}
 {% load staticfiles %}
 {% load i18n %}
 {% load proposal_tags %}
@@ -6,62 +6,58 @@
 {% load teams_tags %}
 {% load registrasion_tags %}
 {% load pyconau2017_tags %}
-
-{% block head_title %}Dashboard{% endblock %}
-
-{% block extra_style %}
-
-{% endblock %}
-
-{% block body_class %}auth{% endblock %}
-
-{% block body %}
-
 {% load staticfiles %}
 {% load wagtailimages_tags %}
 
+
+{% block head_title %}Dashboard{% endblock %}
+
+
+{% block content %}
+
+<div class="jumbotron-white">
+<h1>DASHBOARD</h1>
 {% available_categories as categories %}
 {% if categories %}
-  <div class="panel panel__compact panel__bg panel__last">
-    <div style="background-image: url('{% static "pyconau2017/images/wp_bg_optimised.jpg" %}');" class="panel--bg"></div>
-    <div class="panel--content">
-      <div >
-        <h2>{% trans "Attend" %} {% conference_name %}</h2>
+  <!--div class="panel panel__compact panel__bg panel__last" -->
+    <div class="dashbpard-panel">
+      <div>
+        <h3>{% trans "Attend" %} {% conference_name %}</h3>
         <div class="vertical-bigger"></div>
         <div class="btn-group">
           {% if not user.attendee.completed_registration %}
-            <a href="{% url "guided_registration" %}" class="btn btn__white">
+            <a href="{% url "guided_registration" %}" class="btn btn__neut">
               Get your ticket
             </a>
           {% else %}
-            <a href="{% url "attendee_edit" %}" class="btn btn__white">
+            <a href="{% url "attendee_edit" %}" class="btn btn__neut">
               Edit attendee profile
             </a>
 
             {% items_pending as pending %}
             {% if pending %}
-              <a href="{% url "checkout" %}" class="btn btn__white">
+              <a href="{% url "checkout" %}" class="btn btn__neut">
                 Check out and pay
               </a>
             {% endif %}
           {% endif %}
 
           {% if user.is_staff %}
-            <a class="btn btn__white" href="{% url "reports_list" %}">Reports</a>
+            <a class="btn btn__neut" href="{% url "reports_list" %}">Reports</a>
           {% endif %}
         </div>
       </div>
     </div>
-  </div>
+  <!--/div-->
 
-  <div class="l-content-page">
-    <div class="l-content-page--richtext">
+  <div class="dashboard-panel">
       {% if not user.attendee.completed_registration %}
         <p>To attend the conference, you must purchase a ticket. <a href="{% url "guided_registration" %}">Use our registration form to purchase your ticket</a>.
+        </p>
 
       {% else %}
 
-        <h3>Your items</h3>
+        <h3 class="small">Your items</h3>
           {% items_pending as pending %}
 
           {% if pending %}
@@ -107,39 +103,34 @@
           <p>You have ${{ credit }} leftover from refunded invoices. This credit will be automatically applied to new invoices. Contact the conference organisers to
           for a refund to your original payment source.</p>
         {% endif %}
-      {% endif %}
       <p></p>
-    </div>
+      {% endif %}
   </div>
+
 {% endif %}
 
-
-<div class="panel panel__compact panel__bg panel__last">
-  <div style="background-image: url('{% static "pyconau2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
-  <div class="panel--content">
-    <div class="panel--2-3">
-      <h2>{% trans "Speaking and Miniconfs" %}</h2>
-      <br />
-      <div class="btn-group">
-        {% if not user.speaker_profile %}
-          <a href="{% url "speaker_create" %}" class="btn btn__white">
-          Create profile
-          </a>
-        {% else %}
-          <a href="{% url "speaker_edit" %}" class="btn btn__white">
-            Edit profile
-          </a>
-          <a href="{% url "proposal_submit" %}" class="btn btn__white">
-            New proposal
-          </a>
-        {% endif %}
+    <div class="dashboard-panel">
+      <div class="panel--2-3">
+        <h3>{% trans "Speaking and Miniconfs" %}</h3>
+        <br />
+        <div class="btn-group">
+          {% if not user.speaker_profile %}
+            <a href="{% url "speaker_create" %}" class="btn btn__neut">
+            Create profile
+            </a>
+          {% else %}
+            <a href="{% url "speaker_edit" %}" class="btn btn__neut">
+              Edit profile
+            </a>
+            <a href="{% url "proposal_submit" %}" class="btn btn__neut">
+              New proposal
+            </a>
+          {% endif %}
+        </div>
       </div>
-    </div>
   </div>
-</div>
 
-<div class="l-content-page">
-  <div class="l-content-page--richtext">
+  <div class="dashboard-panel">
 
       {% if not user.speaker_profile %}
         <p>To submit a proposal, you must first create a speaker profile.</p>
@@ -163,7 +154,7 @@
       {% if user.speaker_profile %}
           {% associated_proposals as associated_proposals %}
           {% if associated_proposals %}
-            <h3>Proposals you have joined as an additional speaker</h3>
+            <h3 class="small">Proposals you have joined as an additional speaker</h3>
             <table>
                 <tr>
                     <th>Title</th>
@@ -179,7 +170,7 @@
 
           {% pending_proposals as pending_proposals %}
           {% if pending_proposals %}
-            <h3>Proposals you have been invited to join</h3>
+            <h3 class="small">Proposals you have been invited to join</h3>
               <table>
                 <tr>
                   <th>Title</th>
@@ -194,59 +185,36 @@
           {% endif %}
       {% endif %}
 
-      <br />
-
-  </div>
 </div>
 
 {# {% include 'registrasion/dashboard-widget.html' %} #}
 
 {% if review_sections %}
 
-  <div class="panel panel__compact panel__bg panel__last">
-    <div style="background-image: url('{% static "pyconau2017/images/conference_bg_optimised.jpg" %}');" class="panel--bg"></div>
-    <div class="panel--content">
-      <div class="panel--2-3">
-        <h2>{% trans "Reviews" %}</h2>
-      </div>
-    </div>
-  </div>
+  <div class="dashboard-panel">
+        <h3>{% trans "Reviews" %}</h3>
 
-  <div class="l-content-page">
-    <div class="l-content-page--richtext">
-      {% for section in review_sections %}
-        <h3>{{ section }}</h3>
-        <ul>
-          <li><a href="{% url "review_section" section.section.slug %}">All</a></li>
-          <li><a href="{% url "user_reviewed" section.section.slug %}">Reviewed by you</a></li>
-          <li><a href="{% url "user_not_reviewed" section.section.slug %}">Not Reviewed by you</a></li>
-        </ul>
-      {% endfor %}
-
-      <br />
+        {% for section in review_sections %}
+          <h3 class="small">{{ section }}</h3>
+          <ul>
+            <li><a href="{% url "review_section" section.section.slug %}">All</a></li>
+            <li><a href="{% url "user_reviewed" section.section.slug %}">Reviewed by you</a></li>
+            <li><a href="{% url "user_not_reviewed" section.section.slug %}">Not Reviewed by you</a></li>
+          </ul>
+        {% endfor %}
 
     </div>
-  </div>
+
 {% endif %}
 
 
 {% available_teams as available_teams %}
 {% if user.memberships.exists or available_teams %}
-    <div class="panel panel__compact panel__bg">
-      <div style="background-image: url('{% static "pyconau2017/images/hobart_bg_optimised.jpg" %}');" class="panel--bg"></div>
-      <div class="panel--content">
-        <div class="panel--2-3">
-          <h2>{% trans "Teams" %}</h2>
-          <br />
-        </div>
-      </div>
-    </div>
+  <div class="dashboard-panel">
+      <h3>{% trans "Teams" %}</h3>
 
-
-    {% if user.memberships.exists %}
-    <div class="l-content-page">
-      <div class="l-content-page--richtext">
-          <h3>Your Teams</h3>
+        {% if user.memberships.exists %}
+          <h3 class="small">Your Teams</h3>
           <table>
             {% for membership in user.memberships.all %}
               <tr>
@@ -255,39 +223,40 @@
                   {% if membership.team.description %}<br>{{ membership.team.description }}{% endif %}
                 </td>
                 <td>
-                  <span class="label{% if membership.state == 'invited' %} label-info{% endif %}">{{ membership.get_state_display }}</span>
+                  <span class="{% if membership.state == 'invited' %} label-info{% endif %}">{{ membership.get_state_display }}</span>
                 </td>
                 <td>
                   {% if membership.state == "manager" or user.is_staff %}
                     {% if membership.team.applicants %}{{ membership.team.applicants.count }} applicant{{ membership.team.applicants.count|pluralize }}{% endif %}
-                  {% endif %}
+                      {% endif %}
                 </td>
               </tr>
             {% endfor %}
           </table>
+
         {% endif %}
+
+
         {% if available_teams %}
-          <h3>Available Teams</h3>
+          <h3 class="small">Available Teams</h3>
           <table class="table table-striped">
             {% for team in available_teams %}
-              <tr>
-                <td>
+              <tr>              <td>
                   <a href="{% url "team_detail" team.slug %}">{{ team }}</a>
                   {% if team.description %}<br>{{ team.description }}{% endif %}
-                </td>
-                <td>
-                  <span class="label label-default">{{ team.get_access_display }}</span>
+                </td>              <td>
+                   <span class="label label-default">{{ team.get_access_display }}</span>
                 </td>
               </tr>
             {% endfor %}
-          </table>
+           </table>
         {% endif %}
-      </div>
+
     </div>
-
 {% endif %}
+</div>
 
-{% endblock %}
+{% endblock %} <!-- block content -->
 
 {% block scripts_extra %}
   <script type="text/javascript">
@@ -313,4 +282,4 @@
     var toggleVoidInvoices = _toggleVoidInvoices();
     _toggleVoidInvoices() = undefined;
   </script>
-{% endblock %}
+{% endblock %}  <!-- scripts_extra -->

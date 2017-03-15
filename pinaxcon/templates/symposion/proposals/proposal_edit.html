@@ -6,6 +6,7 @@
 {% block page_title %}Editing: {{ proposal.title }}{% endblock %}
 
 {% block proposals_body %}
+  <div class="dashboard-panel">
   <p><a href="{% url "proposal_speaker_manage" proposal.pk %}">Manage speakers</a></p>
 
   <form method="POST" action="" enctype="multipart/form-data">
@@ -19,4 +20,5 @@
       </fieldset>
 
   </form>
+  </div>
 {% endblock %}
