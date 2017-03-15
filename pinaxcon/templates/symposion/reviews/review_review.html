@@ -38,19 +38,6 @@
 
         <p><b>Submitting speaker</b>: {{ proposal.speaker }}</p> {# @@@ bio? #}
 
-        {% if proposal.additional_speakers.all %}
-            <p><b>Additional speakers</b>:</p>
-            <ul>
-            {% for speaker in proposal.additional_speakers.all %}
-                {% if speaker.user %}
-                    <li><b>{{ speaker.name }}</b> &mdash; {{ speaker.email }}</li>
-                {% else %}
-                    <li>{{ speaker.email }} &mdash; pending invitation</li>
-                {% endif %}
-            {% endfor %}
-            </ul>
-        {% endif %}
-
         <h3>Additional Notes (private from submitter)</h3>
         <div class="additional_notes">
             {{ proposal.additional_notes }}

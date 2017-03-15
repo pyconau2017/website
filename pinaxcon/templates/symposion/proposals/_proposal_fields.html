@@ -20,22 +20,6 @@
     <h4>{% trans "Proposal length" %}</h4>
     <p>{{ proposal.get_length_display }}</p>
 
-    {% if proposal.additional_speakers.all %}
-        <h4>{% trans "Additional Speakers" %}</h4>
-        <ul>
-            {% for speaker in proposal.additional_speakers.all %}
-                <li>
-                    {% if speaker.user %}
-                        <strong>{{ speaker.name }}</strong> &lt;{{ speaker.email }}&gt;
-                    {% else %}
-                        {{ speaker.email }} ({% trans "Invitation Sent" %})
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-        <p></p>
-    {% endif %}
-
     <h4>{% trans "Abstract" %}</h4>
     <div class="abstract">{{ proposal.abstract_html|safe }}&nbsp;</div>
 
