@@ -254,7 +254,11 @@ FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# NOTE: Only use console.EmailBackend for debugging.
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = '2017.pycon-au.org'
+EMAIL_PORT = 25
 
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_EMAIL_UNIQUE = True
