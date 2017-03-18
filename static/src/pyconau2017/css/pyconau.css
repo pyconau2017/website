@@ -85,6 +85,10 @@ nav {
     padding-top: 1rem;
 }
 
+.menu-dropdown .link-item {
+    padding-left: 0px;
+}
+
 #sponsors {
     border-radius: 6px;
     padding: 1em;
