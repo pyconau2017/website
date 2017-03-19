@@ -72,8 +72,8 @@ class PyConAuProposal(Proposal):
 
     agreement = models.BooleanField(
         default=False,
-        help_text="I agree to abide by our <a href=\"///cms/Terms_Conditions\">terms and conditions of attendance</a>, and "
-        "that all parts of my presentation will adhere to our <a href=\"///cms/CoC\">Code of Conduct</a> "
+        help_text="I agree to abide by our <a href=\"/rego/terms_and_conditions/\">terms and conditions of attendance</a>, and "
+        "that all parts of my presentation will adhere to our <a href=\"/about/code_of_conduct/\">Code of Conduct</a> "
     )
 
 
