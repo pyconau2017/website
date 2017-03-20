@@ -260,6 +260,7 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 
+DEFAULT_FROM_EMAIL = "contact@pycon-au.org"
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
