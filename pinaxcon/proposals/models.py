@@ -6,16 +6,16 @@ from symposion.conference.models import Section
 
 class Proposal(ProposalBase):
 
-    TARGET_USER = 1
-    TARGET_BUSINESS = 2
-    TARGET_COMMUNITY = 3
-    TARGET_DEVELOPER = 4
+    TARGET_NOOB = 1
+    TARGET_NORM = 2
+    TARGET_ELITE = 3
+    TARGET_ALL = 4
 
     TARGET_AUIDENCES = [
-        (TARGET_USER, "User"),
-        (TARGET_BUSINESS, "Business"),
-        (TARGET_COMMUNITY, "Community"),
-        (TARGET_DEVELOPER, "Developer"),
+        (TARGET_NOOB, "Introductory (should be of interest to someone new to the topic)"),
+        (TARGET_NORM, "Intermediate (should be of interest to people familiar with the topic, as well as people with a general background in Python)"),
+        (TARGET_ELITE, "Specialised (mainly of interest to people with a strong interest in the topic)"),
+        (TARGET_ALL, "General Community (a general topic of interest to a broad cross-section of people who use Python)"),
     ]
 
     target_audience = models.IntegerField(choices=TARGET_AUIDENCES)
