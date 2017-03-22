@@ -2,7 +2,7 @@
 
 {% block body_class %}{{ block.super }} voting-status {{ key }}{% endblock %}
 
-{% block body %}
+{% block content_inner %}
     <h1>Voting Status ({{ section_slug }})</h1>
 
     {% if key %}
