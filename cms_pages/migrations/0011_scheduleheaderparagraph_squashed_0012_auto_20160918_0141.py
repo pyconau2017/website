@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('cms_pages', '0010_auto_20160916_0729'),
-        #('symposion_schedule', '0002_presentation_unpublish'),
+        ('symposion_schedule', '0002_presentation_unpublish'),
     ]
 
     operations = [
