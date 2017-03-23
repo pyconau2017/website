@@ -1,12 +1,12 @@
 body {
   /* Unfortunately, we can't use django tags in here.  So, we'll pull the bg image in from within the body tag itself */
   /* background: url({% static 'pyconau2017/images/pyconau-2016-collage.jpg' %}) no-repeat center center fixed; */
-  background: no-repeat center center fixed; */
+  background: no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  color: white;
+  color: #2b2b2b;
   font-size: 14px;
 }
 
@@ -21,8 +21,8 @@ body {
 }
 
 .jumbotron {
-    background-color: rgba(0,0,0,0.9);
-    color: white;
+    background-color: rgba(255,255,255,0.9);
+    color: #2b2b2b;
     margin-top: 60px;
     margin-bottom: 60px;
 }

@@ -52,16 +52,14 @@
 
 {% block body_class %}reviews{% endblock %}
 
-{% block body_outer %}
-<div class="l-content-page">
-<div class="l-content-page--richtext">
-<div class="rich-text">
+{% block body %}
+  <div class="container">
 
     <div class="row">
         <div class="col-md-2">
             {% block sidebar %}
-            {% for section in review_sections %}
             <div class="panel panel-default">
+            {% for section in review_sections %}
                 <div class="panel-heading">
                     <h3 class="panel-title">{{ section }}</h3>
                 </div>
@@ -93,14 +91,17 @@
                         {% endif %}
                 </div>
             {% endfor %}
+              </div>
             {% endblock %}
         </div>
         <div class="col-md-10">
-            {% block body %}
+            <div class="panel panel-default">
+            {% block content_inner %}
             {% endblock %}
         </div>
+        </div>
     </div>
-</div></div></div>
+  </div>
 {% endblock %}
 
 {% block extra_script %}
@@ -113,7 +114,7 @@
         $(function() {
             $(".tip").tooltip();
             $("table.table-reviews").dataTable({
-                "sDom": "<'row'<'col-md-3'l><'col-md-3'T><'col-md-4'f>r>t<'row'<'col-md-3'i><'col-md-5'p>>",
+                "sDom": "<'container-fluid'<'row'<'col-md-3'l><'col-md-3'T><'col-md-4'f>r>t<'row'<'col-md-3'i><'col-md-5'p>>>",
                 "sPaginationType": "bootstrap",
                 "bStateSave": true,
                 "oTableTools": {

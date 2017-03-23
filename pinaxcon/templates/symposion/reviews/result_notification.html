@@ -14,7 +14,7 @@
     </style>
 {% endblock %}
 
-{% block body %}
+{% block content_inner %}
 
     <ul class="nav nav-pills">
         <li{% if status == 'accepted' %} class="active"{% endif %}><a href="{% url "result_notification" section_slug 'accepted' %}">accepted</a>
