@@ -58,12 +58,14 @@
           <th></th>
           <th>{% trans "Travel" %}</th>
           <th>{% trans "Accommodation" %}</th>
+	  <th>{% trans "Home City" %}</th>
         </tr>
         {% for speaker in proposal.speakers %}
           <tr>
             <td>{{ speaker.name }}</td>
             <td>{{ speaker.travel_assistance }}</td>
             <td>{{ speaker.accommodation_assistance }}</td>
+            <td>{{ speaker.home_city }}</td>
           </tr>
         {% endfor %}
       </table>
