@@ -15,14 +15,12 @@
 {% block right %}
 {% endblock %}
 
-{% block content_base %}
+{% block page_content %}
 
   <div class="page-head">
     {% block breadcrumbs %}{% endblock %}
   </div>
 
-  <div class="panel panel__compact">
-    <div class="panel--content">
 
       <div class="panel--tab-controls">
         <div class="panel--tabs">
@@ -50,8 +48,6 @@
          {% endcache %}
       {% endfor %}
 
-    </div>
-  </div>
 {% endblock %}
 
 {% block scripts_extra %}
