@@ -141,3 +141,7 @@ legend {
 .error-border {
   border: solid #f12 5px;
 }
+
+.tab-content {
+  padding: 20px;
+}
