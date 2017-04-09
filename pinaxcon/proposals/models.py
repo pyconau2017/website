@@ -53,7 +53,8 @@ class PyConAuProposal(Proposal):
 
     area = models.ManyToManyField(
         Section,
-        help_text="Please select the areas of the conference that you think your talk is applicable to. "
+        verbose_name="Areas",
+        help_text="Please select all areas of the conference that you think your talk is applicable to. "
                   "Allowing us to place your talk in any track will give the greatest likelihood of your talk being accepted and "
                   "also allows us to design the best possible program schedule. "
                   "The paper committee may ask you to reconsider your desired areas.")
