@@ -10,7 +10,7 @@
 {% block body_class %}sponsorships{% endblock %}
 
 {% block content %}
-    <div class="jumbotron"
+    <div class="jumbotron">
     <form method="POST" action="{% url "sponsor_add" %}" class="form-horizontal">
         {% csrf_token %}
         <legend>{% trans "Add a Sponsor" %}</legend>

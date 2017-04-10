@@ -10,6 +10,7 @@
 {% block body %}
     <h2>{{ sponsor.name }} ({{ sponsor.level }})</h2>
 
+    <div class="jumbotron">
     <form enctype="multipart/form-data" method="POST" action="" class="form-horizontal">
         {% csrf_token %}
         <fieldset>
@@ -37,4 +38,5 @@
         </div>
 
     </form>
+    </div>
 {% endblock %}
