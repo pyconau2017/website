@@ -1,5 +1,8 @@
 {% extends "cms_pages/abstract_content_page.html" %}
 
+{% load wagtailcore_tags  %}
+{% load wagtailimages_tags %}
+
 {% block body_class %}template-newspage{% endblock %}
 
 {% if page.portrait_image %}
