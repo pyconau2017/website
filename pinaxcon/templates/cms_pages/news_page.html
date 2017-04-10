@@ -1,23 +1,12 @@
 {% extends "cms_pages/abstract_content_page.html" %}
 
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-
-{% load sitetree %}
-{% load i18n %}
-
 {% block body_class %}template-newspage{% endblock %}
-
-{% block head_title %}{{ page.title }}{% endblock %}
 
 {% if page.portrait_image %}
   {% block header_inset_image %}{% image page.portrait_image width-640 as portrait_image %}{{ portrait_image.url }}{% endblock %}
 {% endif %}
 
-{% block content %}
-    <div id="announcements" class="jumbotron-white">
-
+{% block page_content %}
   <p><em>{{ page.date|date:"j F Y" }}</em></p>
   {{ page.body }}
-  </div>
 {% endblock %}

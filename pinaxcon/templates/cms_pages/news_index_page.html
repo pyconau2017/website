@@ -1,47 +1,17 @@
 {% extends "cms_pages/abstract_content_page.html" %}
 
-{% load staticfiles %}
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
-{% load pyconau2017_tags %}
-
-{% load sitetree %}
-{% load i18n %}
-
-{% block head_title %}{{ page.title }}{% endblock %}
 {% block body_class %}template-news-index{% endblock %}
 
-{% block inset_image_base %}{% endblock %}
-
-{% comment %}We use panels here, so don't need to wrap in a text block{% endcomment %}
-{% block content_base %}
+{% block page_content %}
   {% if page.child_pages %}
     {% for item in page.child_pages %}
-      <div class="panel panel__compact jumbotron-white">
-        <div class="panel--content">
-        {% comment %}
-          <div class="panel--1-3">
-            <div class="portrait">
-              {% image item.portrait_image width-640 as portrait_image %}
-              <div style="background-image: url('{{ portrait_image.url }}');" class="portrait--img"></div>
-            </div>
-          </div>
-          {% endcomment %}
-          <div class="panel--2-3">
-            <h2>{{ item.title }}</h2>
-            <p class="lede"><em>{{ item.date|date:"j F Y" }}</em> – {{ item.intro }}</p>
-            <a href="{{ item.url }}" class="btn">Read more</a>
-          </div>
-        </div>
-      </div>
+        <h2>{{ item.title }}</h2>
+        <p class="lede"><em>{{ item.date|date:"j F Y" }}</em> – {{ item.intro }}</p>
+        <a href="{{ item.url }}" class="btn">Read more</a>
     {% endfor %}
     <div class="panel panel__compact"></div>
   {% endif %}
 
-  <div class="panel panel__compact jumbotron">
-    <div class="panel--content">
-      <h3>Subscribe</h3>
-      <p><a class="btn" href="rss">View as RSS</a></p>
-    </div>
-  </div>
+  <h3>Subscribe</h3>
+  <p><a class="btn" href="rss">View as RSS</a></p>
 {% endblock %}
