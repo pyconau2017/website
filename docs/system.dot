@@ -1,0 +1,12 @@
+digraph G {
+
+	pinaxcon -> django;
+	wagtail -> django;
+	django -> database;
+
+	database [shape=square];
+	django [shape=square];
+	pinaxcon [shape=square];
+	wagtail [shape=square];
+	
+}
