@@ -122,6 +122,6 @@ def news_carousel(context):
     #       items being carouselled.  (If you look at _news_carousel.html
     #       you'll see where this is used.)   It was the lesser of several
     #       evil choices.
-    return {'items': list(enumerate(NewsPage.objects.all())),
+    return {'items': list(enumerate(NewsPage.objects.filter(live=True).all())),
             'request': context['request']
             }
