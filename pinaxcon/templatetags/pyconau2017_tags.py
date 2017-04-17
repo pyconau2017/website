@@ -12,6 +12,8 @@ from easy_thumbnails.files import get_thumbnailer
 from symposion.conference import models as conference_models
 from symposion.schedule.models import Track
 
+from cms_pages.models import NewsPage
+
 CONFERENCE_ID = settings.CONFERENCE_ID
 
 register = template.Library()
@@ -112,3 +114,14 @@ def sponsor_thumbnail(sponsor_logo):
             return logo_file
 
     return ""
+
+@register.inclusion_tag('pyconau2017/_news_carousel.html', takes_context=True)
+def news_carousel(context):
+    # Note: I had to use enumerate here as the bootstrap carousel
+    #       widgets need a single "active" element in the list of
+    #       items being carouselled.  (If you look at _news_carousel.html
+    #       you'll see where this is used.)   It was the lesser of several
+    #       evil choices.
+    return {'items': list(enumerate(NewsPage.objects.filter(live=True).all())),
+            'request': context['request']
+            }
