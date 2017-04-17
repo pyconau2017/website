@@ -12,6 +12,8 @@ from easy_thumbnails.files import get_thumbnailer
 from symposion.conference import models as conference_models
 from symposion.schedule.models import Track
 
+from cms_pages.models import NewsPage
+
 CONFERENCE_ID = settings.CONFERENCE_ID
 
 register = template.Library()
@@ -112,3 +114,10 @@ def sponsor_thumbnail(sponsor_logo):
             return logo_file
 
     return ""
+
+@register.inclusion_tag('pyconau2017/_news_carousel.html', takes_context=True)
+def news_carousel(context):
+    return {'items': list(enumerate(NewsPage.objects.all())),
+            'range': range(NewsPage.objects.count()),
+            'request': context['request']
+            }
