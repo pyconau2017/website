@@ -4,6 +4,8 @@
     <thead>
         <th>#</th>
         <th>{% trans "Speaker / Title" %}</th>
+	<th>{% trans "Travel<br>Assist" %}</th>
+	<th>{% trans "Accomm<br>Assist" %}</th>
         <th>{% trans "Votes" %}</th>
         <th>{% trans "Score" %}</th>
         <th>{% trans "+2" %}</th>
@@ -24,6 +26,20 @@
                         {{ proposal.title }}
                     </a>
                 </td>
+		<td>
+		  {% if proposal.speaker.travel_assistance %}
+		  Y ({{ proposal.speaker.home_city }})
+		  {% else %}
+		  N
+		  {% endif %}
+		</td>
+		<td>
+		  {% if proposal.speaker.accommodation_assistance %}
+		  Y
+		  {% else %}
+		  N
+		  {% endif %}
+		</td>
                 <td>{{ proposal.total_votes }}</td>
                 <td>{{ proposal.score }}</td>
                 <td>{{ proposal.plus_two }}</td>

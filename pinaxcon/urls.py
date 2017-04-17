@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 from wiki.urls import get_pattern as get_wiki_pattern
 from django_nyt.urls import get_pattern as get_nyt_pattern
@@ -35,6 +36,7 @@ urlpatterns = [
     url(r"^boxes/", include("pinax.boxes.urls")),
 
     url(r'^cms/', include(wagtailadmin_urls)),
+    url(r'^documents/', include(wagtaildocs_urls)),
 
     # Required by registrasion
     url(r'^tickets/payments/', include('registripe.urls')),

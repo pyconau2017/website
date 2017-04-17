@@ -14,17 +14,7 @@
 {% if page.background_image %}
   {% block header_background_image %}{% image page.background_image width-2000 as background_image %}{{ background_image.url }}{% endblock %}
 {% endif %}
-{% block header_title %}{{ page.title }}{% endblock %}
-{% block header_paragraph %}{{ page.intro }}{% endblock %}
 {% block header_inset_image %}{% endblock %}
 
-{% block content %}
-    <div id="announcements" class="jumbotron-white">
-        <h1>{{ page.title }}</h1>
-        <p>{{ page.intro }}</p>
-        <span>{{ page.body }}</span>
-    </div>
-    {% block content_base %}
-    {% endblock %}
+{% block page_content %}
 {% endblock %}
-

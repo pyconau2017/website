@@ -20,6 +20,17 @@ body {
   align-items: center;
 }
 
+.page-content {
+    background-color: rgba(255,255,255,1.0);
+    color: black;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    border-radius: 6px;
+    padding: 2em;
+    border: solid #15B 2px;
+}
+
+
 .jumbotron {
     background-color: rgba(255,255,255,0.9);
     color: #2b2b2b;
@@ -140,4 +151,8 @@ legend {
 
 .error-border {
   border: solid #f12 5px;
+}
+
+.tab-content {
+  padding: 20px;
 }

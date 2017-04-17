@@ -14,10 +14,6 @@
 {% endblock %}
 
 {% block content %}
-<div class="l-content-page">
-<div class="l-content-page--richtext">
-<div class="rich-text">
-
     <h1>Schedule Edit</h1>
 
     {% for timetable in days %}
@@ -30,7 +26,7 @@
         <input type="submit" id="delete" name="delete" value="Delete Schedule" />
     </form>
     <div class="modal fade in" style="background-color:#fff;" id="slotEditModal"></div>
-</div></div></div>
+
 {% endblock %}
 
 {% block extra_script %}
