@@ -117,7 +117,11 @@ def sponsor_thumbnail(sponsor_logo):
 
 @register.inclusion_tag('pyconau2017/_news_carousel.html', takes_context=True)
 def news_carousel(context):
+    # Note: I had to use enumerate here as the bootstrap carousel
+    #       widgets need a single "active" element in the list of
+    #       items being carouselled.  (If you look at _news_carousel.html
+    #       you'll see where this is used.)   It was the lesser of several
+    #       evil choices.
     return {'items': list(enumerate(NewsPage.objects.all())),
-            'range': range(NewsPage.objects.count()),
             'request': context['request']
             }
