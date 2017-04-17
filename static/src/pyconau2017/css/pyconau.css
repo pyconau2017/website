@@ -157,7 +157,9 @@ legend {
   padding: 20px;
 }
 
-.carousel-control {
+.carousel-control,
+.carousel-control:hover,
+.carousel-control:focus {
   color: #24a;
   background: none; !important
 }
