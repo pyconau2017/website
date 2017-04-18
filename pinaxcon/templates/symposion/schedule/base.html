@@ -9,8 +9,10 @@
     <main role="main">
     {% include "_messages.html" %}
     {% block body %}
+      <div class="page-content">
       {% block content %}
       {% endblock %}
+      </div>
     {% endblock %}
 {% endblock %}
 {% block scripts %}
