@@ -31,7 +31,12 @@
                             </h2>
                         </div>
                         <div class="col-md-7">
+
+			  {% if user.is_staff %}
+                            <h5><a href="{% url "sponsor_detail" sponsor.pk %}"> {{ sponsor.name }}</a></h5>
+			  {% else %}
                             <h5>{{ sponsor.name }}</h5>
+			  {% endif %}
                             <p><a href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></p>
                             <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
                         </div>
