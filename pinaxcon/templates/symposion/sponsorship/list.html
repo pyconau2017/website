@@ -11,9 +11,8 @@
 {% block content %}
     <div class="jumbotron-white" id="sponsors" style="width: 100%;">
     <h1>{% trans "About Our Sponsors" %}</h1>
-    {% comment %}
-    <a href="{% url "pages_page" "sponsors/prospectus/" %}" class="btn">Learn how to become a sponsor <span class="arrow"></span></a>
-    {% endcomment %}
+
+    {% dump_cms_body "About Sponsors" %}
 
     {% sponsor_levels as levels %}
     {% for level in levels %}

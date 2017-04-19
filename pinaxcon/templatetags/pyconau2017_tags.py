@@ -84,6 +84,15 @@ def header_paragraph(name):
 
 
 @register.simple_tag()
+def dump_cms_body(title):
+    model = cms_pages.models.ContentPage
+    try:
+        return model.objects.get(title=title).body
+    except model.DoesNotExist:
+        return "did not find model: %r" % (title)
+
+
+@register.simple_tag()
 def all_images():
     return cms_pages.models.CustomImage.objects.all().order_by("title")
 
