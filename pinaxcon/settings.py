@@ -1,6 +1,8 @@
 import os
 import dj_database_url
 
+import bleach
+
 # Just going to put this comment in here to make a change that I'll back out later.
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
@@ -335,6 +337,8 @@ WIKI_CAN_READ = True
 WIKI_CAN_WRITE = True
 WIKI_CAN_DELETE = True
 WIKI_ACCOUNT_HANDLING = False
+
+BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
 
 # Production settings have their own file to override stuff here
 try:
