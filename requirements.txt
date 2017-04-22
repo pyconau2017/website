@@ -12,6 +12,8 @@ pinax-boxes==2.1.2
 wagtail==1.6.2
 pylibmc==1.5.1
 raven==5.27.0
+bleach==1.4.3
+html5lib==0.9999999
 django-debug-toolbar==1.6
 
 # database
