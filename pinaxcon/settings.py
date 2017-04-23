@@ -196,14 +196,12 @@ INSTALLED_APPS = [
 
     # Registrasion
     "registrasion",
+    "nested_admin",
 
     # Registrasion-stipe
     "pinax.stripe",
     "django_countries",
     "registripe",
-
-    #admin - required by registrasion ??
-    "nested_admin",
 
     # project
     "cms_pages",
