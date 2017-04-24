@@ -163,3 +163,7 @@ legend {
   color: #24a;
   background: none; !important
 }
+
+hr.proposal-title {
+  border: solid #888 1px;
+}
