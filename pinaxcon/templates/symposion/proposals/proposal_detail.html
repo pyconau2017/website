@@ -11,6 +11,10 @@
 {% block proposals_body %}
 <div class="dashboard-panel">
 
+        <div class="">
+          <h2>{{ proposal.title }}</h3>
+          <hr class="proposal-title"/>
+        </div>
         <div class="panel--tab-controls">
           <div class="panel--tabs"><a data-tab-control="Details" class="panel--tab-switch is-active">{% trans "Proposal Details" %}</a><a data-tab-control="Documents" class="panel--tab-switch">{% trans "Supporting Documents" %}</a><a data-tab-control="Feedback" class="panel--tab-switch">{% trans "Reviewer Feedback" %} ({{ proposal.messages.all|length }})</a>
           </div>
