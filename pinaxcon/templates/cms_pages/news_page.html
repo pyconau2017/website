@@ -10,8 +10,7 @@
 {% endif %}
 
 {% block page_content %}
-  <p><em>{{ page.date|date:"j F Y" }}</em></p>
   <h2>{{ page.title }} </h2>
-  <hr class="proposal-title" />
+  <p><em>{{ page.date|date:"j F Y" }}</em></p>
   {{ page.body }}
 {% endblock %}
