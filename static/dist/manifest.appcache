@@ -1,13 +1,13 @@
 CACHE MANIFEST
 # 2017-02-17
 
-＃　Explicitly cached entries ...
+# Explicitly cached entries ...
 CACHE:
 /favicon.ico
 
 # Resources that require the user to be on-line
 NETWORK:
-
+*
 
 FALLBACK:
 
