@@ -4,14 +4,15 @@ from datetime import timedelta
 from decimal import Decimal
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 from registrasion.models import inventory as inv
 from registrasion.models import conditions as cond
 from symposion import proposals
 
+
 class Command(BaseCommand):
-    help = 'Populates the inventory with the LCA2017 inventory model'
+    help = 'Populates the inventory with the PyConAu17 inventory model'
 
     def add_arguments(self, parser):
         pass
@@ -19,7 +20,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         kinds = []
-        for i in ("Talk", "Tutorial", "Miniconf"):
+        for i in ("talk", "Tutorial"):
             kinds.append(proposals.models.ProposalKind.objects.get(name=i))
         self.main_conference_proposals = kinds
 
@@ -60,46 +61,6 @@ class Command(BaseCommand):
             limit_per_user=1,
             order=1,
         )
-        self.penguin_dinner = self.find_or_make(
-            inv.Category,
-            ("name",),
-            name="Penguin Dinner Ticket",
-            description="Tickets to our conference dinner on the evening of "
-                        "Wednesday 18 January. All attendees may purchase "
-                        "seats at the dinner, even if a dinner ticket is not "
-                        "included in your conference ticket price.",
-            required = False,
-            render_type=inv.Category.RENDER_TYPE_QUANTITY,
-            limit_per_user=10,
-            order=10,
-        )
-        self.speakers_dinner_ticket = self.find_or_make(
-            inv.Category,
-            ("name",),
-            name="Speakers' Dinner Ticket",
-            description="Tickets to our exclusive Speakers' Dinner on the "
-                        "evening of Tuesday 17 January. You may purchase up "
-                        "to 5 tickets in total, for significant others, and "
-                        "family members.",
-            required = False,
-            render_type=inv.Category.RENDER_TYPE_QUANTITY,
-            limit_per_user=5,
-            order=20,
-        )
-        self.pdns_breakfast = self.find_or_make(
-            inv.Category,
-            ("name",),
-            name="Opening Reception Breakfast Ticket",
-            description="Tickets to our Opening Reception Breakfast. This "
-                        "event will be held on the morning of Monday 16 "
-                        "January, and is restricted to Professional Ticket "
-                        "holders, speakers, miniconf organisers, and invited "
-                        "guests.",
-            required = False,
-            render_type=inv.Category.RENDER_TYPE_RADIO,
-            limit_per_user=1,
-            order=30,
-        )
         self.t_shirt = self.find_or_make(
             inv.Category,
             ("name",),
@@ -110,43 +71,14 @@ class Command(BaseCommand):
             render_type=inv.Category.RENDER_TYPE_ITEM_QUANTITY,
             order=40,
         )
-        self.accommodation = self.find_or_make(
-            inv.Category,
-            ("name",),
-            name="Accommodation at University of Tasmania",
-            description="Accommodation at the University of Tasmania colleges "
-                        "and apartments. You can come back and book your "
-                        "accommodation at a later date, provided rooms remain "
-                        "available. Rooms may only be booked from Sunday 15 "
-                        "January--Saturday 21 January. If you wish to stay "
-                        "for only a part of the 6-day period, you must book "
-                        "accommodation for the full 6-day period. Rooms at "
-                        "other hotels, including Wrest Point can be booked "
-                        "elsewhere. For full details, see [LINK]our "
-                        "accommodation page.[/LINK]",
-            required = False,
-            render_type=inv.Category.RENDER_TYPE_RADIO,
-            limit_per_user=1,
-            order=50,
-        )
-        self.extras = self.find_or_make(
-            inv.Category,
-            ("name",),
-            name="Extras",
-            description="Other items that can improve your conference "
-                        "experience.",
-            required = False,
-            render_type=inv.Category.RENDER_TYPE_QUANTITY,
-            order=60,
-        )
 
         # Tickets
 
-        self.ticket_fairy = self.find_or_make(
+        self.ticket_supporter = self.find_or_make(
             inv.Product,
             ("name", "category",),
             category=self.ticket,
-            name="Fairy Penguin Sponsor",
+            name="Supporter",
             price=Decimal("1999.00"),
             reservation_duration=hours(24),
             order=1,
@@ -160,11 +92,11 @@ class Command(BaseCommand):
             reservation_duration=hours(24),
             order=10,
         )
-        self.ticket_hobbyist = self.find_or_make(
+        self.ticket_enthusiast = self.find_or_make(
             inv.Product,
             ("name", "category",),
             category=self.ticket,
-            name="Hobbyist",
+            name="Enthusiast",
             price=Decimal("449.00"),
             reservation_duration=hours(24),
             order=20,
@@ -251,113 +183,6 @@ class Command(BaseCommand):
             order=90,
         )
 
-        # Penguin dinner
-
-        self.penguin_adult = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.penguin_dinner,
-            name="Adult",
-            description="Includes an adult's meal and full beverage service.",
-            price=Decimal("95.00"),
-            reservation_duration=hours(1),
-            order=10,
-        )
-        self.penguin_child = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.penguin_dinner,
-            name="Child",
-            description="Includes a child's meal and soft drink service.",
-            price=Decimal("50.00"),
-            reservation_duration=hours(1),
-            order=20,
-        )
-        self.penguin_infant = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.penguin_dinner,
-            name="Infant",
-            description="Includes no food or beverage service.",
-            price=Decimal("00.00"),
-            reservation_duration=hours(1),
-            order=30,
-        )
-
-        # Speakers' dinner
-
-        self.speakers_adult = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.speakers_dinner_ticket,
-            name="Adult",
-            description="Includes an adult's meal and full beverage service.",
-            price=Decimal("100.00"),
-            reservation_duration=hours(1),
-            order=10,
-        )
-        self.speakers_child = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.speakers_dinner_ticket,
-            name="Child",
-            description="Includes a child's meal and soft drink service.",
-            price=Decimal("60.00"),
-            reservation_duration=hours(1),
-            order=20,
-        )
-        self.speaker_infant = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.speakers_dinner_ticket,
-            name="Infant",
-            description="Infant must be seated in an adult's lap. No food or "
-                        "beverage service.",
-            price=Decimal("00.00"),
-            reservation_duration=hours(1),
-            order=30,
-        )
-
-        # PDNS breakfast
-
-        self.pdns = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.pdns_breakfast,
-            name="Conference Attendee",
-            price=Decimal("00.00"),
-            reservation_duration=hours(1),
-            limit_per_user=1,
-            order=10,
-        )
-
-        # Accommodation
-
-        self.accommodation_week = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.accommodation,
-            name="Single Bedroom with Shared Bathrooms, includes full "
-                 "breakfast, Sunday 15 January 2017--Saturday 21 January 2017",
-            price=Decimal("396.00"),
-            reservation_duration=hours(24),
-            limit_per_user=1,
-            order=10,
-        )
-
-        # Extras
-
-        self.carbon_offset = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.extras,
-            name="Offset the carbon polution generated by your attendance, "
-                 "thanks to fifteen trees.",
-            price=Decimal("5.00"),
-            reservation_duration=hours(1),
-            order=10,
-        )
-
         # Shirts
         ShirtGroup = namedtuple("ShirtGroup", ("prefix", "sizes"))
         shirt_names = {
@@ -417,9 +242,9 @@ class Command(BaseCommand):
             limit=450,
         )
         public_ticket_cap.products.set([
-            self.ticket_fairy,
+            self.ticket_supporter,
             self.ticket_professional,
-            self.ticket_hobbyist,
+            self.ticket_enthusiast,
             self.ticket_student,
         ])
 
@@ -436,39 +261,6 @@ class Command(BaseCommand):
             self.ticket_media,
             self.ticket_team,
             self.ticket_volunteer,
-        ])
-
-        penguin_dinner_cap = self.find_or_make(
-            cond.TimeOrStockLimitFlag,
-            ("description", ),
-            description="Penguin dinner ticket cap",
-            condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=450,
-        )
-        penguin_dinner_cap.categories.set([
-            self.penguin_dinner,
-        ])
-
-        speakers_dinner_cap = self.find_or_make(
-            cond.TimeOrStockLimitFlag,
-            ("description", ),
-            description="Speakers dinner ticket cap",
-            condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=150,
-        )
-        speakers_dinner_cap.categories.set([
-            self.speakers_dinner_ticket,
-        ])
-
-        pdns_cap = self.find_or_make(
-            cond.TimeOrStockLimitFlag,
-            ("description", ),
-            description="PDNS breakfast ticket cap",
-            condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=400,
-        )
-        pdns_cap.categories.set([
-            self.pdns_breakfast,
         ])
 
         # Volunteer tickets are for volunteers only
@@ -507,61 +299,6 @@ class Command(BaseCommand):
         speaker_tickets.proposal_kind.set(self.main_conference_proposals)
         speaker_tickets.products.set([self.ticket_speaker, ])
 
-        # Speaker dinner tickets are for primary and secondary speakers
-        speaker_dinner_tickets = self.find_or_make(
-            cond.SpeakerFlag,
-            ("description", ),
-            description="Speaker dinner tickets",
-            condition=cond.FlagBase.ENABLE_IF_TRUE,
-            is_presenter=True,
-            is_copresenter=True,
-        )
-        speaker_dinner_tickets.proposal_kind.set(self.main_conference_proposals)
-        speaker_dinner_tickets.categories.set([self.speakers_dinner_ticket, ])
-
-        # PDNS tickets are complicated.
-        # They can be enabled by tickets
-        pdns_by_ticket = self.find_or_make(
-            cond.ProductFlag,
-            ("description", ),
-            description="PDNS available by ticket",
-            condition=cond.FlagBase.ENABLE_IF_TRUE,
-        )
-        pdns_by_ticket.enabling_products.set([
-            self.ticket_professional,
-            self.ticket_fairy,
-            self.ticket_media,
-            self.ticket_sponsor,
-        ])
-        pdns_by_ticket.categories.set([self.pdns_breakfast, ])
-
-        # They are available to speakers
-        pdns_by_speaker = self.find_or_make(
-            cond.SpeakerFlag,
-            ("description", ),
-            description="PDNS available to speakers",
-            condition=cond.FlagBase.ENABLE_IF_TRUE,
-            is_presenter=True,
-            is_copresenter=True,
-
-        )
-        pdns_by_speaker.proposal_kind.set(self.main_conference_proposals)
-        pdns_by_speaker.categories.set([self.pdns_breakfast, ])
-
-        # They are available to staff
-        pdns_by_staff = self.find_or_make(
-            cond.GroupMemberFlag,
-            ("description", ),
-            description="PDNS available to staff",
-            condition=cond.FlagBase.ENABLE_IF_TRUE,
-
-        )
-        pdns_by_staff.group.set([
-            self.group_team,
-            self.group_volunteers,
-        ])
-        pdns_by_staff.categories.set([self.pdns_breakfast, ])
-
     def populate_discounts(self):
 
         def add_early_birds(discount):
@@ -569,7 +306,7 @@ class Command(BaseCommand):
                 cond.DiscountForProduct,
                 ("discount", "product"),
                 discount=discount,
-                product=self.ticket_fairy,
+                product=self.ticket_sponsor,
                 price=Decimal("150.00"),
                 quantity=1,  # Per user
             )
@@ -585,7 +322,7 @@ class Command(BaseCommand):
                 cond.DiscountForProduct,
                 ("discount", "product"),
                 discount=discount,
-                product=self.ticket_hobbyist,
+                product=self.ticket_enthusiast,
                 price=Decimal("100.00"),
                 quantity=1,  # Per user
             )
@@ -632,7 +369,6 @@ class Command(BaseCommand):
             is_copresenter=False,
         )
         primary_speaker.proposal_kind.set(self.main_conference_proposals)
-        free_category(primary_speaker, self.speakers_dinner_ticket)
 
         # Professional-Like ticket inclusions
         ticket_prolike_inclusions = self.find_or_make(
@@ -641,25 +377,24 @@ class Command(BaseCommand):
             description="Complimentary for ticket holder (Professional-level)",
         )
         ticket_prolike_inclusions.enabling_products.set([
-            self.ticket_fairy,
+            self.ticket_supporter,
             self.ticket_professional,
             self.ticket_media,
             self.ticket_sponsor,
             self.ticket_speaker,
         ])
-        free_category(ticket_prolike_inclusions, self.penguin_dinner)
         free_category(ticket_prolike_inclusions, self.t_shirt)
 
-        # Hobbyist ticket inclusions
-        ticket_hobbyist_inclusions = self.find_or_make(
+        # Enthusiast ticket inclusions
+        ticket_enthusiast_inclusions = self.find_or_make(
             cond.IncludedProductDiscount,
             ("description", ),
-            description="Complimentary for ticket holder (Hobbyist-level)",
+            description="Complimentary for ticket holder (Enthusiast-level)",
         )
-        ticket_hobbyist_inclusions.enabling_products.set([
-            self.ticket_hobbyist,
+        ticket_enthusiast_inclusions.enabling_products.set([
+            self.ticket_enthusiast,
         ])
-        free_category(ticket_hobbyist_inclusions, self.t_shirt)
+        free_category(ticket_enthusiast_inclusions, self.t_shirt)
 
         # Student ticket inclusions
         ticket_student_inclusions = self.find_or_make(
@@ -682,7 +417,6 @@ class Command(BaseCommand):
             self.ticket_team,
             self.ticket_volunteer,
         ])
-        free_category(ticket_staff_inclusions, self.penguin_dinner)
 
         # Team & volunteer t-shirts, regardless of ticket type
         staff_t_shirts = self.find_or_make(
