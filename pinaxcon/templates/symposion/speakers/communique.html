@@ -1,0 +1,45 @@
+{% extends "symposion/speakers/base.html" %}
+
+{% load bootstrap %}
+{% load i18n %}
+{% load pinax_boxes_tags %}
+
+{% block head_title %}{% trans "Speaker Communique" %}{% endblock %}
+{% block page_title %}{% trans "Speaker Communique" %}{% endblock %}
+
+{% block proposals_body %}
+    <h3>Communique to all speakers</h3>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+          <label for="msg_title">Subject</label>
+          <input name="msg_title" id="msg_title" type=text size="60" />
+          <p/>
+          <label for="msg_body">Message</label>
+          <textarea name="msg_body" id="msg_body" cols="60" rows="10"></textarea>
+          <p/>
+         <div class="btn-group">
+              <input id="sendIt" class="btn btn-primary" type="submit" value="Send" />
+              <a class="btn btn-default" href="{% url "dashboard" %}">Cancel</a>
+          </div>
+        </fieldset>
+    </form>
+
+    <script type="text/javascript">
+    $("input#sendIt").click(function(ev) {
+      if($("input#msg_title").val().trim() == "") {
+        alert("Subject line cannot be blank.");
+        ev.preventDefault();
+        return;
+      }
+
+      if($("textarea#msg_body").val().trim() == "") {
+        alert("Body of message cannot be blank.");
+        ev.preventDefault();
+        return;
+      }
+
+      return(confirm("This will go to MANY recipients. Are you sure?"));
+    })
+    </script>
+{% endblock %}
