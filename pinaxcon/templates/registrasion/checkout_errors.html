@@ -4,6 +4,8 @@
 
 {% block body %}
 
+<div class="jumbotron">
+
   <h1>Oh No!</h1>
 
   <p>We can't produce an invoice for you because of the following errors:</p>
@@ -21,5 +23,7 @@
     <a class="btn btn-default" href="{% url "checkout" %}?fix_errors=true">Try fixing these errors</a>
     <a class="btn btn-default" href="{% url "dashboard" %}">Return to dashboard</a>
   </div>
+
+</div>
 
 {% endblock %}

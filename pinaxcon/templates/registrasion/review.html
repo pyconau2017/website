@@ -12,6 +12,8 @@
 
 {% block content %}
 
+<div class="jumbotron">
+
   {% items_pending as pending %}
   {% if pending %}
 
@@ -74,5 +76,7 @@
   </div>
 
   {% endif %}
+
+</div>
 
 {% endblock %}
