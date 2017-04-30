@@ -49,35 +49,44 @@ class Command(BaseCommand):
     def populate_inventory(self):
         # Categories
 
-        self.ticket = self.find_or_make(
+        self.conf_ticket = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Ticket",
-            description="Each type of ticket has different included products. "
+            name="Conference Ticket",
+            description="Each type of conference ticket has different included products. "
                         "For details of what products are included, see our "
                         "[LINK]registration details page.[/LINK]",
-            required = True,
+            required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=1,
             order=1,
         )
+        self.tute_ticket = self.find_or_make(
+            inv.Category,
+            ("name",),
+            name="Tutorial Ticket",
+            description="Each tutorial has it's own ticket.",
+            required=False,
+            render_type=inv.Category.RENDER_TYPE_RADIO,
+            limit_per_user=4,
+            order=2,
+        )
+
         self.t_shirt = self.find_or_make(
             inv.Category,
             ("name",),
             name="T-Shirt",
-            description="Commemorative conference t-shirts, featuring secret "
-                        "linux.conf.au 2017 artwork.",
-            required = False,
+            description="Commemorative conference t-shirts",
+            required=False,
             render_type=inv.Category.RENDER_TYPE_ITEM_QUANTITY,
             order=40,
         )
 
-        # Tickets
-
+        # Conf Tickets
         self.ticket_supporter = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Supporter",
             price=Decimal("1999.00"),
             reservation_duration=hours(24),
@@ -86,7 +95,7 @@ class Command(BaseCommand):
         self.ticket_professional = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Professional",
             price=Decimal("999.00"),
             reservation_duration=hours(24),
@@ -95,7 +104,7 @@ class Command(BaseCommand):
         self.ticket_enthusiast = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Enthusiast",
             price=Decimal("449.00"),
             reservation_duration=hours(24),
@@ -104,7 +113,7 @@ class Command(BaseCommand):
         self.ticket_student = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Student",
             price=Decimal("160.00"),
             reservation_duration=hours(24),
@@ -113,7 +122,7 @@ class Command(BaseCommand):
         self.ticket_miniconfs_mt = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Monday and Tuesday Only",
             price=Decimal("198.00"),
             reservation_duration=hours(24),
@@ -122,7 +131,7 @@ class Command(BaseCommand):
         self.ticket_miniconfs_mon = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Monday Only",
             price=Decimal("99.00"),
             reservation_duration=hours(24),
@@ -131,7 +140,7 @@ class Command(BaseCommand):
         self.ticket_miniconfs_tue = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Tuesday Only",
             price=Decimal("99.00"),
             reservation_duration=hours(24),
@@ -140,7 +149,7 @@ class Command(BaseCommand):
         self.ticket_speaker = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Speaker",
             price=Decimal("00.00"),
             reservation_duration=hours(24),
@@ -149,7 +158,7 @@ class Command(BaseCommand):
         self.ticket_media = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Media",
             price=Decimal("00.00"),
             reservation_duration=hours(24),
@@ -158,7 +167,7 @@ class Command(BaseCommand):
         self.ticket_sponsor = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Sponsor",
             price=Decimal("00.00"),
             reservation_duration=hours(24),
@@ -167,7 +176,7 @@ class Command(BaseCommand):
         self.ticket_team = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Conference Organiser",
             price=Decimal("00.00"),
             reservation_duration=hours(24),
@@ -176,11 +185,52 @@ class Command(BaseCommand):
         self.ticket_volunteer = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.ticket,
+            category=self.conf_ticket,
             name="Conference Volunteer",
             price=Decimal("00.00"),
             reservation_duration=hours(24),
             order=90,
+        )
+
+        # Tutorial tickets
+        self.tutorial_a = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.tute_ticket,
+            name="Tutorial A",
+            price=Decimal("150.00"),
+            reservation_duration=hours(24),
+            order=10,
+        )
+
+        self.tutorial_b = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.tute_ticket,
+            name="Tutorial B",
+            price=Decimal("150.00"),
+            reservation_duration=hours(24),
+            order=10,
+        )
+
+        self.tutorial_c = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.tute_ticket,
+            name="Tutorial C",
+            price=Decimal("150.00"),
+            reservation_duration=hours(24),
+            order=10,
+        )
+
+        self.tutorial_a = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.tute_ticket,
+            name="Tutorial D",
+            price=Decimal("150.00"),
+            reservation_duration=hours(24),
+            order=10,
         )
 
         # Shirts
