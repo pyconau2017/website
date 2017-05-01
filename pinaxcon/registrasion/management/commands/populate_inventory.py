@@ -68,8 +68,28 @@ class Command(BaseCommand):
             description="Each tutorial has it's own ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
-            limit_per_user=4,
+            limit_per_user=2,
             order=2,
+        )
+
+        self.sprint_ticket = self.find_or_make(
+            inv.Category,
+            ("name",),
+            name="Sprint Ticket",
+            description="A day of food, coffee and hacking",
+            required=False,
+            render_type=inv.Category.RENDER_TYPE_CHECKBOX,
+            order=3,
+        )
+
+        self.child_care = self.find_or_make(
+            inv.Category,
+            ("name",),
+            name="Child Care",
+            description="On-site childcare is provided. Proof of vaccination is required. We'll ask you more details (e.g. food requirements) closer to the event.",
+            required=False,
+            render_type=inv.Category.RENDER_TYPE_QUANTITY,
+            order=4,
         )
 
         self.t_shirt = self.find_or_make(
@@ -79,7 +99,7 @@ class Command(BaseCommand):
             description="Commemorative conference t-shirts",
             required=False,
             render_type=inv.Category.RENDER_TYPE_ITEM_QUANTITY,
-            order=40,
+            order=100,
         )
 
         # Conf Tickets
@@ -232,6 +252,53 @@ class Command(BaseCommand):
             reservation_duration=hours(24),
             order=10,
         )
+
+        # Sprint tickets
+        self.sprint_ticket_monday = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.sprint_ticket,
+            name="Monday",
+            price=Decimal("15.00"),
+            reservation_duration=hours(24),
+            order=10)
+
+        self.sprint_ticket_tuesday = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.sprint_ticket,
+            name="Tuesday",
+            price=Decimal("15.00"),
+            reservation_duration=hours(24),
+            order=20)
+
+        # Child care
+        self.childcare_friday = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.child_care,
+            name="Friday",
+            price=Decimal("999.99"),
+            reservation_duration=hours(24),
+            order=10)
+
+        self.childcare_saturday = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.child_care,
+            name="Saturday",
+            price=Decimal("999.99"),
+            reservation_duration=hours(24),
+            order=10)
+
+        self.childcare_sunday = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.child_care,
+            name="Sunday",
+            price=Decimal("999.99"),
+            reservation_duration=hours(24),
+            order=10)
 
         # Shirts
         ShirtGroup = namedtuple("ShirtGroup", ("prefix", "sizes"))
