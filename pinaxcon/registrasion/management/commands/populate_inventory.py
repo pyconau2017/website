@@ -438,7 +438,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_sponsor,
-                price=Decimal("150.00"),
+                percent=Decimal("50.00"),
                 quantity=1,  # Per user
             )
             self.find_or_make(
@@ -446,7 +446,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_professional,
-                price=Decimal("150.00"),
+                percent=Decimal("50.00"),
                 quantity=1,  # Per user
             )
             self.find_or_make(
@@ -454,7 +454,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_enthusiast,
-                price=Decimal("100.00"),
+                discount=Decimal("50.00"),
                 quantity=1,  # Per user
             )
 
@@ -473,8 +473,8 @@ class Command(BaseCommand):
             cond.TimeOrStockLimitDiscount,
             ("description", ),
             description="Early Bird",
-            end_time=datetime(year=2016, month=11, day=1),
-            limit=165,  # Across all users
+            end_time=datetime(year=2017, month=6, day=14),
+            limit=100,  # Across all users
         )
         add_early_birds(early_bird)
 
