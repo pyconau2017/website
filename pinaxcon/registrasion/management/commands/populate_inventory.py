@@ -351,6 +351,20 @@ class Command(BaseCommand):
         ])
 
         # Set limits.
+        tshirt_deadline = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description", ),
+            description="Tshirt deadline",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            end_time=datetime(year=2017, month=7, day=3),
+        )
+        shirt_products = []
+        for name in self.shirts:
+            for size in self.shirts[name]:
+                shirt_products.append(self.shirts[name][size])
+
+        tshirt_deadline.products.set(shirt_products)
+
         public_ticket_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
             ("description", ),
