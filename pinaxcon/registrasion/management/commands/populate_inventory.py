@@ -268,7 +268,7 @@ class Command(BaseCommand):
             ("name", "category",),
             category=self.sprint_ticket,
             name="Tuesday",
-            price=Decimal("15.00"),
+            price=Decimal("5.00"),
             reservation_duration=hours(24),
             order=20)
 
