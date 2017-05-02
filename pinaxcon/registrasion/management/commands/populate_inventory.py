@@ -358,12 +358,12 @@ class Command(BaseCommand):
             condition=cond.FlagBase.DISABLE_IF_FALSE,
             end_time=datetime(year=2017, month=7, day=3),
         )
-        shirt_products = []
+        self.shirt_products = []
         for name in self.shirts:
             for size in self.shirts[name]:
-                shirt_products.append(self.shirts[name][size])
+                self.shirt_products.append(self.shirts[name][size])
 
-        tshirt_deadline.products.set(shirt_products)
+        tshirt_deadline.products.set(self.shirt_products)
 
         public_ticket_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
@@ -430,6 +430,32 @@ class Command(BaseCommand):
         speaker_tickets.proposal_kind.set(self.main_conference_proposals)
         speaker_tickets.products.set([self.ticket_speaker, ])
 
+        # childcare/sprint/tshirts are only for those going to the conferece/tutorial.
+        ticket_dep = self.find_or_make(
+            cond.ProductFlag,
+            ("description",),
+            description="childcare/sprint/tshirts are only for those going to the conf/a tutorial",
+        )
+
+        ticket_dep.enabling_products.set([
+            self.ticket_speaker,
+            self.ticket_sponsor,
+            self.ticket_media,
+            self.ticket_team,
+            self.ticket_volunteer,
+            self.tutorial_a,
+            self.tutorial_b,
+            self.tutorial_c,
+            self.tutorial_d,
+        ])
+
+        ticket_dep.products.set([
+            self.childcare_friday, self.childcare_saturday, self.childcare_sunday,
+            self.sprint_ticket_monday, self.sprint_ticket_tuesday,
+        ] +
+            self.shirt_products,
+        )
+
     def populate_discounts(self):
 
         def add_early_birds(discount):
@@ -438,7 +464,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_sponsor,
-                percent=Decimal("50.00"),
+                percentage=Decimal("50.00"),
                 quantity=1,  # Per user
             )
             self.find_or_make(
@@ -454,7 +480,7 @@ class Command(BaseCommand):
                 ("discount", "product"),
                 discount=discount,
                 product=self.ticket_enthusiast,
-                discount=Decimal("250.00"),
+                price=Decimal("250.00"),
                 quantity=1,  # Per user
             )
 
