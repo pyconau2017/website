@@ -88,6 +88,9 @@
                         </a>
                         {% if request.user.is_staff %}
                             <a class="list-group-item review-results" href="{% url "result_notification" section.section.slug 'accepted' %}">Result Notification</a>
+                        <a class="list-group-item speaker-communique" href="{% url "speaker_communique" %}">
+                            Speaker Communique
+                        </a>
                         {% endif %}
                 </div>
             {% endfor %}
