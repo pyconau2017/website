@@ -21,7 +21,7 @@
             <h3>{{ level.name }}</h3>
 
             {% for sponsor in level.sponsors %}
-                {% cycle '<div class="row">' '<!-- start row continue -->' as opendiv %}
+                <div class="row">
                 {% if sponsor.sponsor_logo %}
                         <div class="col-md-2">
                             <h2>
@@ -31,7 +31,7 @@
                                 </a>
                             </h2>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-9">
 
 			                 {% if user.is_staff %}
                                 <h5><a href="{% url "sponsor_detail" sponsor.pk %}"> Edit {{ sponsor.name }}</a></h5>
@@ -39,7 +39,7 @@
                             <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
                         </div>
                 {% endif %}
-                {% cycle '<!-- end row continue -->' '</div>' as closediv %}
+                </div>
             {% endfor %}
         {% endif %}
     {% endfor %}
