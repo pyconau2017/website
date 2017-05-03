@@ -21,7 +21,7 @@
             <h3>{{ level.name }}</h3>
 
             {% for sponsor in level.sponsors %}
-                {% cycle '<div class="row">' '<!-- start row continue -->' %}
+                {% cycle '<div class="row">' '<!-- start row continue -->' as opendiv %}
                 {% if sponsor.sponsor_logo %}
                         <div class="col-md-2">
                             <h2>
@@ -39,10 +39,9 @@
                             <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
                         </div>
                 {% endif %}
-                {% cycle '<!-- end row continue -->' '</div>' %}
+                {% cycle '<!-- end row continue -->' '</div>' as closediv %}
             {% endfor %}
         {% endif %}
-        {% resetcycle %}
     {% endfor %}
     </div> <!-- jumbotron-white -->
 {% endblock %}
