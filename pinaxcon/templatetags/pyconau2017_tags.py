@@ -134,3 +134,7 @@ def news_carousel(context):
     return {'items': list(enumerate(NewsPage.objects.filter(live=True).order_by('-date').all())),
             'request': context['request']
             }
+
+@register.simple_tag()
+def new_row(rownum=0):
+    return True

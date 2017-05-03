@@ -21,9 +21,9 @@
             <h3>{{ level.name }}</h3>
 
             {% for sponsor in level.sponsors %}
+                {% cycle '<div class="row">' '<!-- start row continue -->' %}
                 {% if sponsor.sponsor_logo %}
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <h2>
                                 <a href="{{ sponsor.external_url }}">
                                     <img src="{% sponsor_thumbnail sponsor.sponsor_logo %}" alt="{{ sponsor.name }}" class="img-responsive center-block"/>
@@ -31,15 +31,15 @@
                                 </a>
                             </h2>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
 
-			  {% if user.is_staff %}
-                            <h5><a href="{% url "sponsor_detail" sponsor.pk %}"> {{ sponsor.name }}</a></h5>
-			  {% endif %}
+			                 {% if user.is_staff %}
+                                <h5><a href="{% url "sponsor_detail" sponsor.pk %}"> Edit {{ sponsor.name }}</a></h5>
+			                 {% endif %}
                             <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
                         </div>
-                    </div>
                 {% endif %}
+                {% cycle '<!-- end row continue -->' '</div>' %}
             {% endfor %}
         {% endif %}
     {% endfor %}
