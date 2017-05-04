@@ -139,7 +139,7 @@ class Command(BaseCommand):
             reservation_duration=hours(24),
             order=30,
         )
-        self.ticket_miniconfs_mt = self.find_or_make(
+        self.ticket_miniconfs = self.find_or_make(
             inv.Product,
             ("name", "category",),
             category=self.conf_ticket,
@@ -147,24 +147,6 @@ class Command(BaseCommand):
             price=Decimal("150.00"),
             reservation_duration=hours(24),
             order=40,
-        )
-        self.ticket_miniconfs_mon = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.conf_ticket,
-            name="Monday Only",
-            price=Decimal("99.00"),
-            reservation_duration=hours(24),
-            order=42,
-        )
-        self.ticket_miniconfs_tue = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.conf_ticket,
-            name="Tuesday Only",
-            price=Decimal("99.00"),
-            reservation_duration=hours(24),
-            order=44,
         )
         self.ticket_speaker = self.find_or_make(
             inv.Product,
@@ -430,15 +412,20 @@ class Command(BaseCommand):
         speaker_tickets.proposal_kind.set(self.main_conference_proposals)
         speaker_tickets.products.set([self.ticket_speaker, ])
 
-        # childcare/sprint/tshirts are only for those going to the conferece/tutorial.
         ticket_dep = self.find_or_make(
             cond.ProductFlag,
             ("description",),
             description="childcare/sprint/tshirts are only for those going to the conf/a tutorial",
+            condition=cond.FlagBase.ENABLE_IF_TRUE,
         )
 
         ticket_dep.enabling_products.set([
             self.ticket_speaker,
+            self.ticket_supporter,
+            self.ticket_professional,
+            self.ticket_enthusiast,
+            self.ticket_miniconfs,
+            self.ticket_student,
             self.ticket_sponsor,
             self.ticket_media,
             self.ticket_team,
