@@ -21,17 +21,13 @@
             <h3>{{ level.name }}</h3>
 
             {% for sponsor in level.sponsors %}
-                <div class="row">
+                {% cycle '<div class="row">' '<!-- column 2 -->' %}
                 {% if sponsor.sponsor_logo %}
-                        <div class="col-md-2">
-                            <h2>
-                                <a href="{{ sponsor.external_url }}">
-                                    <img src="{% sponsor_thumbnail sponsor.sponsor_logo %}" alt="{{ sponsor.name }}" class="img-responsive center-block"/>
-                                    <br/>
-                                </a>
-                            </h2>
-                        </div>
-                        <div class="col-md-9">
+                        <div class="col-md-6">
+                            <a href="{{ sponsor.external_url }}">
+                                <img src="{% sponsor_thumbnail sponsor.sponsor_logo %}" alt="{{ sponsor.name }}" class="img-responsive center-block"/>
+                                <br/>
+                            </a>
 
 			                 {% if user.is_staff %}
                                 <h5><a href="{% url "sponsor_detail" sponsor.pk %}"> Edit {{ sponsor.name }}</a></h5>
@@ -39,7 +35,11 @@
                             <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
                         </div>
                 {% endif %}
-                </div>
+
+                {% cycle '<!-- column 2 -->' '</div>' %}
+                {% if forloop.last %}
+                    {% if forloop.counter0|divisibleby:2 %}</div>{% endif %}
+                {% endif %}
             {% endfor %}
         {% endif %}
     {% endfor %}
