@@ -61,17 +61,26 @@ class Command(BaseCommand):
             limit_per_user=1,
             order=1,
         )
-        self.tute_ticket = self.find_or_make(
+        self.tute_ticket_morn = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Tutorial Ticket",
+            name="Morning Tutorial Ticket",
             description="Each tutorial has it's own ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=2,
             order=2,
         )
-
+        self.tute_ticket_aft = self.find_or_make(
+            inv.Category,
+            ("name",),
+            name="Afternoon Tutorial Ticket",
+            description="Each tutorial has it's own ticket.",
+            required=False,
+            render_type=inv.Category.RENDER_TYPE_RADIO,
+            limit_per_user=2,
+            order=2,
+        )
         self.sprint_ticket = self.find_or_make(
             inv.Category,
             ("name",),
@@ -198,8 +207,8 @@ class Command(BaseCommand):
         self.tutorial_a = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.tute_ticket,
-            name="Tutorial A",
+            category=self.tute_ticket_morn,
+            name="Tutorial A (morning)",
             price=Decimal("150.00"),
             reservation_duration=hours(24),
             order=10,
@@ -208,8 +217,8 @@ class Command(BaseCommand):
         self.tutorial_b = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.tute_ticket,
-            name="Tutorial B",
+            category=self.tute_ticket_morn,
+            name="Tutorial B (morning)",
             price=Decimal("150.00"),
             reservation_duration=hours(24),
             order=10,
@@ -218,8 +227,8 @@ class Command(BaseCommand):
         self.tutorial_c = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.tute_ticket,
-            name="Tutorial C",
+            category=self.tute_ticket_aft,
+            name="Tutorial C (afternoon)",
             price=Decimal("150.00"),
             reservation_duration=hours(24),
             order=10,
@@ -228,8 +237,8 @@ class Command(BaseCommand):
         self.tutorial_d = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.tute_ticket,
-            name="Tutorial D",
+            category=self.tute_ticket_aft,
+            name="Tutorial D (afternoon)",
             price=Decimal("150.00"),
             reservation_duration=hours(24),
             order=10,
@@ -241,7 +250,7 @@ class Command(BaseCommand):
             ("name", "category",),
             category=self.sprint_ticket,
             name="Monday",
-            price=Decimal("15.00"),
+            price=Decimal("5.00"),
             reservation_duration=hours(24),
             order=10)
 
