@@ -212,6 +212,6 @@ The linux.conf.au 2016 attendees mailing listName
 
     past_lca = models.ManyToManyField(
         PastEvent,
-        verbose_name="Which past linux.conf.au events have you attended?",
+        verbose_name="Which past PyCon Australia events have you attended?",
         blank=True,
     )
