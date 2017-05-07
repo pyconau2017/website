@@ -204,17 +204,9 @@ The linux.conf.au 2016 attendees mailing listName
     )
 
     lca_announce = models.BooleanField(
-        verbose_name="Subscribe to lca-announce list",
+        verbose_name="Subscribe to PyCon Announce",
         help_text="Select to be subscribed to the low-traffic lca-announce "
                   "mailing list",
-        blank=True,
-    )
-
-    lca_chat = models.BooleanField(
-        verbose_name="Subscribe to the lca2017-chat list",
-        help_text="lca2017-chat is a high-traffic mailing list used by "
-                  "attendees during the week of the conference for general "
-                  "discussion.",
         blank=True,
     )
 
