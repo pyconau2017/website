@@ -1,0 +1,58 @@
+[
+{
+    "model": "pinaxcon_registrasion.pastevent",
+    "pk": 18,
+    "fields": {
+        "year": 2016,
+        "name": "2016 Melbourne"
+    }
+},
+{
+    "model": "pinaxcon_registrasion.pastevent",
+    "pk": 19,
+    "fields": {
+        "year": 2015,
+        "name": "2015 Brisbane"
+    }
+},
+{
+    "model": "pinaxcon_registrasion.pastevent",
+    "pk": 20,
+    "fields": {
+        "year": 2014,
+        "name": "2014 Brisbane"
+    }
+},
+{
+    "model": "pinaxcon_registrasion.pastevent",
+    "pk": 21,
+    "fields": {
+        "year": 2012,
+        "name": "2012 Hobart"
+    }
+},
+{
+    "model": "pinaxcon_registrasion.pastevent",
+    "pk": 22,
+    "fields": {
+        "year": 2013,
+        "name": "2013 Hobart"
+    }
+},
+{
+    "model": "pinaxcon_registrasion.pastevent",
+    "pk": 23,
+    "fields": {
+        "year": 2010,
+        "name": "2010 Sydney"
+    }
+},
+{
+    "model": "pinaxcon_registrasion.pastevent",
+    "pk": 24,
+    "fields": {
+        "year": 2011,
+        "name": "2011 Sydney"
+    }
+}
+]
