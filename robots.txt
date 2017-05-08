@@ -1,16 +1,2 @@
 User-Agent: *
-Allow: /$
-Allow: /about/pycon_australia/
-Allow: /program/proposal-tips/tips-writing-great-proposal/
-Allow: /program/cfp/
-Allow: /program/proposal-tips/proposal-tips-part-two/
-Allow: /program/education-seminar/
-Allow: /program/djangocon-au/
-Allow: /program/internet-things-iot-miniconf/
-Allow: /program/science-and-data/
-Allow: /program/tutorials/practical-testing-pytest/
-Allow: /about/venue/
-Allow: /about/code_of_conduct/
-Allow: /about/fin_assist/
-Allow: /about/child-care/
-Disallow: /*
+Allow: /
