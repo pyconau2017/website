@@ -42,7 +42,7 @@
 		  {% endif %}
 		</td>
 		<td>{% for area in proposal.area.all %}
-		    {{ area.name }}<br>
+		    {{ area.name }},<br>
 		    {% endfor %}
 		</td>
                 <td>{{ proposal.total_votes }}</td>
