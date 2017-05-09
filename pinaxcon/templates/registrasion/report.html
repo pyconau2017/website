@@ -4,6 +4,8 @@
 
 {% block body %}
 
+<div class="jumbotron">
+
   <h2>{{ title }}</h2>
 
   <p><a href="{% url 'reports_list' %}">Return to reports list</a></p>
@@ -38,3 +40,5 @@
 {% endfor %}
 
 {% endblock %}
+
+</div>
