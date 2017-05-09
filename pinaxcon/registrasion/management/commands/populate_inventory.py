@@ -549,17 +549,6 @@ class Command(BaseCommand):
         ])
         free_category(ticket_enthusiast_inclusions, self.t_shirt)
 
-        # Student ticket inclusions
-        ticket_student_inclusions = self.find_or_make(
-            cond.IncludedProductDiscount,
-            ("description", ),
-            description="Complimentary for ticket holder (Student-level)",
-        )
-        ticket_student_inclusions.enabling_products.set([
-            self.ticket_student,
-        ])
-        free_category(ticket_student_inclusions, self.t_shirt)
-
         # Team & volunteer ticket inclusions
         ticket_staff_inclusions = self.find_or_make(
             cond.IncludedProductDiscount,
