@@ -6,6 +6,7 @@
         <th>{% trans "Speaker / Title" %}</th>
 	<th>{% trans "Travel<br>Assist" %}</th>
 	<th>{% trans "Accomm<br>Assist" %}</th>
+	<th>{% trans "Areas" %}</th>
         <th>{% trans "Votes" %}</th>
         <th>{% trans "Score" %}</th>
         <th>{% trans "+2" %}</th>
@@ -39,6 +40,10 @@
 		  {% else %}
 		  N
 		  {% endif %}
+		</td>
+		<td>{% for area in proposal.area.all %}
+		    {{ area.name }}<br>
+		    {% endfor %}
 		</td>
                 <td>{{ proposal.total_votes }}</td>
                 <td>{{ proposal.score }}</td>
