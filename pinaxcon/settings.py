@@ -196,14 +196,12 @@ INSTALLED_APPS = [
 
     # Registrasion
     "registrasion",
+    "nested_admin",
 
     # Registrasion-stipe
     "pinax.stripe",
     "django_countries",
     "registripe",
-
-    #admin - required by registrasion ??
-    "nested_admin",
 
     # project
     "cms_pages",
@@ -313,8 +311,6 @@ PINAX_STRIPE_SEND_EMAIL_RECEIPTS = False
 WAGTAIL_SITE_NAME = 'Pycon Australia 2017'
 WAGTAIL_APPEND_SLASH = True
 WAGTAILIMAGES_IMAGE_MODEL = 'cms_pages.CustomImage'
-
-ATTENDEE_PROFILE_FORM = "pinaxcon.registrasion.forms.ProfileForm"
 
 # CSRF custom error screen
 CSRF_FAILURE_VIEW = "pinaxcon.csrf_view.csrf_failure"

@@ -15,6 +15,10 @@ class PastEvent(models.Model):
     year = models.IntegerField(unique=True,)
     name = models.CharField(max_length=255, unique=True,)
 
+    class Meta:
+        ordering = ['year']
+
+
 
 class AttendeeProfile(rego.AttendeeProfileBase):
     '''
@@ -204,22 +208,14 @@ The linux.conf.au 2016 attendees mailing listName
     )
 
     lca_announce = models.BooleanField(
-        verbose_name="Subscribe to lca-announce list",
-        help_text="Select to be subscribed to the low-traffic lca-announce "
+        verbose_name="Subscribe to PyCon Announce",
+        help_text="Select to be subscribed to the low-traffic pyconau-announce "
                   "mailing list",
-        blank=True,
-    )
-
-    lca_chat = models.BooleanField(
-        verbose_name="Subscribe to the lca2017-chat list",
-        help_text="lca2017-chat is a high-traffic mailing list used by "
-                  "attendees during the week of the conference for general "
-                  "discussion.",
         blank=True,
     )
 
     past_lca = models.ManyToManyField(
         PastEvent,
-        verbose_name="Which past linux.conf.au events have you attended?",
+        verbose_name="Which past PyCon Australia events have you attended?",
         blank=True,
     )

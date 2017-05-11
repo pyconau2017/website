@@ -17,6 +17,8 @@
 
 {% block content %}
 
+<div class="jumbotron">
+
   <form method="post" action="">
     {% csrf_token %}
 
@@ -30,4 +32,6 @@
     </fieldset>
 
   </form>
+
+</div>
 {% endblock %}
