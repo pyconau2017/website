@@ -76,15 +76,15 @@
         {% block body %}
           <div class="container">
               <div class="row">
-                  <div class="col-md-1">
+                  <div class="col-md-2">
                     {% block body_outer %}
                     {% endblock %}
                   </div>
-                  <div class="col-md-10" >
+                  <div class="col-md-8" >
                     {% block content %}
                     {% endblock %}
                   </div>
-                  <div class="col-md-1">
+                  <div class="col-md-2">
                       <div id="sponsors-sidebar" class="wrapper jumbotron-white">
                           <h3><a href="/sponsors/" title="Sponsors">Sponsors</a></h3>
                           {% include "symposion/sponsorship/_vertical_by_level.html" %}
