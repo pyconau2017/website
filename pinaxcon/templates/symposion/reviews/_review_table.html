@@ -46,7 +46,7 @@
 		    {% endfor %}
 		</td>
                 <td>{{ proposal.total_votes }}</td>
-                <td>{{ proposal.score }}</td>
+                <td>{{ proposal.score |floatformat }}</td>
                 <td>{{ proposal.plus_two }}</td>
                 <td>{{ proposal.plus_one }}</td>
                 <td>{{ proposal.minus_one }}</td>
