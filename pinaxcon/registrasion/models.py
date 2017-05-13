@@ -219,3 +219,6 @@ The linux.conf.au 2016 attendees mailing listName
         verbose_name="Which past PyCon Australia events have you attended?",
         blank=True,
     )
+
+    def __str__(self):
+        return str(self.name)
