@@ -72,10 +72,12 @@
 
 {% block content %}
 
+<div class="jumbotron">
+
   <p>
     No data on this form is retained by {% conference_name %}, rather it is
     sent to Stripe. In particular, credit card details are not sent
-    to linux.conf.au. You must allow JavaScript from <code>js.stripe.com</code> to complete payment.
+    to pycon-au.org. You must allow JavaScript from <code>js.stripe.com</code> to complete payment.
   </p>
 
   <p>You have ${{ invoice.balance_due }} remaining to pay on this invoice.</p>
@@ -99,4 +101,6 @@
       </div>
     </fieldset>
   </form>
+</div>
+
 {% endblock %}
