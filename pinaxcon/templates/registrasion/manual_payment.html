@@ -3,6 +3,8 @@
 
 {% block body %}
 
+<div class="jumbotron">
+
   <h1>Invoice {{ invoice.id }} - {{ invoice.get_status_display }}</h1>
 
   <h2>Past payments</h2>
@@ -27,5 +29,6 @@
     </div>
   </form>
 
+</div>
 
 {% endblock %}
