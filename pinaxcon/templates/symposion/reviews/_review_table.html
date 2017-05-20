@@ -7,6 +7,7 @@
 	<th>{% trans "Travel<br>Assist" %}</th>
 	<th>{% trans "Accomm<br>Assist" %}</th>
 	<th>{% trans "Areas" %}</th>
+	<th>{% trans "Length" %}</th>
         <th>{% trans "Votes" %}</th>
         <th>{% trans "Score" %}</th>
         <th>{% trans "+2" %}</th>
@@ -45,6 +46,7 @@
 		    {{ area.name }}<br>
 		    {% endfor %}
 		</td>
+		<td>{{ proposal.get_length_display }}</td>
                 <td>{{ proposal.total_votes }}</td>
                 <td>{{ proposal.score |floatformat }}</td>
                 <td>{{ proposal.plus_two }}</td>
