@@ -363,7 +363,7 @@ class Command(BaseCommand):
             ("description", ),
             description="Public ticket cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=450,
+            limit=550,
         )
         public_ticket_cap.products.set([
             self.ticket_supporter,
@@ -377,7 +377,7 @@ class Command(BaseCommand):
             ("description", ),
             description="Non-public ticket cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=450,
+            limit=600,
         )
         non_public_ticket_cap.products.set([
             self.ticket_speaker,
