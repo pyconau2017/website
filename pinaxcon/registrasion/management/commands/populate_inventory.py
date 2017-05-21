@@ -368,6 +368,7 @@ class Command(BaseCommand):
             self.ticket_professional,
             self.ticket_enthusiast,
             self.ticket_student,
+            self.ticket_miniconfs,
         ])
 
         non_public_ticket_cap = self.find_or_make(
