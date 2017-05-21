@@ -491,6 +491,23 @@ class Command(BaseCommand):
                 quantity=quantity,
             )
 
+        supporter_first = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description", ),
+            description="Support tickets available first.",
+            start_time=datetime(year=2017, month=5, day=31),
+            condition=cond.FlagBase.ENABLE_IF_TRUE,
+        )
+
+        supporter_first.products.set([
+            self.ticket_professional,
+            self.ticket_enthusiast,
+            self.ticket_student,
+            self.ticket_media,
+            self.ticket_sponsor,
+            self.ticket_miniconfs,
+        ])
+
         # Early Bird Discount (general public)
         early_bird = self.find_or_make(
             cond.TimeOrStockLimitDiscount,
