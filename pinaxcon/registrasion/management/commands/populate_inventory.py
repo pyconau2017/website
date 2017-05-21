@@ -386,6 +386,44 @@ class Command(BaseCommand):
             self.ticket_volunteer,
         ])
 
+        tutorial_capacity = 60
+
+        tutorial_a_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial A cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_a_cap.products.set([self.tutorial_a])
+
+        tutorial_b_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial B cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_b_cap.products.set([self.tutorial_b])
+
+        tutorial_c_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial C cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_c_cap.products.set([self.tutorial_c])
+
+        tutorial_d_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial D cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_d_cap.products.set([self.tutorial_d])
+
         # Volunteer tickets are for volunteers only
         volunteers = self.find_or_make(
             cond.GroupMemberFlag,
