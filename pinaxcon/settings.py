@@ -269,7 +269,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 ACCOUNT_USE_AUTH_AUTHENTICATE = True
 
-THEME_CONTACT_EMAIL = "pyconau-orgs@lists.linux.org.au"
+THEME_CONTACT_EMAIL = "contact@pycon-au.org"
 
 AUTHENTICATION_BACKENDS = [
     "symposion.teams.backends.TeamPermissionsBackend",
