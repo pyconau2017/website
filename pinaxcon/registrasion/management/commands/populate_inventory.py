@@ -424,6 +424,24 @@ class Command(BaseCommand):
         )
         tutorial_d_cap.products.set([self.tutorial_d])
 
+        sprint_capacity = 80
+
+        sprint_monday_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Monday sprint cap",
+            limit=sprint_capacity,
+        )
+        sprint_monday_cap.products.set([self.sprint_ticket_monday])
+
+        sprint_tuesday_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tuesday sprint cap",
+            limit=sprint_capacity,
+        )
+        sprint_tuesday_cap.products.set([self.sprint_ticket_tuesday])
+
         # Volunteer tickets are for volunteers only
         volunteers = self.find_or_make(
             cond.GroupMemberFlag,
