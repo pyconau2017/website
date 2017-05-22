@@ -17,7 +17,7 @@
         <div class="pull-right">
             <form class="result-form form-inline" method="POST" action="">
                 {% csrf_token %}
-                <div class="btn-group">
+                <div class="dropdown">
                     {% if proposal.result.status == "accepted" %}
                         <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">Accepted <span class="caret"></span></a>
                         <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
