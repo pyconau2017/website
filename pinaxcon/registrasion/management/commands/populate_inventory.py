@@ -148,12 +148,21 @@ class Command(BaseCommand):
             reservation_duration=hours(24),
             order=30,
         )
-        self.ticket_miniconfs = self.find_or_make(
+        self.ticket_specialist_only = self.find_or_make(
             inv.Product,
             ("name", "category",),
             category=self.conf_ticket,
-            name="Miniconfs Only",
+            name="Specialist Day Only",
             price=Decimal("150.00"),
+            reservation_duration=hours(24),
+            order=40,
+        )
+        self.ticket_specialist_addon = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.conf_ticket,
+            name="Specialist Add-on",
+            price=Decimal("75.00"),
             reservation_duration=hours(24),
             order=40,
         )
@@ -368,7 +377,7 @@ class Command(BaseCommand):
             self.ticket_professional,
             self.ticket_enthusiast,
             self.ticket_student,
-            self.ticket_miniconfs,
+            self.ticket_specialist_only,
         ])
 
         non_public_ticket_cap = self.find_or_make(
@@ -478,6 +487,22 @@ class Command(BaseCommand):
         speaker_tickets.proposal_kind.set(self.main_conference_proposals)
         speaker_tickets.products.set([self.ticket_speaker, ])
 
+        specialist_addon_dep = self.find_or_make(
+            cond.ProductFlag,
+            ("description",),
+            description="Specialist add-on only for certain tickets",
+            condition=cond.FlagBase.ENABLE_IF_TRUE,
+        )
+
+        specialist_addon_dep.enabling_products.set([
+            self.ticket_enthusiast,
+            self.ticket_student,
+        ])
+
+        specialist_addon_dep.products.set([
+            self.ticket_specialist_addon,
+        ])
+
         ticket_dep = self.find_or_make(
             cond.ProductFlag,
             ("description",),
@@ -490,7 +515,7 @@ class Command(BaseCommand):
             self.ticket_supporter,
             self.ticket_professional,
             self.ticket_enthusiast,
-            self.ticket_miniconfs,
+            self.ticket_specialist_only,
             self.ticket_student,
             self.ticket_sponsor,
             self.ticket_media,
@@ -561,7 +586,7 @@ class Command(BaseCommand):
             self.ticket_student,
             self.ticket_media,
             self.ticket_sponsor,
-            self.ticket_miniconfs,
+            self.ticket_specialist_only,
         ])
 
         # Early Bird Discount (general public)
