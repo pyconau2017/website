@@ -365,14 +365,14 @@ class Command(BaseCommand):
 
         tshirt_deadline.products.set(self.shirt_products)
 
-        public_ticket_cap = self.find_or_make(
+        public_mainconf_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
-            ("description", ),
-            description="Public ticket cap",
+            ("description",),
+            description="Public main conf cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
             limit=450,
         )
-        public_ticket_cap.products.set([
+        public_mainconf_cap.products.set([
             self.ticket_supporter,
             self.ticket_professional,
             self.ticket_enthusiast,
@@ -383,7 +383,7 @@ class Command(BaseCommand):
         non_public_ticket_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
             ("description", ),
-            description="Non-public ticket cap",
+            description="Non-public main conf cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
             limit=450,
         )
@@ -393,6 +393,23 @@ class Command(BaseCommand):
             self.ticket_media,
             self.ticket_team,
             self.ticket_volunteer,
+        ])
+
+        specialist_day_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Specialist day cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=450,
+        )
+
+        specialist_day_cap.products.set([
+            self.ticket_speaker,
+            self.ticket_sponsor,
+            self.ticket_media,
+            self.ticket_team,
+            self.ticket_volunteer,
+            self.ticket_specialist_addon,
         ])
 
         tutorial_capacity = 60
