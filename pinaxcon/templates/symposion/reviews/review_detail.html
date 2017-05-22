@@ -20,7 +20,7 @@
                 <div class="dropdown">
                     {% if proposal.result.status == "accepted" %}
                         <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">Accepted <span class="caret"></span></a>
-                        <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                        <div class="dropdown-menu pull-right">
                             <div class="btn-group">
                                 <input type="submit" name="result_submit" value="reject" class="btn btn-xs btn-danger" />
                                 <input type="submit" name="result_submit" value="standby" class="btn btn-xs" />
@@ -31,7 +31,7 @@
                     {% else %}
                         {% if proposal.result.status == "rejected" %}
                             <a class="btn dropdown-toggle btn-danger" data-toggle="dropdown" href="#">Rejected <span class="caret"></span></a>
-                            <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                            <div class="dropdown-menu pull-right">
                                 <div class="btn-group">
                                     <input type="submit" name="result_submit" value="accept" class="btn btn-xs btn-success" />
                                     <input type="submit" name="result_submit" value="standby" class="btn btn-xs" />
@@ -41,7 +41,7 @@
                         {% else %}
                             {% if proposal.result.status == "standby" %}
                                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Standby <span class="caret"></span></a>
-                                <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                                <div class="dropdown-menu pull-right">
                                     <div class="btn-group">
                                         <input type="submit" name="result_submit" value="accept" class="btn btn-xs btn-success" />
                                         <input type="submit" name="result_submit" value="reject" class="btn btn-xs btn-danger" />
@@ -50,7 +50,7 @@
                                 </div>
                             {% else %}
                                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Undecided <span class="caret"></span></a>
-                                <div class="dropdown-menu pull-right" style="width: 200px; padding-left: 10px;">
+                                <div class="dropdown-menu pull-right">
                                     <div class="btn-group">
                                         <input type="submit" name="result_submit" value="accept" class="btn btn-xs btn-success" />
                                         <input type="submit" name="result_submit" value="reject" class="btn btn-xs btn-danger" />
