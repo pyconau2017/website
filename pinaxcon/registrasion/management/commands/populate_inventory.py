@@ -55,7 +55,7 @@ class Command(BaseCommand):
             name="Conference Ticket",
             description="Each type of conference ticket has different included products. "
                         "For details of what products are included, see our "
-                        "[LINK]registration details page.[/LINK]",
+                        "<a href=\"/attend/\">registration details page</a>.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=1,
@@ -148,12 +148,21 @@ class Command(BaseCommand):
             reservation_duration=hours(24),
             order=30,
         )
-        self.ticket_miniconfs = self.find_or_make(
+        self.ticket_specialist_only = self.find_or_make(
             inv.Product,
             ("name", "category",),
             category=self.conf_ticket,
-            name="Miniconfs Only",
+            name="Specialist Day Only",
             price=Decimal("150.00"),
+            reservation_duration=hours(24),
+            order=40,
+        )
+        self.ticket_specialist_addon = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.conf_ticket,
+            name="Specialist Add-on",
+            price=Decimal("75.00"),
             reservation_duration=hours(24),
             order=40,
         )
@@ -356,24 +365,25 @@ class Command(BaseCommand):
 
         tshirt_deadline.products.set(self.shirt_products)
 
-        public_ticket_cap = self.find_or_make(
+        public_mainconf_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
-            ("description", ),
-            description="Public ticket cap",
+            ("description",),
+            description="Public main conf cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
             limit=450,
         )
-        public_ticket_cap.products.set([
+        public_mainconf_cap.products.set([
             self.ticket_supporter,
             self.ticket_professional,
             self.ticket_enthusiast,
             self.ticket_student,
+            self.ticket_specialist_only,
         ])
 
         non_public_ticket_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
             ("description", ),
-            description="Non-public ticket cap",
+            description="Non-public main conf cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
             limit=450,
         )
@@ -384,6 +394,79 @@ class Command(BaseCommand):
             self.ticket_team,
             self.ticket_volunteer,
         ])
+
+        specialist_day_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Specialist day cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=450,
+        )
+
+        specialist_day_cap.products.set([
+            self.ticket_speaker,
+            self.ticket_sponsor,
+            self.ticket_media,
+            self.ticket_team,
+            self.ticket_volunteer,
+            self.ticket_specialist_addon,
+        ])
+
+        tutorial_capacity = 60
+
+        tutorial_a_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial A cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_a_cap.products.set([self.tutorial_a])
+
+        tutorial_b_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial B cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_b_cap.products.set([self.tutorial_b])
+
+        tutorial_c_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial C cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_c_cap.products.set([self.tutorial_c])
+
+        tutorial_d_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tutorial D cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=tutorial_capacity,
+        )
+        tutorial_d_cap.products.set([self.tutorial_d])
+
+        sprint_capacity = 80
+
+        sprint_monday_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Monday sprint cap",
+            limit=sprint_capacity,
+        )
+        sprint_monday_cap.products.set([self.sprint_ticket_monday])
+
+        sprint_tuesday_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Tuesday sprint cap",
+            limit=sprint_capacity,
+        )
+        sprint_tuesday_cap.products.set([self.sprint_ticket_tuesday])
 
         # Volunteer tickets are for volunteers only
         volunteers = self.find_or_make(
@@ -421,6 +504,22 @@ class Command(BaseCommand):
         speaker_tickets.proposal_kind.set(self.main_conference_proposals)
         speaker_tickets.products.set([self.ticket_speaker, ])
 
+        specialist_addon_dep = self.find_or_make(
+            cond.ProductFlag,
+            ("description",),
+            description="Specialist add-on only for certain tickets",
+            condition=cond.FlagBase.ENABLE_IF_TRUE,
+        )
+
+        specialist_addon_dep.enabling_products.set([
+            self.ticket_enthusiast,
+            self.ticket_student,
+        ])
+
+        specialist_addon_dep.products.set([
+            self.ticket_specialist_addon,
+        ])
+
         ticket_dep = self.find_or_make(
             cond.ProductFlag,
             ("description",),
@@ -433,7 +532,7 @@ class Command(BaseCommand):
             self.ticket_supporter,
             self.ticket_professional,
             self.ticket_enthusiast,
-            self.ticket_miniconfs,
+            self.ticket_specialist_only,
             self.ticket_student,
             self.ticket_sponsor,
             self.ticket_media,
@@ -489,6 +588,23 @@ class Command(BaseCommand):
                 percentage=Decimal("100.00"),
                 quantity=quantity,
             )
+
+        supporter_first = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description", ),
+            description="Support tickets available first.",
+            start_time=datetime(year=2017, month=5, day=31),
+            condition=cond.FlagBase.ENABLE_IF_TRUE,
+        )
+
+        supporter_first.products.set([
+            self.ticket_professional,
+            self.ticket_enthusiast,
+            self.ticket_student,
+            self.ticket_media,
+            self.ticket_sponsor,
+            self.ticket_specialist_only,
+        ])
 
         # Early Bird Discount (general public)
         early_bird = self.find_or_make(
