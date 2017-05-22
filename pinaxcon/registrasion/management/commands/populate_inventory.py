@@ -55,7 +55,7 @@ class Command(BaseCommand):
             name="Conference Ticket",
             description="Each type of conference ticket has different included products. "
                         "For details of what products are included, see our "
-                        "[LINK]registration details page.[/LINK]",
+                        "<a href=\"/attend/\">registration details page</a>.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=1,
