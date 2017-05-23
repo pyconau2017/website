@@ -15,9 +15,13 @@ class Command(BaseCommand):
     help = 'Populates the inventory with the PyConAu17 inventory model'
 
     def add_arguments(self, parser):
-        pass
+        parser.add_argument('--debug', action='store_true',
+                            dest='debug', default=False,
+                            help='Sets dates and capacities such that testing is easier.')
 
     def handle(self, *args, **options):
+
+        self.debug = options.get('debug')
 
         kinds = []
         for i in ("talk", "Tutorial"):
@@ -56,10 +60,19 @@ class Command(BaseCommand):
             description="Each type of conference ticket has different included products. "
                         "For details of what products are included, see our "
                         "<a href=\"/attend/\">registration details page</a>.",
-            required=False,
+            required=True,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=1,
-            order=1,
+            order=10,
+        )
+        self.addons = self.find_or_make(
+            inv.Category,
+            ("name",),
+            name="Add-Ons",
+            description="Some conference tickets have extra add-ons.",
+            required=False,
+            render_type=inv.Category.RENDER_TYPE_CHECKBOX,
+            order=11,
         )
         self.tute_ticket_morn = self.find_or_make(
             inv.Category,
@@ -69,7 +82,7 @@ class Command(BaseCommand):
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=2,
-            order=2,
+            order=20,
         )
         self.tute_ticket_aft = self.find_or_make(
             inv.Category,
@@ -79,7 +92,7 @@ class Command(BaseCommand):
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=2,
-            order=2,
+            order=30,
         )
         self.sprint_ticket = self.find_or_make(
             inv.Category,
@@ -89,7 +102,7 @@ class Command(BaseCommand):
             required=False,
             render_type=inv.Category.RENDER_TYPE_CHECKBOX,
             limit_per_user=2,
-            order=3,
+            order=40,
         )
 
         self.child_care = self.find_or_make(
@@ -99,7 +112,7 @@ class Command(BaseCommand):
             description="On-site childcare is provided. Proof of vaccination is required. We'll ask you more details (e.g. food requirements) closer to the event.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_QUANTITY,
-            order=4,
+            order=50,
         )
 
         self.t_shirt = self.find_or_make(
@@ -158,15 +171,6 @@ class Command(BaseCommand):
             reservation_duration=hours(24),
             order=40,
         )
-        self.ticket_specialist_addon = self.find_or_make(
-            inv.Product,
-            ("name", "category",),
-            category=self.conf_ticket,
-            name="Specialist Add-on",
-            price=Decimal("75.00"),
-            reservation_duration=hours(24),
-            order=40,
-        )
         self.ticket_speaker = self.find_or_make(
             inv.Product,
             ("name", "category",),
@@ -222,6 +226,17 @@ class Command(BaseCommand):
             description="This ticket does NOT give you access to the conference.",
             reservation_duration=hours(24),
             order=100)
+        
+        # Add-ons
+        self.ticket_specialist_addon = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.addons,
+            name="Specialist Day Add-on",
+            price=Decimal("75.00"),
+            reservation_duration=hours(24),
+            order=40,
+        )
 
         # Tutorial tickets
         self.tutorial_a = self.find_or_make(
@@ -606,7 +621,7 @@ class Command(BaseCommand):
             cond.TimeOrStockLimitFlag,
             ("description", ),
             description="Support tickets available first.",
-            start_time=datetime(year=2017, month=5, day=31),
+            start_time=datetime(year=2017, month=5, day=31) if not self.debug else datetime(year=2017, month=1, day=1),
             condition=cond.FlagBase.ENABLE_IF_TRUE,
         )
 

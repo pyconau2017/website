@@ -12,9 +12,7 @@
   {% endfor %}
 {% endblock %}
 
-{% block content %}
-
-  <div class="jumbotron">
+{% block page_content %}
 
   <form method="post" action="">
     {% csrf_token %}
@@ -52,7 +50,5 @@
       <input class="btn btn-primary" type="submit" value="Next Step" />
     </div>
   </form>
-
-  </div>
 
 {% endblock %}
