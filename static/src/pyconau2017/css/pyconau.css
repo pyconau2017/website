@@ -167,3 +167,24 @@ legend {
 hr.proposal-title {
   border: solid #888 1px;
 }
+
+table.prices td {
+  border-left: thin solid;
+}
+
+table.prices thead th {
+  vertical-align: top;
+  border-left: thin solid;
+}
+
+table.prices td.axis {
+  border: none;
+}
+
+table.prices td.price {
+  text-align: right;
+}
+
+table.prices td.addon,td.nope,td.included {
+  text-align: center;
+}

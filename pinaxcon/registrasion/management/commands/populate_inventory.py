@@ -273,12 +273,14 @@ class Command(BaseCommand):
             order=20)
 
         # Child care
+        childcare_price = Decimal("50.00")
+
         self.childcare_friday = self.find_or_make(
             inv.Product,
             ("name", "category",),
             category=self.child_care,
             name="Friday",
-            price=Decimal("999.99"),
+            price=childcare_price,
             reservation_duration=hours(24),
             order=10)
 
@@ -287,7 +289,7 @@ class Command(BaseCommand):
             ("name", "category",),
             category=self.child_care,
             name="Saturday",
-            price=Decimal("999.99"),
+            price=childcare_price,
             reservation_duration=hours(24),
             order=10)
 
@@ -296,7 +298,7 @@ class Command(BaseCommand):
             ("name", "category",),
             category=self.child_care,
             name="Sunday",
-            price=Decimal("999.99"),
+            price=childcare_price,
             reservation_duration=hours(24),
             order=10)
 
@@ -370,7 +372,7 @@ class Command(BaseCommand):
             ("description",),
             description="Public main conf cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=450,
+            limit=550,
         )
         public_mainconf_cap.products.set([
             self.ticket_supporter,
@@ -385,7 +387,7 @@ class Command(BaseCommand):
             ("description", ),
             description="Non-public main conf cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=450,
+            limit=600,
         )
         non_public_ticket_cap.products.set([
             self.ticket_speaker,
