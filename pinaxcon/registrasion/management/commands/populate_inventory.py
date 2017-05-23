@@ -213,6 +213,16 @@ class Command(BaseCommand):
             order=90,
         )
 
+        self.ticket_soldout = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.conf_ticket,
+            name="SOLD OUT",
+            price=Decimal("00.00"),
+            description="This ticket does NOT give you access to the conference.",
+            reservation_duration=hours(24),
+            order=100)
+
         # Tutorial tickets
         self.tutorial_a = self.find_or_make(
             inv.Product,
@@ -383,12 +393,14 @@ class Command(BaseCommand):
             self.ticket_specialist_only,
         ])
 
+        private_ticket_cap = 600
+
         non_public_ticket_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
             ("description", ),
             description="Non-public main conf cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=600,
+            limit=private_ticket_cap,
         )
         non_public_ticket_cap.products.set([
             self.ticket_speaker,
@@ -398,12 +410,23 @@ class Command(BaseCommand):
             self.ticket_volunteer,
         ])
 
+        sold_out_available = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description",),
+            description="Enable SOLD OUT tickets.",
+            condition=cond.FlagBase.ENABLE_IF_TRUE,
+            start_time=datetime(year=2018, month=1, day=1),
+        )
+        sold_out_available.products.set([
+            self.ticket_soldout,
+        ])
+
         specialist_day_cap = self.find_or_make(
             cond.TimeOrStockLimitFlag,
             ("description",),
             description="Specialist day cap",
             condition=cond.FlagBase.DISABLE_IF_FALSE,
-            limit=450,
+            limit=private_ticket_cap,
         )
 
         specialist_day_cap.products.set([
