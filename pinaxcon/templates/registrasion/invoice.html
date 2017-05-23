@@ -11,11 +11,9 @@
 {% endblock %}
 {% block header_inset_image %}{% illustration "tuz.svg" %}{% endblock %}
 {% block header_background_image %}{% static "pyconau2017/images/wp_bg_optimised.jpg" %}{% endblock %}
-{% block content %}
+{% block page_content %}
 
-<div class="jumbotron">
-
-{% if invoice.is_unpaid %}
+  {% if invoice.is_unpaid %}
   <p>
     <strong>NOTICE:</strong> The below invoice is automatically generated, and 
     will be voided if you amend your selections before payment, or if discounts
@@ -51,5 +49,3 @@
 {% include "registrasion/_invoice_details.html" %}
 
 {% endblock %}
-
-</div>

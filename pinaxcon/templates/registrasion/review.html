@@ -10,10 +10,7 @@
   t-shirts and social event tickets.
 {% endblock %}
 
-{% block content %}
-
-<div class="jumbotron">
-
+{% block page_content %}
   {% items_pending as pending %}
   {% if pending %}
 
@@ -76,7 +73,4 @@
   </div>
 
   {% endif %}
-
-</div>
-
 {% endblock %}

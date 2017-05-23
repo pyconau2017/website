@@ -1,10 +1,7 @@
 {% extends "registrasion/base.html" %}
 {% load bootstrap %}
 
-{% block body %}
-
-<div class="jumbotron">
-
+{% block page_content %}
   <h1>Invoice {{ invoice.id }} - {{ invoice.get_status_display }}</h1>
 
   <h2>Past payments</h2>
@@ -28,7 +25,4 @@
         <a class="btn btn-default" href="{% url "invoice" invoice.id %}">Return to invoice</a>
     </div>
   </form>
-
-</div>
-
 {% endblock %}
