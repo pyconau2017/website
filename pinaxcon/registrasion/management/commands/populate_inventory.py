@@ -88,6 +88,7 @@ class Command(BaseCommand):
             description="A day of food, coffee and hacking",
             required=False,
             render_type=inv.Category.RENDER_TYPE_CHECKBOX,
+            limit_per_user=2,
             order=3,
         )
 
@@ -458,6 +459,7 @@ class Command(BaseCommand):
             cond.TimeOrStockLimitFlag,
             ("description",),
             description="Monday sprint cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
             limit=sprint_capacity,
         )
         sprint_monday_cap.products.set([self.sprint_ticket_monday])
@@ -466,6 +468,7 @@ class Command(BaseCommand):
             cond.TimeOrStockLimitFlag,
             ("description",),
             description="Tuesday sprint cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
             limit=sprint_capacity,
         )
         sprint_tuesday_cap.products.set([self.sprint_ticket_tuesday])
@@ -522,33 +525,18 @@ class Command(BaseCommand):
             self.ticket_specialist_addon,
         ])
 
-        ticket_dep = self.find_or_make(
-            cond.ProductFlag,
+        extras_dep = self.find_or_make(
+            cond.CategoryFlag,
             ("description",),
-            description="childcare/sprint/tshirts are only for those going to the conf/a tutorial",
+            description="extras are only available for conference attendees",
             condition=cond.FlagBase.ENABLE_IF_TRUE,
+            enabling_category=self.conf_ticket,
         )
 
-        ticket_dep.enabling_products.set([
-            self.ticket_speaker,
-            self.ticket_supporter,
-            self.ticket_professional,
-            self.ticket_enthusiast,
-            self.ticket_specialist_only,
-            self.ticket_student,
-            self.ticket_sponsor,
-            self.ticket_media,
-            self.ticket_team,
-            self.ticket_volunteer,
-            self.tutorial_a,
-            self.tutorial_b,
-            self.tutorial_c,
-            self.tutorial_d,
-        ])
-
-        ticket_dep.products.set([
+        extras_dep.products.set([
             self.childcare_friday, self.childcare_saturday, self.childcare_sunday,
             self.sprint_ticket_monday, self.sprint_ticket_tuesday,
+            self.tutorial_a, self.tutorial_b, self.tutorial_c, self.tutorial_d,
         ] +
             self.shirt_products,
         )
