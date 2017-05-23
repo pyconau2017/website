@@ -15,9 +15,13 @@ class Command(BaseCommand):
     help = 'Populates the inventory with the PyConAu17 inventory model'
 
     def add_arguments(self, parser):
-        pass
+        parser.add_argument('--debug', action='store_true',
+                            dest='debug', default=False,
+                            help='Sets dates and capacities such that testing is easier.')
 
     def handle(self, *args, **options):
+
+        self.debug = options.get('debug')
 
         kinds = []
         for i in ("talk", "Tutorial"):
@@ -595,7 +599,7 @@ class Command(BaseCommand):
             cond.TimeOrStockLimitFlag,
             ("description", ),
             description="Support tickets available first.",
-            start_time=datetime(year=2017, month=5, day=31),
+            start_time=datetime(year=2017, month=5, day=31) if not self.debug else datetime(year=2017, month=1, day=1),
             condition=cond.FlagBase.ENABLE_IF_TRUE,
         )
 
