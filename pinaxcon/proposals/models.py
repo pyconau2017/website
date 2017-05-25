@@ -77,6 +77,16 @@ class PyConAuProposal(Proposal):
         "that all parts of my presentation will adhere to our <a href=\"/about/code_of_conduct/\">Code of Conduct</a> "
     )
 
+    def notification_email_context(self):
+        ctx = super(PyConAuProposal, self).notification_email_context()
+
+        ctx.update({
+            "areas": ', '.join([a.name for a in self.area.all()]),
+            "length": self.get_length_display(),
+        })
+
+        return ctx
+
 
 class TutorialProposal(Proposal):
 
