@@ -306,6 +306,7 @@ INVOICE_CURRENCY = "AUD"
 PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "your test public key")
 PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "your test secret key")
 PINAX_STRIPE_SEND_EMAIL_RECEIPTS = False
+TICKET_PRODUCT_CATEGORY = 1
 
 # Wagtail config
 WAGTAIL_SITE_NAME = 'Pycon Australia 2017'
