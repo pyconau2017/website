@@ -631,7 +631,7 @@ class Command(BaseCommand):
             cond.TimeOrStockLimitFlag,
             ("description", ),
             description="Support tickets available first.",
-            start_time=datetime(year=2017, month=5, day=31) if not self.debug else datetime(year=2017, month=1, day=1),
+            start_time=datetime(year=2017, month=1, day=1),
             condition=cond.FlagBase.ENABLE_IF_TRUE,
         )
 
