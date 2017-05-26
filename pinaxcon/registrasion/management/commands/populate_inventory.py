@@ -217,6 +217,15 @@ class Command(BaseCommand):
             order=90,
         )
 
+        self.ticket_djangogirls = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            name="DjangoGirls",
+            category=self.conf_ticket,
+            price=Decimal("00.00"),
+            reservation_duration=hours(24),
+            order=100)
+
         self.ticket_soldout = self.find_or_make(
             inv.Product,
             ("name", "category",),
@@ -225,8 +234,8 @@ class Command(BaseCommand):
             price=Decimal("00.00"),
             description="This ticket does NOT give you access to the conference.",
             reservation_duration=hours(24),
-            order=100)
-        
+            order=110)
+
         # Add-ons
         self.ticket_specialist_addon = self.find_or_make(
             inv.Product,
@@ -376,6 +385,7 @@ class Command(BaseCommand):
         hide_voucher_products.products.set([
             self.ticket_media,
             self.ticket_sponsor,
+            self.ticket_djangogirls,
         ])
 
         # Set limits.
