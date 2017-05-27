@@ -98,7 +98,9 @@
                             {% endwith %}
                         </td>
                         <td>
-                            {% if proposal.notifications.exists %}yes{% endif %}
+                            {% if proposal.notifications.exists %}yes
+                              {% for n in proposal.notifications.all %}({{ n.template.label }}){% endfor %}
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
