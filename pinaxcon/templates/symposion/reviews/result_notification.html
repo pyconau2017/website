@@ -48,6 +48,10 @@
                 <th>#</th>
                 <th>{% trans "Speaker / Title" %}</th>
                 <th>{% trans "Category" %}</th>
+	<th>{% trans "Travel<br>Assist" %}</th>
+	<th>{% trans "Accomm<br>Assist" %}</th>
+	<th>{% trans "Areas" %}</th>
+	<th>{% trans "Length" %}</th>
                 <th>{% trans "Status" %}</th>
                 <th>{% trans "Notified?" %}</th>
             </thead>
@@ -65,6 +69,25 @@
                             </a>
                         </td>
                         <td>{{ proposal.track }}</td>
+		<td>
+		  {% if proposal.speaker.travel_assistance %}
+		  Y ({{ proposal.speaker.home_city }})
+		  {% else %}
+		  N
+		  {% endif %}
+		</td>
+		<td>
+		  {% if proposal.speaker.accommodation_assistance %}
+		  Y
+		  {% else %}
+		  N
+		  {% endif %}
+		</td>
+		<td>{% for area in proposal.area.all %}
+		    {{ area.name }},<br>
+		    {% endfor %}
+		</td>
+		<td>{{ proposal.get_length_display }}</td>
                         <td>
                             {% with proposal.result.status as status %}
                                 <div class="{{ status }}">
