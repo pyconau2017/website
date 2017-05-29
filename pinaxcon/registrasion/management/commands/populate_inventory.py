@@ -644,29 +644,6 @@ class Command(BaseCommand):
         )
         add_early_birds(early_bird)
 
-        # Early bird rates for speakers
-        speaker_ticket_discounts = self.find_or_make(
-            cond.SpeakerDiscount,
-            ("description", ),
-            description="Speaker Ticket Discount",
-            is_presenter=True,
-            is_copresenter=True,
-        )
-        speaker_ticket_discounts.proposal_kind.set(
-            self.main_conference_proposals,
-        )
-        add_early_birds(speaker_ticket_discounts)
-
-        # Primary speaker gets a free speaker dinner ticket
-        primary_speaker = self.find_or_make(
-            cond.SpeakerDiscount,
-            ("description", ),
-            description="Complimentary for primary proposer",
-            is_presenter=True,
-            is_copresenter=False,
-        )
-        primary_speaker.proposal_kind.set(self.main_conference_proposals)
-
         # Professional-Like ticket inclusions
         ticket_prolike_inclusions = self.find_or_make(
             cond.IncludedProductDiscount,
