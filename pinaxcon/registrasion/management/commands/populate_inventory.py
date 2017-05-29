@@ -65,13 +65,13 @@ class Command(BaseCommand):
             limit_per_user=1,
             order=10,
         )
-        self.addons = self.find_or_make(
+        self.specialist_day = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Add-Ons",
-            description="Some conference tickets have extra add-ons.",
+            name="Specialist Day",
+            description="Please select your Specialist day ticket.",
             required=False,
-            render_type=inv.Category.RENDER_TYPE_CHECKBOX,
+            render_type=inv.Category.RENDER_TYPE_RADIO,
             order=11,
         )
         self.tute_ticket_morn = self.find_or_make(
@@ -236,11 +236,20 @@ class Command(BaseCommand):
             reservation_duration=hours(24),
             order=110)
 
-        # Add-ons
+        # Specialist day
+        self.ticket_specialist_inclusion = self.find_or_make(
+            inv.Product,
+            ("name", "category",),
+            category=self.specialist_day,
+            name="Specialist Day Inclusion",
+            price=Decimal("00.00"),
+            reservation_duration=hours(24),
+            order=40,
+        )
         self.ticket_specialist_addon = self.find_or_make(
             inv.Product,
             ("name", "category",),
-            category=self.addons,
+            category=self.specialist_day,
             name="Specialist Day Add-on",
             price=Decimal("75.00"),
             reservation_duration=hours(24),
@@ -455,12 +464,9 @@ class Command(BaseCommand):
         )
 
         specialist_day_cap.products.set([
-            self.ticket_speaker,
-            self.ticket_sponsor,
-            self.ticket_media,
-            self.ticket_team,
-            self.ticket_volunteer,
+            self.ticket_specialist_inclusion,
             self.ticket_specialist_addon,
+            self.ticket_specialist_only,
         ])
 
         tutorial_capacity = 60
@@ -557,19 +563,37 @@ class Command(BaseCommand):
         speaker_tickets.proposal_kind.set(self.main_conference_proposals)
         speaker_tickets.products.set([self.ticket_speaker, ])
 
-        specialist_addon_dep = self.find_or_make(
+        specialist_day_included_dep = self.find_or_make(
             cond.ProductFlag,
             ("description",),
-            description="Specialist add-on only for certain tickets",
+            description="Specialist day inclusion only for professional tickets.",
             condition=cond.FlagBase.ENABLE_IF_TRUE,
         )
 
-        specialist_addon_dep.enabling_products.set([
+        specialist_day_included_dep.enabling_products.set([
+            self.ticket_supporter,
+            self.ticket_professional,
+            self.ticket_speaker,
+            self.ticket_media,
+        ])
+
+        specialist_day_included_dep.products.set([
+            self.ticket_specialist_inclusion,
+        ])
+
+        specialist_day_addon_dep = self.find_or_make(
+            cond.ProductFlag,
+            ("description",),
+            description="Specialist day add-on only for certain tickets",
+            condition=cond.FlagBase.ENABLE_IF_TRUE,
+        )
+
+        specialist_day_addon_dep.enabling_products.set([
             self.ticket_enthusiast,
             self.ticket_student,
         ])
 
-        specialist_addon_dep.products.set([
+        specialist_day_addon_dep.products.set([
             self.ticket_specialist_addon,
         ])
 
