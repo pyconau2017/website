@@ -126,11 +126,11 @@ class Command(BaseCommand):
         )
 
         # Conf Tickets
-        self.ticket_supporter = self.find_or_make(
+        self.ticket_contributor = self.find_or_make(
             inv.Product,
             ("name", "category",),
             category=self.conf_ticket,
-            name="Supporter",
+            name="Contributor",
             price=Decimal("900.00"),
             reservation_duration=hours(24),
             order=1,
@@ -411,7 +411,7 @@ class Command(BaseCommand):
             limit=550,
         )
         public_mainconf_cap.products.set([
-            self.ticket_supporter,
+            self.ticket_contributor,
             self.ticket_professional,
             self.ticket_enthusiast,
             self.ticket_student,
@@ -667,7 +667,7 @@ class Command(BaseCommand):
             description="Complimentary for ticket holder (Professional-level)",
         )
         ticket_prolike_inclusions.enabling_products.set([
-            self.ticket_supporter,
+            self.ticket_contributor,
             self.ticket_professional,
             self.ticket_media,
             self.ticket_sponsor,
