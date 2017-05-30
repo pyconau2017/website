@@ -9,7 +9,15 @@
         {% if proposal.cancelled %}
             <span class="label label-danger">Cancelled</span>
         {% else %}
-            <span class="label label-default">Review pending</span>
+            {% if request.user == proposal.speaker.user %}
+                {% if proposal.result.status == "accepted" %}
+                    <span class="label label-success">Accepted</span>
+                {% else %}
+                    <span class="label label-default">Submitted</span>
+                {% endif %}
+            {% else %}
+                <span class="label label-default">Associated</span>
+            {% endif %}
         {% endif %}
       </li>
   </ul>
