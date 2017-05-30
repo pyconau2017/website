@@ -13,7 +13,7 @@
                 {% if proposal.result.status == "accepted" %}
                     <span class="label label-success">Accepted</span>
                 {% elif proposal.result.status == "rejected" %}
-                    <span class="label label-success">Declined</span>
+                    <span class="label label-warning">Declined</span>
                 {% else %}
                     <span class="label label-default">Submitted</span>
                 {% endif %}
