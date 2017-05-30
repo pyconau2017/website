@@ -1,10 +1,11 @@
 from collections import namedtuple
-from datetime import datetime
+from datetime import datetime as datetime_notz
 from datetime import timedelta
 from decimal import Decimal
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 from registrasion.models import inventory as inv
 from registrasion.models import conditions as cond
@@ -735,3 +736,7 @@ class Command(BaseCommand):
 
 def hours(n):
     return timedelta(hours=n)
+
+
+def datetime(year, month, day):
+    return datetime_notz(year, month, day, tzinfo=timezone.utc)
