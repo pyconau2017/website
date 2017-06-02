@@ -528,6 +528,35 @@ class Command(BaseCommand):
         )
         sprint_tuesday_cap.products.set([self.sprint_ticket_tuesday])
 
+        childcare_cap = 20
+
+        childcare_friday_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description", ),
+            description="Friday childcare cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=childcare_cap,
+        )
+        childcare_friday_cap.products.set([self.childcare_friday])
+
+        childcare_saturday_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description", ),
+            description="Saturday childcare cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=childcare_cap,
+        )
+        childcare_saturday_cap.products.set([self.childcare_saturday])
+
+        childcare_sunday_cap = self.find_or_make(
+            cond.TimeOrStockLimitFlag,
+            ("description", ),
+            description="Sunday childcare cap",
+            condition=cond.FlagBase.DISABLE_IF_FALSE,
+            limit=childcare_cap,
+        )
+        childcare_sunday_cap.products.set([self.childcare_sunday])
+
         # Volunteer tickets are for volunteers only
         volunteers = self.find_or_make(
             cond.GroupMemberFlag,
