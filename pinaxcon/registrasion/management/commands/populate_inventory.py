@@ -318,7 +318,7 @@ class Command(BaseCommand):
             order=20)
 
         # Child care
-        childcare_price = Decimal("50.00")
+        childcare_price = Decimal("30.00")
 
         self.childcare_friday = self.find_or_make(
             inv.Product,
