@@ -57,63 +57,63 @@ class Command(BaseCommand):
         self.conf_ticket = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Conference Ticket",
+            name="Conference Ticket (Sat 5th - Sun 6th)",
             description="Each type of conference ticket has different included products. "
                         "For details of what products are included, see our "
                         "<a href=\"/attend/\">registration details page</a>.",
             required=True,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=1,
-            order=10,
+            order=40,
         )
         self.specialist_day = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Specialist Day",
+            name="Specialist Day (Fri 4th)",
             description="Please select your Specialist day ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
-            order=11,
+            order=30,
         )
         self.tute_ticket_morn = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Morning Tutorial Ticket",
+            name="Morning Tutorial Ticket (Thur 3rd)",
+            description="Each tutorial has its own ticket.",
+            required=False,
+            render_type=inv.Category.RENDER_TYPE_RADIO,
+            limit_per_user=2,
+            order=10,
+        )
+        self.tute_ticket_aft = self.find_or_make(
+            inv.Category,
+            ("name",),
+            name="Afternoon Tutorial Ticket (Thur 3rd)",
             description="Each tutorial has its own ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
             limit_per_user=2,
             order=20,
         )
-        self.tute_ticket_aft = self.find_or_make(
-            inv.Category,
-            ("name",),
-            name="Afternoon Tutorial Ticket",
-            description="Each tutorial has its own ticket.",
-            required=False,
-            render_type=inv.Category.RENDER_TYPE_RADIO,
-            limit_per_user=2,
-            order=30,
-        )
         self.sprint_ticket = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Sprint Ticket",
+            name="Sprint Ticket (Mon 7th - Tue 8th)",
             description="A day of food, coffee and hacking",
             required=False,
             render_type=inv.Category.RENDER_TYPE_CHECKBOX,
             limit_per_user=2,
-            order=40,
+            order=60,
         )
 
         self.child_care = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Child Care",
+            name="Child Care (Fri 4th - Sun 6th)",
             description="On-site childcare is provided. Proof of vaccination is required. We'll ask you more details (e.g. food requirements) closer to the event.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_QUANTITY,
-            order=50,
+            order=70,
         )
 
         self.t_shirt = self.find_or_make(
@@ -167,7 +167,7 @@ class Command(BaseCommand):
             inv.Product,
             ("name", "category",),
             category=self.conf_ticket,
-            name="Specialist Day Only",
+            name="Specialist Day Only (Fri 4th ONLY)",
             price=Decimal("150.00"),
             reservation_duration=hours(24),
             order=40,
