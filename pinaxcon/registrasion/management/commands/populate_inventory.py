@@ -57,7 +57,7 @@ class Command(BaseCommand):
         self.conf_ticket = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Conference Ticket (Saturday 5th - Sunday 6th)",
+            name="Conference Ticket (Sat 5th - Sun 6th)",
             description="Each type of conference ticket has different included products. "
                         "For details of what products are included, see our "
                         "<a href=\"/attend/\">registration details page</a>.",
@@ -69,7 +69,7 @@ class Command(BaseCommand):
         self.specialist_day = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Specialist Day (Friday 4th)",
+            name="Specialist Day (Fri 4th)",
             description="Please select your Specialist day ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
@@ -78,7 +78,7 @@ class Command(BaseCommand):
         self.tute_ticket_morn = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Morning Tutorial Ticket (Thursday 3rd)",
+            name="Morning Tutorial Ticket (Thur 3rd)",
             description="Each tutorial has it's own ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
@@ -88,7 +88,7 @@ class Command(BaseCommand):
         self.tute_ticket_aft = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Afternoon Tutorial Ticket (Thursday 3rd)",
+            name="Afternoon Tutorial Ticket (Thur 3rd)",
             description="Each tutorial has it's own ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
@@ -98,7 +98,7 @@ class Command(BaseCommand):
         self.sprint_ticket = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Sprint Ticket (Monday 7th - Tuesday 8th)",
+            name="Sprint Ticket (Mon 7th - Tue 8th)",
             description="A day of food, coffee and hacking",
             required=False,
             render_type=inv.Category.RENDER_TYPE_CHECKBOX,
@@ -109,7 +109,7 @@ class Command(BaseCommand):
         self.child_care = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Child Care (Friday 4th - Sunday 6th)",
+            name="Child Care (Fri 4th - Sun 6th)",
             description="On-site childcare is provided. Proof of vaccination is required. We'll ask you more details (e.g. food requirements) closer to the event.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_QUANTITY,
@@ -167,7 +167,7 @@ class Command(BaseCommand):
             inv.Product,
             ("name", "category",),
             category=self.conf_ticket,
-            name="Specialist Day Only (ONLY Friday 4th)",
+            name="Specialist Day Only (Fri 4th ONLY)",
             price=Decimal("150.00"),
             reservation_duration=hours(24),
             order=40,
