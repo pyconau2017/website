@@ -78,7 +78,7 @@ class Command(BaseCommand):
         self.tute_ticket_morn = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Morning Tutorial Ticket (Thur 3rd)",
+            name="Morning Tutorial Ticket (Thurs 3rd)",
             description="Each tutorial has its own ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
@@ -88,7 +88,7 @@ class Command(BaseCommand):
         self.tute_ticket_aft = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Afternoon Tutorial Ticket (Thur 3rd)",
+            name="Afternoon Tutorial Ticket (Thurs 3rd)",
             description="Each tutorial has its own ticket.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_RADIO,
