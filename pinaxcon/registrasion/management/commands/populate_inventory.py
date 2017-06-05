@@ -98,7 +98,7 @@ class Command(BaseCommand):
         self.sprint_ticket = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Sprint Ticket (Monday 7th - Tuesdsay 8th)",
+            name="Sprint Ticket (Monday 7th - Tuesday 8th)",
             description="A day of food, coffee and hacking",
             required=False,
             render_type=inv.Category.RENDER_TYPE_CHECKBOX,
