@@ -109,8 +109,10 @@ class Command(BaseCommand):
         self.child_care = self.find_or_make(
             inv.Category,
             ("name",),
-            name="Child Care (Fri 4th - Sun 6th)",
-            description="On-site childcare is provided. Proof of vaccination is required. We'll ask you more details (e.g. food requirements) closer to the event.",
+            name="Child Care",
+            description="Child care will be offered for the full program day on the specialist track and main conference days (Friday, Saturday and Sunday). "
+                        "This child care will be on-site at the MCEC, and run by qualified child care workers. "
+                        "If you register for child care, we will contact you for needed details about each child.",
             required=False,
             render_type=inv.Category.RENDER_TYPE_QUANTITY,
             order=70,
