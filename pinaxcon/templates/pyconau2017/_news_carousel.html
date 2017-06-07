@@ -13,7 +13,7 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-  {% for i, item in items %}
+  {% for i, item in items|slice:":3" %}
     {% if i == 0 %}
     <div class="item active">
     {% else %}
