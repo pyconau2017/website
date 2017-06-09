@@ -64,13 +64,11 @@
 
 {% endblock %}
 
-{% block header_title %}Credit card payment for invoice #{{ invoice.id}}{% endblock %}
-{% block header_inset_image %}{% illustration "casino.svg" %}{% endblock %}
-{% block header_paragraph %}
-  Pay for your PyCon AU attendance with your Visa, Mastercard, or American Express credit or debit card. Card payments are processed by <a href="https://stripe.com">Stripe</a>.
-{% endblock %}
+{% block head_title %}Credit card payment for invoice #{{ invoice.id}}{% endblock %}
 
 {% block page_content %}
+  <h3>Credit card payment for invoice #{{ invoice.id}}</h3>
+
   <p>
     No data on this form is retained by {% conference_name %}, rather it is
     sent to Stripe. In particular, credit card details are not sent
