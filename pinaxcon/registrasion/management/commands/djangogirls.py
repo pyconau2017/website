@@ -21,21 +21,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         djangoticket = Product.objects.filter(name="DjangoGirls")[0]
-
-        voucher, created = Voucher.objects.get_or_create(
-            recipient="Django Girls",
-            code="Django Girls Voucher",
-            limit=100,
-        )
-
-        if created:
-            flag, created = conditions.VoucherFlag.objects.get_or_create(
-                description="Voucher condition",
-                voucher=voucher,
-                condition=conditions.FlagBase.ENABLE_IF_TRUE,
-            )
-
-            flag.products.add(djangoticket)
+        voucher = Voucher.objects.filter(recipient="DjangoGirls")[0]
 
         details = []
         with open(options['csv'], 'r') as csvfile:
