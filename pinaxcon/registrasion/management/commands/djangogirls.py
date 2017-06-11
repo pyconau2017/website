@@ -1,13 +1,16 @@
 import csv
-import datetime
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from pinaxcon.registrasion.models import AttendeeProfile
+from registrasion.controllers.cart import CartController
 from registrasion.controllers.invoice import InvoiceController
+from registrasion.models import Voucher
+from registrasion.models import conditions
 from registrasion.models import Attendee
 from registrasion.models import Product
 from registrasion.models import Invoice
+
 
 class Command(BaseCommand):
     help = "Registers a list of people with a django girls ticket. If someone already has a ticket, won't change that."
@@ -18,6 +21,21 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         djangoticket = Product.objects.filter(name="DjangoGirls")[0]
+
+        voucher, created = Voucher.objects.get_or_create(
+            recipient="Django Girls",
+            code="Django Girls Voucher",
+            limit=100,
+        )
+
+        if created:
+            flag, created = conditions.VoucherFlag.objects.get_or_create(
+                description="Voucher condition",
+                voucher=voucher,
+                condition=conditions.FlagBase.ENABLE_IF_TRUE,
+            )
+
+            flag.products.add(djangoticket)
 
         details = []
         with open(options['csv'], 'r') as csvfile:
@@ -56,10 +74,13 @@ class Command(BaseCommand):
                 print("%s django ticket already purchased" % (email))
 
             else:
-                due = datetime.timedelta(days=1)
+                controller = CartController.for_user(user)
 
-                invoice = InvoiceController.manual_invoice(user, due, [(djangoticket, 1)])
-                InvoiceController(invoice)._mark_paid()
+                controller.apply_voucher(voucher.code)
+                controller.set_quantities([(djangoticket, 1)])
+
+                invoice = InvoiceController.for_cart(controller.cart)
+                invoice._mark_paid()
 
                 print("%s django ticket purchased" % email)
 
