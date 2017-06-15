@@ -20,7 +20,7 @@
 <hr />
 
 {% for report in reports %}
-  <h3>{{ report.title }}</h3>
+  <h3>{{ report.title }}{% if report.count > 10 %} ({{ report.count }}){% endif %}</h3>
   <table class="table table-striped">
     <tr>
       {% for heading in report.headings %}
