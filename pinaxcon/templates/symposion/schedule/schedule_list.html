@@ -15,6 +15,9 @@
 
 {% block content %}
 <div class="jumbotron">
+  <h1>List of talks and tutorials</h1>
+  <p>All non-tutorial talks will be run on Friday 4th August, Saturday 5th August or Sunday 6th August. Four paid tutorials will be run on Thursday 3rd August.</p>
+
   {% cache 600 "schedule-list" schedule.section.name %}
     <ul>
       {% for presentation in presentations %}
