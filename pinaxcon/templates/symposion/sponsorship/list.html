@@ -4,6 +4,8 @@
 {% load pyconau2017_tags %}
 {% load i18n %}
 
+{% load markdownify %}
+
 {% block head_title %}{% trans "About Our Sponsors" %}{% endblock %}
 
 {% block body_class %}sponsorships{% endblock %}
@@ -31,7 +33,7 @@
     			                 {% if user.is_staff %}
                                     <h5><a href="{% url "sponsor_detail" sponsor.pk %}"> Edit {{ sponsor.name }}</a></h5>
     			                 {% endif %}
-                                <p>{{ sponsor.listing_text|urlize|linebreaks }}</p>
+                                <p>{{ sponsor.listing_text|markdownify|safe }}</p>
                             </div>
                     {% endif %}
 

@@ -15,6 +15,7 @@ raven==5.27.0
 bleach==1.4.3
 html5lib==0.9999999
 django-debug-toolbar==1.6
+django-markdownify==0.1.0
 
 # database
 psycopg2==2.6.2

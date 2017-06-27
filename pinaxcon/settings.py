@@ -167,6 +167,7 @@ INSTALLED_APPS = [
     "metron",
     "sitetree",
     "pinax.eventlog",
+    "markdownify",
 
     # wagtail
     'wagtail.wagtailforms',
