@@ -1,0 +1,82 @@
+{% extends "symposion/schedule/public_base.html" %}
+
+{% load lca2017_tags %}
+{% load sitetree %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load account_tags %}
+{% load i18n %}
+
+
+{% block head_title %}Session: {{ session }}{% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block header_inset_image %}{{ block.super }}{% endblock %}
+
+{% block header_background_image %}{{ block.super }}{% endblock %}
+
+{% block header_title %}Session: {{ session }}{% endblock %}
+
+{% block header_paragraph %}
+
+{% endblock %}
+
+{% block page_content %}
+
+  <dl class="dl-horizontal">
+    <dt>{% trans "Session Chair" %}</dt>
+    <dd>
+        {% if chair %}
+            {{ chair.attendee.attendeeprofilebase.attendeeprofile.name }}
+            {% if request.user == chair %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="role" value="un-chair" />
+                    <input type="submit" value="Opt out" class="btn"/>
+                </form>
+            {% endif %}
+        {% else %}
+            {% if user.is_authenticated %}
+                {% if request.user.attendee.completed_registration %}
+                    {% if not chair_denied %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="role" value="chair" />
+                            <input type="submit" class="btn" value="Volunteer to be session chair"/>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    {% url 'guided_registration' as guided_registration %}
+                    {% blocktrans %}<a href="{{ guided_registration }}">Click here to get a ticket for the conference,</a> and enable volunteering for session roles.{% endblocktrans %}
+                {% endif %}
+            {% else %}
+              {% url 'account_login' as account_login %}
+              {% blocktrans %}Sign up and <a href="{{ account_login }}?next={{ request.path }}">log in</a> to volunteer to be session chair.{% endblocktrans %}
+            {% endif %}
+        {% endif %}
+    </dd>
+    <dt>{% trans "Session Runner" %}</dt>
+    <dd>
+        {% if runner %}
+          {{ runner.profile.display_name }}
+        {% else %}
+          {% blocktrans %}Session runner not assigned.{% endblocktrans %}
+        {% endif %}
+    </dd>
+  </dl>
+
+  <h2>Slots</h2>
+
+  <table class="table">
+    {% for slot in session.slots.all %}
+      <tr>
+          <td>{{ slot }}</td>
+          <td>{% if slot.content %}<a href="{% url 'schedule_presentation_detail' slot.content.pk %}">{{ slot.content }}</a>{% endif %}</td>
+      </tr>
+    {% empty %}
+      <li>{% trans "No slots in session." %}</li>
+    {% endfor %}
+  </table>
+
+{% endblock %}
