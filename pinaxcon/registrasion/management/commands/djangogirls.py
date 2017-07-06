@@ -6,7 +6,6 @@ from pinaxcon.registrasion.models import AttendeeProfile
 from registrasion.controllers.cart import CartController
 from registrasion.controllers.invoice import InvoiceController
 from registrasion.models import Voucher
-from registrasion.models import conditions
 from registrasion.models import Attendee
 from registrasion.models import Product
 from registrasion.models import Invoice
@@ -21,6 +20,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         djangoticket = Product.objects.filter(name="DjangoGirls")[0]
+        nonsaturday_ticket = Product.objects.filter(name="Specialist Day Only (Fri 4th ONLY)")[0]
+        saturday_tickets = Product.objects.filter(category__name="Conference Ticket (Sat 5th - Sun 6th)").exclude(name=nonsaturday_ticket.name).all()
         voucher = Voucher.objects.filter(recipient="DjangoGirls")[0]
 
         details = []
@@ -53,11 +54,11 @@ class Command(BaseCommand):
 
             ticket_purchased = False
             for invoice in Invoice.objects.filter(user=user, status=Invoice.STATUS_PAID):
-                for lineitem in invoice.lineitem_set.filter(product=djangoticket):
+                for lineitem in invoice.lineitem_set.filter(product__in=saturday_tickets):
                     ticket_purchased = True
 
             if ticket_purchased:
-                print("%s django ticket already purchased" % (email))
+                print("%s saturday ticket already purchased" % (email))
 
             else:
                 controller = CartController.for_user(user)
