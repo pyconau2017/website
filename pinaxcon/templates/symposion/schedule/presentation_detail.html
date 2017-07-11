@@ -39,14 +39,16 @@
     <p><strong>Presentation not published.</strong></p>
   {% endif %}
 
-  <h2>Abstract</h2>
+  <h2>{{ presentation.title }}</h2>
 
   <div class="abstract">{{ presentation.abstract_html|safe }}</div>
 
   <h2>Presented by</h2>
   {% for speaker in presentation.speakers %}
     {% speaker_photo speaker 512 as speaker_photo_url %}
-    {% include "pyconau2017/_right_floating_image.html" with image_url=speaker_photo_url %}
+    {% if speaker_photo_url %}
+      {% include "pyconau2017/_right_floating_image.html" with image_url=speaker_photo_url %}
+    {% endif %}
 
     <h3><a href="{% url "speaker_profile" speaker.pk %}">{{ speaker }}</a></h3>
 
@@ -65,9 +67,9 @@
       </div></p>
     {% endif %}
 
-
-
     {{ speaker.biography_html|safe}}
+
+    <br clear="all" />
 
   {% endfor %}
 

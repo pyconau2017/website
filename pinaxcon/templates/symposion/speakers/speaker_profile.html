@@ -15,14 +15,14 @@
 
 {% block head_title %}{{ speaker.name }}{% endblock %}
 
-{% block content %}
+{% block page_content %}
   {% if speaker.user == request.user or request.user.is_staff %}
     <p>
       <a class="btn btn-default pull-right" href="{% url "speaker_edit" speaker.pk %}">Edit</a>
     </p>
   {% endif %}
 
-  <h3>Biography</h3>
+  <h3>{{ speaker.name }}</h3>
 
   <div class="bio">{{ speaker.biography_html|safe }}</div>
 

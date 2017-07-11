@@ -1,0 +1,64 @@
+{% extends "symposion/schedule/public_base.html" %}
+
+{% load pyconau2017_tags %}
+{% load sitetree %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load account_tags %}
+{% load i18n %}
+
+
+{% block head_title %}Sessions{% endblock %}
+
+{% block breadcrumbs %}{% sitetree_breadcrumbs from "main" %}{% endblock %}
+
+{% block header_inset_image %}{{ block.super }}{% endblock %}
+
+{% block header_background_image %}{{ block.super }}{% endblock %}
+
+{% block header_title %}Sessions{% endblock %}
+
+{% block header_paragraph %}
+
+{% endblock %}
+
+{% block page_content %}
+  <ul class="unstyled">
+    {% for session in sessions %}
+      {% if session.sorted_slots %}
+        <li>
+          <a href="{% url 'schedule_session_detail' session.pk %}">{% blocktrans %}Session #{% endblocktrans %}{{ forloop.counter }}</a>
+          <div class="well">
+            <ul class="unstyled">
+              {% for role in session.sessionrole_set.all %}
+                <li>
+                  <b>{{ role.get_role_display }}</b>: {{ role.user.attendee.attendeeprofilebase.attendeeprofile.name }}
+                </li>
+              {% empty %}
+                <li>
+                  <a href="{% url 'schedule_session_detail' session.pk %}">{% blocktrans %}No volunteers signed up. Sign up!{% endblocktrans %}</a>
+                </li>
+              {% endfor %}
+            </ul>
+            <h4>{% trans "Slots" %}</h4>
+            <table class="table">
+              {% for slot in session.sorted_slots %}
+                <tr>
+                  <td>{{ slot }}</td>
+                  <td>
+                    {% if slot.content %}<a href="{% url 'schedule_presentation_detail' slot.content.pk %}">{{ slot.content }}</a>{% endif %}
+                  </td>
+                </tr>
+              {% empty %}
+                  <tr>{% trans "No slots in session." %}</tr>
+              {% endfor %}
+            </table>
+          </div>
+        </li>
+      {% endif %}
+    {% empty %}
+      <li>{% trans "No sessions defined." %}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

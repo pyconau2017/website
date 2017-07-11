@@ -12,3 +12,5 @@ log
 src
 \.#*
 *#*#
+.direnv
+.envrc

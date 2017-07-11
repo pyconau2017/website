@@ -15,6 +15,7 @@ raven==5.27.0
 bleach==1.4.3
 html5lib==0.9999999
 django-debug-toolbar==1.6
+django-markdownify==0.1.0
 
 # database
 psycopg2==2.6.2
@@ -32,4 +33,4 @@ coverage==4.0.3
 
 -e git+https://github.com/pyconau2017/symposion.git@master#egg=symposion
 -e git+https://github.com/pyconau2017/registrasion.git@master#egg=registrasion
--e git+https://github.com/chrisjrn/registrasion-stripe.git@master#egg=registrasion-stripe
+-e git+https://github.com/pyconau2017/registrasion-stripe.git@master#egg=registrasion-stripe

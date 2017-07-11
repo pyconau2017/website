@@ -48,6 +48,11 @@
          {% endcache %}
       {% endfor %}
 
+Other formats:
+<a href="conference.json">JSON</a>
+<a href="conference.ics">ICAL</a>
+<a href="general-sessions">One Page</a>
+
 {% endblock %}
 
 {% block scripts_extra %}
@@ -56,21 +61,22 @@
     fragment = window.location.hash.toLowerCase().substring(1);
 
     if (!fragment) {
-      OFFSET = -11 * (60 * 60 * 1000); // Hobart is 11 hours ahead of UTC in Jan.
-      JAN = 0; // because January is 0, not 1
+      OFFSET = -10 * (60 * 60 * 1000);
+      AUG = 7; // because January is 0, not 1
 
       fragments = [
-        {"day": "monday", "time": Date.UTC(2017, JAN, 16)},
-        {"day": "tuesday", "time": Date.UTC(2017, JAN, 17)},
-        {"day": "wednesday", "time": Date.UTC(2017, JAN, 18)},
-        {"day": "thursday", "time": Date.UTC(2017, JAN, 19)},
-        {"day": "friday", "time": Date.UTC(2017, JAN, 20)},
-        {"day": "saturday", "time": Date.UTC(2017, JAN, 21)},
+        {"day": "thursday", "time": Date.UTC(2017, AUG, 3)},
+        {"day": "friday", "time": Date.UTC(2017, AUG, 4)},
+        {"day": "saturday", "time": Date.UTC(2017, AUG, 5)},
+        {"day": "sunday", "time": Date.UTC(2017, AUG, 6)},
+        {"day": "monday", "time": Date.UTC(2017, AUG, 7)},
+        {"day": "tuesday", "time": Date.UTC(2017, AUG, 8)},
+        {"day": "wednesday", "time": Date.UTC(2017, AUG, 9)},
       ];
 
       now = new Date().getTime();
 
-      for (i = 0; i < 5; i++) {
+      for (i = 0; i < 7; i++) {
         f = fragments[i];
         g = fragments[i+1];
         if ((f.time + OFFSET) <= now && now < (g.time + OFFSET)) {

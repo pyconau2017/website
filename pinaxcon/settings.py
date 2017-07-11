@@ -12,6 +12,7 @@ BASE_DIR = PACKAGE_ROOT
 # Change this in local_settings.py
 SITE_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
+LOGIN_URL = '/account/login/'
 
 # Change/set this in local_settings.py
 DEBUG = False
@@ -166,6 +167,7 @@ INSTALLED_APPS = [
     "metron",
     "sitetree",
     "pinax.eventlog",
+    "markdownify",
 
     # wagtail
     'wagtail.wagtailforms',
