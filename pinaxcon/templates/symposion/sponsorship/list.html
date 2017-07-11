@@ -19,16 +19,18 @@
         </div>
         {% sponsor_levels as levels %}
         {% for level in levels %}
-            {% if level.sponsors %}
-                <h3>{{ level.name }}</h3>
-                <div class="row">
-                {% for sponsor in level.sponsors %}
-                    {% if sponsor.sponsor_logo %}
-                            <div class="col-md-6">
-                                <a href="{{ sponsor.external_url }}">
-                                    <img src="{% sponsor_thumbnail sponsor.sponsor_logo %}" alt="{{ sponsor.name }}" class="img-responsive center-block"/>
-                                    <br/>
-                                </a>
+            {% if level.order < 100 %}
+                {% if level.sponsors %}
+                    <h3>{{ level.name }}</h3>
+                    <div class="row">
+                    {% for sponsor in level.sponsors %}
+                        {% if sponsor.sponsor_logo %}
+                                <div class="col-md-6">
+                                    <a href="{{ sponsor.external_url }}">
+                                        <img src="{% sponsor_thumbnail sponsor.sponsor_logo %}" alt="{{ sponsor.name }}" class="img-responsive center-block"/>
+                                        <br/>
+                                    </a>
+
 
     			                 {% if user.is_staff %}
                                     <h5><a href="{% url "sponsor_detail" sponsor.pk %}"> Edit {{ sponsor.name }}</a></h5>
@@ -37,14 +39,15 @@
                             </div>
                     {% endif %}
 
-                    {% if forloop.counter0|divisibleby:2 %}
-                        <!-- place-holder ... just deal with it, ok? -->
-                    {% else %}
-                        </div> <!-- 2-column row -->
-                        <div class="row">
-                    {% endif %}
-                {% endfor %}
-                </div>
+                        {% if forloop.counter0|divisibleby:2 %}
+                            <!-- place-holder ... just deal with it, ok? -->
+                        {% else %}
+                            </div> <!-- 2-column row -->
+                            <div class="row">
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div> <!-- jumbotron-white -->
