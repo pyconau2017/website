@@ -103,7 +103,7 @@ The linux.conf.au 2016 attendees mailing listName
         if errors:
             raise ValidationError(dict(errors))
 
-    def save(self):
+    def save(self, force_insert=False, force_update=False, using=None):
         if not self.name_per_invoice:
             self.name_per_invoice = self.name
         super(AttendeeProfile, self).save()
