@@ -1,5 +1,16 @@
-import csv
+'''
+Generate Conference Badges
+==========================
 
+Nearly all of the code in this was written by Richard Jones for the 2016 conference.
+That code relied on the user supplying the attendee data in a CSV file, which Richard's
+code then processed.
+
+The main (and perhaps only real) difference, here, is that the attendee data are taken
+directly from the database.  No CSV file is required.  (I may decide to add the ability
+to process from a CSV, alternatively, later.  For now ... computer says no.)
+
+'''
 import sys
 import os
 import csv
@@ -7,6 +18,8 @@ from lxml import etree
 from copy import deepcopy
 import subprocess
 import progressbar
+
+import pdb
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
@@ -17,6 +30,7 @@ from registrasion.models import Voucher
 from registrasion.models import Attendee
 from registrasion.models import Product
 from registrasion.models import Invoice
+from symposion.speakers.models import Speaker
 
 # A few unicode encodings ...
 GLYPH_PLUS = '+'
@@ -135,11 +149,9 @@ def generate_badge(soup, data, n):
 
         name = data['firstname'] + data['lastname']
 
+        # Richard, why is THIS here????
         if name == 'AshleyRead':
             data['ticket'] = 'Enthusiast'
-
-        if name == 'RussellKeith-Magee' and data['dinner_tickets'] == 0:
-            data['dinner_tickets'] = 1
 
         # Organiser/Team > Speaker/Volunteer > Contributor > Professional > Enthusiast > Student
         if 'Organiser' in data['ticket']:
@@ -169,91 +181,110 @@ def generate_badge(soup, data, n):
             set_colour(soup, 'colour-' + part, '319a51')
         elif data['friday']:
             set_colour(soup, 'colour-' + part, '71319a')
+
         # if not data['speaker']:
         #     set_text(soup, 'speaker-' + part, '')
+
         icons = []
         if data['sprints']:
             icons.append(GLYPH_SPRINTS)
-        if data['dinner_tickets'] > 1:
-            icons.append(GLYPH_DINNER + 'x%d' % data['dinner_tickets'])
-        elif data['dinner_tickets']:
-            icons.append(GLYPH_DINNER)
+
+        # Oh, come ON! :/
         if name == 'TomEastman':
             icons.append(GLYPH_CROWN)
         elif name == 'KatieMcLaughlin':
             icons.append(GLYPH_SNOWMAN)
         elif name == 'BriannaLaugher':
             icons.append(GLYPH_STAR)
+
+        # Really?  REALLY??!!
         elif name in ('JamesPolley', 'SachiKing'):
             icons.append(GLYPH_FLASH)
+
         if not data['paid']:
             icons.append('$')
         set_text(soup, 'icons-' + part, ' '.join(icons))
         set_text(soup, 'shirt-' + side, '; '.join(data['shirts']))
 
 class Command(BaseCommand):
-    help = "Generate SVGs to print badges."
+    help = """\
+    Generate SVGs to print badges.
+
+    Supply the template (--template=___) and the target directory for the output
+    (--out-dir=___) on the command line.  With no other arguments on the command
+    this will produce badges for all attendees found in the conference database.
+
+    FUTURE:
+    Specifying attendee usernames or email address on the command line will limit
+    the badges printed to just those attendees matching.
+
+    """
 
     def add_arguments(self, parser):
-        parser.add_argument('--csv', help='CSV input, must include: email, name, food_needs, access_needs columns.')
+        parser.add_argument('--template', help='SVG template for creating badges',
+                            default="pinaxcon/templates/badge.svg")
+        parser.add_argument('--out-dir', help='Directory where SVG files will be created.',
+                            default="/tmp/badges")
 
     def handle(self, *args, **options):
-        data = {
-            'ticket': 'Organiser',
-            'firstname': 'Richard Longer',
-            'lastname': 'Jones',
-            'company': 'Rackspace',
-            'dinner_tickets': 1,
-            'over18': True,
-            'sprints': True,
-            'speaker': True,
-            'shirts': ["1 x Men's L"]
-        }
 
-        # XXX change this to reflect getting data from the DB
-        #     rather than a CSV supplied via cmd line.
-        with open(sys.argv[2]) as f:
-            columns = f.readline().strip().split(',')
-        evals = set('sprints,speaker,shirts,friday,paid,dinner_tickets,over18,printed'.split(','))
+        names = list()
 
-        # ``orig is the SVG template for the badge.```
-        orig = etree.parse(sys.argv[1])
-
-        names = []
+        orig = etree.parse(options['template'])
         tree = deepcopy(orig)
         root = tree.getroot()
 
-        attendees = list(csv.reader(open(sys.argv[2])))
+        for n, ap in enumerate(AttendeeProfile.objects.all()):
+            data = dict()
 
-        # firstname,lastname,company,friday,paid,shirts,ticket,sprints,dinner_tickets,over18,speaker
-        # attendees.append(['Viktoriya', 'Skoryk', '', 'True', 'True', '[]', 'Guest', 'False', '1', 'True', 'False'])
+            at_nm = ap.name.split()
+            if len(at_nm) > 0:
+                data['firstname'] = at_nm[0]
 
-        for n, badge in enumerate(attendees):
-            if badge[0] == columns[0]:
-                continue
-            data = {k: v.replace('&#39;', "'") for k, v in zip(columns, badge)}
+                data['lastname'] = at_nm[1] if len(at_nm) > 1 else ''
+
+            else:
+                data['firstname'], data['lastname'] = ('Inego', 'Montoya')
+
+            data['over18'] = ap.of_legal_age
+            data['speaker'] = Speaker.objects.filter(user_id=ap.attendee.user.id).first() is not None
+
+            # If the invoice is paid, fill in fields from DB.  Otherwise, we leave these
+            # blank (and don't put any accesses on the badge.)
+            inv = Invoice.objects.filter(user_id=ap.attendee.user.id).first()
+            if inv is None or inv.is_paid == False:
+                data['paid'] = data['friday'] = data['sprints'] = False
+                data['shirts'] = []
+                data['ticket'] = ''
+
+            else:
+                data['paid'] = inv.is_paid
+                data['friday'] = inv.lineitem_set.filter(product__category__name__startswith="Specialist Day").first() is not None
+                data['sprints'] = inv.lineitem_set.filter(product__category__name__startswith="Sprint Ticket").first() is not None
+                try:
+                    data['ticket'] = inv.lineitem_set.filter(product__category__name__startswith="Conference Ticket").first().product.name
+                except:
+                    data['ticket'] = '???'
+                    print "ERROR:", ap.attendee.user, inv.is_paid
+
             try:
-                for k in columns:
-                    if k in evals:
-                        data[k] = eval(data[k])
-                    else:
-                        data[k] = data[k].decode('utf8')
-
-                data['company'] = overrides.get(data['company'], data['company'])
+                data['shirts'] = [ts.product.name for ts in inv.lineitem_set.filter(product__category__name__startswith="T-Shirt")]
             except:
-                print data
-                raise
+                data['shirts'] = list()
+
+            data['company'] = ap.company.decode('utf8')
+            data['company'] = overrides.get(data['company'], data['company'])
 
             generate_badge(root, data, n % 2)
             if n % 2:
-                name = os.path.abspath(os.path.join(sys.argv[3], 'badge-%d.svg' % n))
+                name = os.path.abspath(os.path.join(options['out_dir'], 'badge-%d.svg' % n))
                 tree.write(name)
                 names.append(name)
                 tree = deepcopy(orig)
                 root = tree.getroot()
 
         if not n % 2:
-            name = os.path.abspath(os.path.join(sys.argv[3], 'badge-%d.svg' % n))
+            name = os.path.abspath(os.path.join(options['out_dir'], 'badge-%d.svg' % n))
             tree.write(name)
             names.append(name)
 
@@ -265,19 +296,13 @@ class Command(BaseCommand):
                '--export-pdf=%s.pdf' % name,
                '--file=' + name])
 
-        output = 'badges.pdf'
+        output = os.path.join(options['out_dir'], 'all-badges.pdf')
         print 'Assembling: %s' % (output)
         files = names
-        # files = [
-        #     'badge-back.pdf' if i % 2 else '%s.pdf' % names[i // 2]
-        #     for i in range(len(names) * 2)
-        # ]
 
         subprocess.check_call(['pdftk'] + ['%s.pdf' % n for n in names] + ['cat', 'output', output])
 
-        def created_or_found(created):
-            return "created" if created else "found"
-
+        return 0
 
 
 
