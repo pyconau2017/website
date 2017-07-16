@@ -214,7 +214,6 @@ class Command(BaseCommand):
     (--out-dir=___) on the command line.  With no other arguments on the command
     this will produce badges for all attendees found in the conference database.
 
-    FUTURE:
     Specifying attendee usernames or email address on the command line will limit
     the badges printed to just those attendees matching.
 
