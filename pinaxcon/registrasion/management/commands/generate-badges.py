@@ -225,6 +225,7 @@ class Command(BaseCommand):
                             default="pinaxcon/templates/badge.svg")
         parser.add_argument('--out-dir', help='Directory where SVG files will be created.',
                             default="/tmp/badges")
+        parser.add_argument('usernames', nargs='*', type=str)
 
     def handle(self, *args, **options):
 
@@ -234,7 +235,16 @@ class Command(BaseCommand):
         tree = deepcopy(orig)
         root = tree.getroot()
 
-        for n, ap in enumerate(AttendeeProfile.objects.all()):
+        # If specific usernames were given on the command line, just use those.
+        # Otherwise, use the entire list of attendees.
+        if options['usernames']:
+            attendee_list = AttendeeProfile.objects.filter(attendee__user__username__in=options['usernames'])
+        else:
+            attendee_list = AttendeeProfile.objects.all()
+
+        print "attendees:", attendee_list
+
+        for n, ap in enumerate(attendee_list):
             data = dict()
 
             at_nm = ap.name.split()
