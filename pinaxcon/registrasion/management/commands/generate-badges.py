@@ -241,8 +241,7 @@ class Command(BaseCommand):
         else:
             attendee_list = AttendeeProfile.objects.all()
 
-        print "attendees:", attendee_list
-
+        # Iterate through the attendee list to generate the badges.
         for n, ap in enumerate(attendee_list):
             data = dict()
 
