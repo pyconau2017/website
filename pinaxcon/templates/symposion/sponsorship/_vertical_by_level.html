@@ -4,7 +4,7 @@
 
 <div class="sponsor-list">
 {% for level in levels %}
-`   {% if level.order < 100 %}
+    {% if level.order < 100 %}
         <h3>{{ level.name }}</h3>
         {% for sponsor in level.sponsors %}
             <div class="sponsor-list">
