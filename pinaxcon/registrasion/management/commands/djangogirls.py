@@ -24,16 +24,25 @@ class Command(BaseCommand):
         saturday_tickets = Product.objects.filter(category__name="Conference Ticket (Sat 5th - Sun 6th)").exclude(name=nonsaturday_ticket.name).all()
         voucher = Voucher.objects.filter(recipient="DjangoGirls")[0]
 
+        print("found %s and %s" % (djangoticket, voucher))
+
         details = []
         with open(options['csv'], 'r') as csvfile:
             reader = csv.DictReader(csvfile, fieldnames=None)
             for row in reader:
                 details.append(row)
 
+        print("got %d CSV rows" % len(details))
+
         for detail in details:
             email = detail['email']
 
-            user, created = User.objects.get_or_create(username=email, email=email)
+            existing = User.objects.filter(email=email)
+            if existing.exists():
+                user = existing.first()
+                created = False
+            else:
+                user, created = User.objects.get_or_create(username=email, email=email)
 
             print("%s user %s" % (email, created_or_found(created)))
 
@@ -41,16 +50,20 @@ class Command(BaseCommand):
 
             print("%s attendee %s" % (email, created_or_found(created)))
 
-            profile, created = AttendeeProfile.objects.get_or_create(
-                attendee=attendee,
-                name=detail['name'],
-                accessibility_requirements=detail['access_needs'],
-                dietary_restrictions=detail['food_needs'],
-                lca_announce=False,
-                linux_australia=False,
-            )
-
-            print("%s profile %s" % (email, created_or_found(created)))
+            existing = AttendeeProfile.objects.filter(attendee=attendee)
+            if not existing.exists():
+                profile = AttendeeProfile.objects.create(
+                    attendee=attendee,
+                    name=detail['name'],
+                    accessibility_requirements=detail['access_needs'],
+                    dietary_restrictions=detail['food_needs'],
+                    lca_announce=False,
+                    linux_australia=False,
+                )
+                print("%s profile created" % email)
+            else:
+                profile = existing.first()
+                print("%s profile found" % email)
 
             ticket_purchased = False
             for invoice in Invoice.objects.filter(user=user, status=Invoice.STATUS_PAID):
