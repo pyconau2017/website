@@ -136,22 +136,20 @@ def set_colour(soup, slice_id, colour):
     style = elem.get('style')
     elem.set('style', style.replace('fill:#316a9a', 'fill:#%s' % colour))
 
-Volunteers = Group.objects.filter(name='Conference volunteers').first()
-Organiser = Group.objects.filter(name='Conference organisers').first()
 
 def is_volunteer(attendee):
     '''
     Returns True if attendee is in the Conference volunteers group.
     False otherwise.
     '''
-    return Volunteers in attendee.user.groups.all()
+    return attendee.user.groups.filter(name='Conference volunteers').count() > 0
 
 def is_organiser(attendee):
     '''
     Returns True if attendee is in the Conference volunteers group.
     False otherwise.
     '''
-    return Organiser in attendee.user.groups.all()
+    return attendee.user.groups.filter(name='Conference organisers').count() > 0
 
 
 def generate_badge(soup, data, n):
