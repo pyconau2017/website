@@ -22,7 +22,7 @@ import progressbar
 import pdb
 
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from pinaxcon.registrasion.models import AttendeeProfile
 from registrasion.controllers.cart import CartController
 from registrasion.controllers.invoice import InvoiceController
@@ -134,20 +134,22 @@ def set_colour(soup, slice_id, colour):
     style = elem.get('style')
     elem.set('style', style.replace('fill:#316a9a', 'fill:#%s' % colour))
 
+Volunteers = Group.objects.filter(name='Conference volunteers').first().user_set.all()
+Organisers = Group.objects.filter(name='Conference organisers').first().user_set.all()
 
 def is_volunteer(attendee):
     '''
     Returns True if attendee is in the Conference volunteers group.
     False otherwise.
     '''
-    return attendee.user.groups.filter(name='Conference volunteers').count() > 0
+    return attendee.user in Volunteers
 
 def is_organiser(attendee):
     '''
     Returns True if attendee is in the Conference volunteers group.
     False otherwise.
     '''
-    return attendee.user.groups.filter(name='Conference organisers').count() > 0
+    return attendee.user in Organisers
 
 
 def generate_badge(soup, data, n):
