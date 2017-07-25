@@ -174,7 +174,7 @@ def generate_badge(soup, data, n):
             data['ticket'] = 'Enthusiast'
 
         # Organiser/Team > Speaker/Volunteer > Contributor > Professional > Enthusiast > Student
-        if data['organizer']:
+        if data['organiser']:
             set_text(soup, 'ticket-' + part, 'Organiser')
             set_text(soup, 'company-' + part, data['company'], size)
         elif data['volunteer']:
@@ -304,7 +304,7 @@ class Command(BaseCommand):
             data['company'] = overrides.get(data['company'], data['company'])
 
             data['volunteer'] = is_volunteer(ap.attendee)
-            data['organizer'] = is_organizer(ap.attendee)
+            data['organiser'] = is_organiser(ap.attendee)
 
             generate_badge(root, data, n % 2)
             if n % 2:
