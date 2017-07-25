@@ -32,8 +32,6 @@ from registrasion.models import Product
 from registrasion.models import Invoice
 from symposion.speakers.models import Speaker
 
-from django.contrib.auth.models import Group
-
 # A few unicode encodings ...
 GLYPH_PLUS = '+'
 GLYPH_GLASS = u'\ue001'
