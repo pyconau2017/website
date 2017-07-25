@@ -191,9 +191,9 @@ def generate_badge(soup, data, n):
 
         if data['ticket'] == 'Friday Only':
             set_colour(soup, 'colour-' + part, 'a83f3f')
-        elif 'Organiser' in data['ticket']:
+        elif data['organiser']:
             set_colour(soup, 'colour-' + part, '319a51')
-        elif 'Volunteer' in data['ticket']:
+        elif data['volunteer']:
             set_colour(soup, 'colour-' + part, '319a51')
         elif data['friday']:
             set_colour(soup, 'colour-' + part, '71319a')
