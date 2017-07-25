@@ -32,6 +32,8 @@ from registrasion.models import Product
 from registrasion.models import Invoice
 from symposion.speakers.models import Speaker
 
+from django.contrib.auth.models import Group
+
 # A few unicode encodings ...
 GLYPH_PLUS = '+'
 GLYPH_GLASS = u'\ue001'
@@ -134,6 +136,24 @@ def set_colour(soup, slice_id, colour):
     style = elem.get('style')
     elem.set('style', style.replace('fill:#316a9a', 'fill:#%s' % colour))
 
+Volunteers = Group.objects.filter(name='Conference volunteers').first()
+Organiser = Group.objects.filter(name='Conference organisers').first()
+
+def is_volunteer(attendee):
+    '''
+    Returns True if attendee is in the Conference volunteers group.
+    False otherwise.
+    '''
+    return Volunteers in attendee.user.groups.all()
+
+def is_organiser(attendee):
+    '''
+    Returns True if attendee is in the Conference volunteers group.
+    False otherwise.
+    '''
+    return Organiser in attendee.user.groups.all()
+
+
 def generate_badge(soup, data, n):
     '''
     Do the actual "heavy lifting" to create the badge SVG
@@ -154,10 +174,10 @@ def generate_badge(soup, data, n):
             data['ticket'] = 'Enthusiast'
 
         # Organiser/Team > Speaker/Volunteer > Contributor > Professional > Enthusiast > Student
-        if 'Organiser' in data['ticket']:
+        if data['organizer']:
             set_text(soup, 'ticket-' + part, 'Organiser')
             set_text(soup, 'company-' + part, data['company'], size)
-        elif 'Volunteer' in data['ticket']:
+        elif data['volunteer']:
             set_text(soup, 'ticket-' + part, 'Volunteer')
             set_text(soup, 'company-' + part, data['company'], size)
         elif 'Speaker' in data['ticket']:
@@ -282,6 +302,9 @@ class Command(BaseCommand):
 
             data['company'] = ap.company.decode('utf8')
             data['company'] = overrides.get(data['company'], data['company'])
+
+            data['volunteer'] = is_volunteer(ap.attendee)
+            data['organizer'] = is_organizer(ap.attendee)
 
             generate_badge(root, data, n % 2)
             if n % 2:
