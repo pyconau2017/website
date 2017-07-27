@@ -22,10 +22,11 @@
   <!--div class="panel panel__compact panel__bg panel__last" -->
     <div class="dashbpard-panel">
       <div>
-        <h3>{% trans "Attend" %} {% conference_name %}</h3>
         <div class="vertical-bigger"></div>
         <div class="btn-group">
           {% if not user.attendee.completed_registration %}
+	    <h4>The main conference is nearly sold out. You may not see an option to buy a ticket for the weekend (Saturday 5th and Sunday 6th) if there are pending invoices.</h4>
+            <p/>
             <a href="{% url "guided_registration" %}" class="btn btn__neut">
               Get your ticket
             </a>
@@ -36,6 +37,8 @@
 
             {% items_pending as pending %}
             {% if pending %}
+              <h4>The main conference is nearly sold out. You may not see an option to buy a ticket for the weekend (Saturday 5th and Sunday 6th) if there are pending invoices.</h4>
+              <p/>
               <a href="{% url "checkout" %}" class="btn btn__neut">
                 Check out and pay
               </a>
