@@ -22,7 +22,7 @@ import progressbar
 import pdb
 
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from pinaxcon.registrasion.models import AttendeeProfile
 from registrasion.controllers.cart import CartController
 from registrasion.controllers.invoice import InvoiceController
@@ -134,6 +134,24 @@ def set_colour(soup, slice_id, colour):
     style = elem.get('style')
     elem.set('style', style.replace('fill:#316a9a', 'fill:#%s' % colour))
 
+Volunteers = Group.objects.filter(name='Conference volunteers').first().user_set.all()
+Organisers = Group.objects.filter(name='Conference organisers').first().user_set.all()
+
+def is_volunteer(attendee):
+    '''
+    Returns True if attendee is in the Conference volunteers group.
+    False otherwise.
+    '''
+    return attendee.user in Volunteers
+
+def is_organiser(attendee):
+    '''
+    Returns True if attendee is in the Conference volunteers group.
+    False otherwise.
+    '''
+    return attendee.user in Organisers
+
+
 def generate_badge(soup, data, n):
     '''
     Do the actual "heavy lifting" to create the badge SVG
@@ -154,10 +172,10 @@ def generate_badge(soup, data, n):
             data['ticket'] = 'Enthusiast'
 
         # Organiser/Team > Speaker/Volunteer > Contributor > Professional > Enthusiast > Student
-        if 'Organiser' in data['ticket']:
+        if data['organiser']:
             set_text(soup, 'ticket-' + part, 'Organiser')
             set_text(soup, 'company-' + part, data['company'], size)
-        elif 'Volunteer' in data['ticket']:
+        elif data['volunteer']:
             set_text(soup, 'ticket-' + part, 'Volunteer')
             set_text(soup, 'company-' + part, data['company'], size)
         elif 'Speaker' in data['ticket']:
@@ -175,9 +193,9 @@ def generate_badge(soup, data, n):
 
         if data['ticket'] == 'Friday Only':
             set_colour(soup, 'colour-' + part, 'a83f3f')
-        elif 'Organiser' in data['ticket']:
+        elif data['organiser']:
             set_colour(soup, 'colour-' + part, '319a51')
-        elif 'Volunteer' in data['ticket']:
+        elif data['volunteer']:
             set_colour(soup, 'colour-' + part, '319a51')
         elif data['friday']:
             set_colour(soup, 'colour-' + part, '71319a')
@@ -282,6 +300,9 @@ class Command(BaseCommand):
 
             data['company'] = ap.company.decode('utf8')
             data['company'] = overrides.get(data['company'], data['company'])
+
+            data['volunteer'] = is_volunteer(ap.attendee)
+            data['organiser'] = is_organiser(ap.attendee)
 
             generate_badge(root, data, n % 2)
             if n % 2:
