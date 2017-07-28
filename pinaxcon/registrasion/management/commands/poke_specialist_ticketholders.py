@@ -13,12 +13,10 @@ class Command(BaseCommand):
     help = """Send email to ticket holders who get a free specialist day ticket but haven't yet signed up to use it."""
 
     def add_arguments(self, parser):
-        parser.add_argument('--list-only', required=False, action="store_true", default=False,
-                            help='Just list the attendees -- no email sent')
-        parser.add_argument('--debug', required=False, action="store_true",  default=False,
-                            help='removes insects from your windscreen')
+        parser.add_argument('--send-email', required=False, action="store_true", default=False,
+                            help='Send email (using registration notification system) to those found.')
         parser.add_argument('--count', required=False, action='store_true', default=False,
-                            help="Just say how many haven't yet signed up  (No email sent.)")
+                            help="Just say how many haven't yet signed up.")
         parser.add_argument('--kind', type=str, default="poke_unused_spec_day",
                             help="name of registrasion/emails subdir holding the templates.")
 
@@ -39,23 +37,18 @@ class Command(BaseCommand):
                 ap = AttendeeProfileBase.objects.get(attendee__user_id=inv.user.id)
                 pokees[inv.user.email] = ap.attendee_name()
 
-        # Just getting a list?
-        if options['list_only']:
-            for p in pokees.items():
-                print "%s\t%s" % p
-            return 0
-
         # Just getting a count?
         if options['count']:
             print len(pokees)
             return 0
 
-        # Set up context ...
+        # Send emails?
+        if options['send_email']:
+            send_email([("%s <%s>" % (n,e)) for e,n in pokees.items() ], options['kind'], context={})
+        else:
+            # No, just print out the list in TSV form
+            print "\n".join([("%s\t%s" % p) for p in pokees.items()])
 
-        # We want the whole magilla ...
-        send_email([("%s <%s>" % (n,e)) for e,n in pokees.items() ], options['kind'], context={})
-
-        return 0
 
 
 
