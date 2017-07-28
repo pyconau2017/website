@@ -107,7 +107,7 @@ def text_size(text, prev=9999):
     Calculate the length of a text string as it relates to font size.
     '''
     n = len(text)
-    size = int(min(70, max(25, 25 + 45 * (1 - (n - 7) / 17.))))
+    size = int(min(65, max(25, 25 + 45 * (1 - (n - 8) / 17.))))
     return min(prev, size)
 
 
@@ -187,13 +187,14 @@ def generate_badge(soup, data, n):
         elif 'Professional' in data['ticket']:
             set_text(soup, 'ticket-' + part, 'Professional')
             set_text(soup, 'company-' + part, data['company'], size)
+        elif 'Specialist Day Only' in data['ticket']:
+            set_text(soup, 'ticket-' + part, 'Friday Only')
+            set_colour(soup, 'colour-' + part, 'a83f3f')
         else:
             set_text(soup, 'ticket-' + part, data['ticket'])
             set_text(soup, 'company-' + part, '', size)
 
-        if data['ticket'] == 'Friday Only':
-            set_colour(soup, 'colour-' + part, 'a83f3f')
-        elif data['organiser']:
+        if data['organiser']:
             set_colour(soup, 'colour-' + part, '319a51')
         elif data['volunteer']:
             set_colour(soup, 'colour-' + part, '319a51')
@@ -254,13 +255,13 @@ class Command(BaseCommand):
 
         # If specific usernames were given on the command line, just use those.
         # Otherwise, use the entire list of attendees.
+        users = User.objects.filter(invoice__status=Invoice.STATUS_PAID)
         if options['usernames']:
-            attendee_list = AttendeeProfile.objects.filter(attendee__user__username__in=options['usernames'])
-        else:
-            attendee_list = AttendeeProfile.objects.all()
+            users = users.filter(username__in=options['usernames'])
 
         # Iterate through the attendee list to generate the badges.
-        for n, ap in enumerate(attendee_list):
+        for n, user in enumerate(users.distinct()):
+            ap = user.attendee.attendeeprofilebase.attendeeprofile
             data = dict()
 
             at_nm = ap.name.split()
