@@ -33,15 +33,15 @@ class Command(BaseCommand):
                                    Q(description__contains='Sponsor'))]))
 
         # Look through these and find the ones that have no Specialist Day line item.
-        pokees = list()
+        pokees = dict()
         for inv in eligible:
             if not inv.lineitem_set.filter(description__contains='Specialist Day Inclusion').exists():
                 ap = AttendeeProfileBase.objects.get(attendee__user_id=inv.user.id)
-                pokees.append((ap.attendee_name(), inv.user.email))
+                pokees[inv.user.email] = ap.attendee_name()
 
         # Just getting a list?
         if options['list_only']:
-            for p in pokees:
+            for p in pokees.items():
                 print "%s\t%s" % p
             return 0
 
@@ -50,8 +50,10 @@ class Command(BaseCommand):
             print len(pokees)
             return 0
 
+        # Set up context ...
+
         # We want the whole magilla ...
-        send_email([("%s <%s>" % p) for p in pokees ], options['kind'], context={})
+        send_email([("%s <%s>" % (n,e)) for e,n in pokees.items() ], options['kind'], context={})
 
         return 0
 
