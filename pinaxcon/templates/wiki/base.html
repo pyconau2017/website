@@ -1,4 +1,4 @@
-{% extends "site_base_wagtail.html" %}
+{% extends "pyconau2017/content_page.html" %}
 {% load sekizai_tags i18n wiki_tags static %}
 
 {% block head_title %}
@@ -6,23 +6,16 @@
 {% endblock %}
 
 {% block styles %}
-	<link rel="stylesheet" href="{% static 'css/site-0a247b924d.css' %}">
+	<link rel="stylesheet" href="{% static 'css/site-0a247b924d.css' %}">  <!-- WAT?? -->
 	<link href="{% static "css/wiki.css" %}" rel="stylesheet">
 	{{ block.super }}
-	<style>
-		.wiki {
-			font-size: 70%;
-		}
-	</style>
 {% endblock styles %}
 
-{% block content %}
-	<div class="jumbotron-white">
-		<div class="wiki">
-			{% block wiki_breadcrumbs %}{% endblock %}
-		  	{% block wiki_contents %}{% endblock %}
-		</div>
-	</div>
+{% block page_content %}
+  <div class="wiki">
+    {% block wiki_breadcrumbs %}{% endblock %}
+      {% block wiki_contents %}{% endblock %}
+  </div>
 {% endblock %}
 
 {% block scripts_extra %}
