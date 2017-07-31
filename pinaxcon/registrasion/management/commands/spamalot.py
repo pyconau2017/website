@@ -123,7 +123,7 @@ class Command(BaseCommand):
                             help="Just say how many haven't yet signed up.")
         parser.add_argument('--groups', required=False, action='store_true', default=False,
                             help="List available groups.")
-        parser.add_argument('--template', type=str, default="spamalot_test",
+        parser.add_argument('--template', type=str,
                             help="name of registrasion/emails subdir holding the templates.")
         parser.add_argument('recipients', nargs='*', type=str)
 
@@ -160,6 +160,10 @@ class Command(BaseCommand):
 
         # Send emails?
         if options['send_email']:
+            if options.get('template') is None:
+                print "You need to specifiy a template: --template=name-of-template"
+                return 0
+
             if confirm(len(recip_addresses)):
                 send_email([settings.DEFAULT_FROM_EMAIL], options['template'], bcc=recip_addresses, context={})
         else:
