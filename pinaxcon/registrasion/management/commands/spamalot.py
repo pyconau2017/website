@@ -10,10 +10,23 @@ from django.contrib.auth.models import User, Group
 
 from registrasion.contrib.mail import send_email
 
-def get_paid_up_attendees():
-    paid_up_users = User.objects.filter(invoice__status=Invoice.STATUS_PAID)
-    a_list = [a.user.email for a in Attendee.objects.distinct() \
+def get_paid_up_attendees(friday=False):
+    paid_up_users = User.objects.filter(invoice__status=Invoice.STATUS_PAID).distinct()
+    attendees = Attendee.objects.distinct()
+    if friday: # filter out those users who don't have a specilist day ticket
+        friday_only = list()
+        for a in attendees:
+            if a.user is None:
+                continue
+            for inv in a.user.invoice_set.all():
+                if inv.is_paid and inv.lineitem_set.filter(description__contains="Specialist Day").exists():
+                    friday_only.append(a)
+                    break
+        attendees = friday_only
+
+    a_list = [a.user.email for a in attendees \
         if a.user is not None and a.user in paid_up_users]
+
     return a_list
 
 class Command(BaseCommand):
@@ -34,11 +47,20 @@ class Command(BaseCommand):
                             help='Send email (using registration notification system) to those found.')
         parser.add_argument('--count', required=False, action='store_true', default=False,
                             help="Just say how many haven't yet signed up.")
+        parser.add_argument('--friday', required=False, action='store_true', default=False,
+                            help="Include just the 'friday only' attendees.")
+        parser.add_argument('--groups', required=False, action='store_true', default=False,
+                            help="List available groups.")
         parser.add_argument('--template', type=str, default="spamalot_test",
                             help="name of registrasion/emails subdir holding the templates.")
         parser.add_argument('recipients', nargs='*', type=str)
 
     def handle(self, *args, **options):
+
+        if options['groups']:  # Just list the groups available and quit.
+            print "\n".join(self.groups.keys())
+            print "\nNote: group names are case-insensitive.\n"
+            return 0
 
         # Iterate through the recipients listed.   First check to see if
         # the specified recip matches one of the group names.
@@ -46,7 +68,7 @@ class Command(BaseCommand):
         recip_addresses = set()
         for recip in options['recipients']:
             if recip.upper() in self.groups.keys():
-                recip_addresses = recip_addresses.union(set(self.groups[recip.upper()]()))
+                recip_addresses = recip_addresses.union(set(self.groups[recip.upper()](options['friday'])))
             else:
                 if '@' in recip:  # Looks like an email address ...
                     ru = User.objects.filter(email=recip).first()
