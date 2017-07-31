@@ -35,13 +35,13 @@ Currently, we have:
 
 Note: group names are case-insensitive.
 
-To see a list of all attendees, simply put the word “attendees”
+To see a list of all attendees, simply put the word "attendees"
 on the command line.
 
 ..code-block:
 python manage.py spamalot attendees
 
-As of this writing, you’d get a list of around 708 email addresses.
+As of this writing, you'd get a list of around 708 email addresses.
 
 You can combine groups by just putting them on the command line:
 
@@ -95,6 +95,10 @@ def get_DjangoGirls():
             if inv.is_paid and inv.lineitem_set.filter(description__contains='DjangoGirls').exists():
                 dg_list.add(u.email)
     return list(dg_list)
+
+def confirm(num):
+    print """WARNING!  You are about to send email to %d users.""" % num
+    return raw_input("Are you SURE you want to do this?  [N/y] -> ").upper() == 'Y'
 
 class Command(BaseCommand):
     groups = {
@@ -156,7 +160,8 @@ class Command(BaseCommand):
 
         # Send emails?
         if options['send_email']:
-            send_email([settings.DEFAULT_FROM_EMAIL], options['template'], bcc=recip_addresses, context={})
+            if confirm(len(recip_addresses)):
+                send_email([settings.DEFAULT_FROM_EMAIL], options['template'], bcc=recip_addresses, context={})
         else:
             # No, just print out the list in TSV form
             print "\n".join(recip_addresses)
