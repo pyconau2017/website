@@ -75,6 +75,7 @@ overrides = {
  "VLSCI, University of Melbourne": "VLSCI",
  "Australian Bureau of Meteorology": "BoM",
  "Bureau of Meteorology": "BoM",
+ "Australian Synchrotron | ANSTO": "Australian Synchrotron",
  "Bureau of Meteorology, Australia": "BoM",
  "QUT Digital Media Research Centre": "QUT",
  "Dyn - Dynamic Network Services Inc": "Dyn",
@@ -170,20 +171,26 @@ def svg_badge(soup, data, n):
 
         special = bool(lines)
 
-        if 'Specialist Day Only' in data['ticket']:
-            lines.append('Friday Only')
+        if 'Friday Only' in data['ticket']:
+            # lines.append('Friday Only')
             set_colour(soup, 'colour-' + part, 'a83f3f')
 
         if 'Contributor' in data['ticket']:
             lines.append('Contributor')
-        # elif 'Professional' in data['ticket']:
-        #     lines.append('Professional')
-        # else:
-        #     lines.append('ticket')
+        elif 'Professional' in data['ticket']:
+            lines.append('Professional')
+        elif data['ticket'] == 'Speaker':
+            pass
+        elif not special and data['ticket']:
+            lines.append(data['ticket'])
 
-        if not special and data['friday']:
-            lines.append('Friday Access')
-            set_colour(soup, 'colour-' + part, '71319a')
+        if not special:
+            if data['friday']:
+                lines.append('Friday and Weekend')
+                set_colour(soup, 'colour-' + part, '71319a')
+            elif not data['ticket']:
+                lines.append('Tutorial Only')
+                set_colour(soup, 'colour-' + part, 'a83f3f')
 
         for n in range(3-len(lines)):
             lines.insert(0, '')
@@ -230,17 +237,23 @@ def collate(options):
 
         data['email'] = user.email
         data['over18'] = ap.of_legal_age
-        data['speaker'] = Speaker.objects.filter(
-            user_id=ap.attendee.user.id).first() is not None
+        speaker = Speaker.objects.filter(user=user).first()
+        if speaker is None:
+            data['speaker'] = False
+        else:
+            data['speaker'] = bool(speaker.proposals.filter(result__status='accepted'))
 
         data['paid'] = data['friday'] = data['sprints'] = data['tutorial'] = False
         data['shirts'] = []
+        data['ticket'] = ''
 
         # look over all the invoices, yes
         for inv in Invoice.objects.filter(user_id=ap.attendee.user.id):
             if not inv.is_paid:
                 continue
             cart = inv.cart
+            if cart is None:
+                continue
             data['paid'] = True
             if cart.productitem_set.filter(product__category__name__startswith="Specialist Day").exists():
                 data['friday'] = True
@@ -250,7 +263,11 @@ def collate(options):
                 data['tutorial'] = True
             t = cart.productitem_set.filter(product__category__name__startswith="Conference Ticket")
             if t.exists():
-                data['ticket'] = t.first().product.name
+                product = t.first().product.name
+                if 'SOLD OUT' not in product:
+                    data['ticket'] = product
+            elif cart.productitem_set.filter(product__category__name__contains="Specialist Day Only").exists():
+                data['ticket'] = 'Specialist Day Only'
 
             data['shirts'].extend(ts.product.name for ts in cart.productitem_set.filter(
                 product__category__name__startswith="T-Shirt"))
@@ -259,7 +276,7 @@ def collate(options):
             print "INFO:", ap.attendee.user, 'not paid!'
             continue
 
-        if not data.get('ticket'):
+        if not data['ticket'] and not (data['friday'] or data['tutorial']):
             print "ERROR:", ap.attendee.user, 'no conference ticket!'
             continue
 
@@ -268,8 +285,18 @@ def collate(options):
         data['volunteer'] = is_volunteer(ap.attendee)
         data['organiser'] = is_organiser(ap.attendee)
 
+        if 'Specialist Day Only' in data['ticket']:
+            data['ticket'] = 'Friday Only'
+
+        if 'Conference Organiser' in data['ticket']:
+            data['ticket'] = ''
+
+        if 'Conference Volunteer' in data['ticket']:
+            data['ticket'] = ''
+
         data['promote_company'] = (
             data['organiser'] or data['volunteer'] or data['speaker'] or
+            'Sponsor' in data['ticket'] or
             'Contributor' in data['ticket'] or
             'Professional' in data['ticket']
         )
@@ -304,20 +331,11 @@ def generate_stats(options):
 def generate_badges(options):
     names = list()
 
-    # OMFG ElementTree
-
-    with tempfile.NamedTemporaryFile(delete=False) as out, open(options['template']) as inf:
-        template = inf.read()
-        out.write(template.replace('Flux Regular',
-                                   'Flux Regular, Helvetica, Arial, sans-serif'))
-        out.close()
-        orig = etree.parse(out.name)
-
+    orig = etree.parse(options['template'])
     tree = deepcopy(orig)
     root = tree.getroot()
 
     for n, data in enumerate(collate(options)):
-        print data
         svg_badge(root, data, n % 2)
         if n % 2:
             name = os.path.abspath(
@@ -333,21 +351,21 @@ def generate_badges(options):
         tree.write(name)
         names.append(name)
 
-    progress = progressbar.ProgressBar(widgets=[progressbar.FormatLabel(
-        'Pages: %(value)s/%(max)s '
-    )])
-    for name in progress(names):
-        subprocess.check_call(
-            ['inkscape', '-z', '-C',  # '--export-text-to-path',
-             '--export-pdf=%s.pdf' % name,
-             '--file=' + name])
-
-    output = os.path.join(options['out_dir'], 'all-badges.pdf')
-    print 'Assembling: %s' % (output)
-
-    subprocess.check_call(
-        ['pdftk'] + ['%s.pdf' % n for n in names] + ['cat', 'output', output])
-
+    # progress = progressbar.ProgressBar(widgets=[progressbar.FormatLabel(
+    #     'Pages: %(value)s/%(max)s '
+    # )])
+    # for name in progress(names):
+    #     subprocess.check_call(
+    #         ['inkscape', '-z', '-C',
+    #          '--export-pdf=%s.pdf' % name,
+    #          '--file=' + name])
+    #
+    # output = os.path.join(options['out_dir'], 'all-badges.pdf')
+    # print 'Assembling: %s' % (output)
+    #
+    # subprocess.check_call(
+    #     ['pdftk'] + ['%s.pdf' % n for n in names] + ['cat', 'output', output])
+    #
     return 0
 
 
