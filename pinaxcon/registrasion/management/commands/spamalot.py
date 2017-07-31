@@ -1,4 +1,68 @@
 
+'''
+Spamalot - Sending Bulk Email
+=============================
+To send (bcc) email to conference attendees (or various,
+conference-related subgroups, there is the spamalot management command:
+
+..code-block:
+ python manage.py spamalot [--count] [--send-email] [group/user name list]
+
+Used without any options, it will print out a list of email
+addresses corresponding to members of the groups (or usernames)
+listed on the command line.  If no such names or groups are supplied,
+this list will be empty.
+
+
+To see a list of the available groups, use the --group command line switch:
+
+..code-block:
+python manage.py spamalot --group
+
+Currently, we have:
+
+
+    EVERYONE
+    DJANGOGIRLS
+    SPEAKERS
+    VOLUNTEERS
+    ATTENDEES
+    FRIDAYONLY
+    ORGANISERS
+    NOBODY
+    SPONSORS
+    MAINONLY
+
+Note: group names are case-insensitive.
+
+To see a list of all attendees, simply put the word “attendees”
+on the command line.
+
+..code-block:
+python manage.py spamalot attendees
+
+As of this writing, you’d get a list of around 708 email addresses.
+
+You can combine groups by just putting them on the command line:
+
+..code-block:
+python manage.py spamalot organizers volunteers
+
+This will list email addresses for both groups.  Note that if there
+are users in both groups, their email address will only appear once in this list.
+
+If you want to add specific users or email addresses that may not be in any
+of the allowed groups, just put those on the command line.  If the user
+(or email address) is in the User model, the (corresponding) email address
+will be added to the list.
+
+To just get a count of the number of email addresses, add the --count switch.
+
+Author: Nick Seidenman <nick@seidenman.net>
+For PyCon AU 2017 Melbourne
+
+'''
+
 import datetime
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -12,23 +76,17 @@ from registrasion.contrib.mail import send_email
 from django.db.models import F, Q
 
 def get_paid_up_attendees(friday=False):
-    paid_up_users = User.objects.filter(invoice__status=Invoice.STATUS_PAID).distinct()
-    attendees = Attendee.objects.distinct()
-    if friday: # filter out those users who don't have a specilist day ticket
-        friday_only = list()
-        for a in attendees:
-            if a.user is None:
-                continue
-            for inv in a.user.invoice_set.all():
-                if inv.is_paid and inv.lineitem_set.filter(description__contains="Specialist Day Only").exists():
-                    friday_only.append(a)
+    attendees = set()
+    for a in Attendee.objects.distinct():
+        if a.user is None:
+           continue
+        for inv in a.user.invoice_set.all():
+            if inv.is_paid:
+                if not friday or inv.lineitem_set.filter(description__contains="Specialist Day Only").exists():
+                    attendees.add(a)
                     break
-        attendees = friday_only
 
-    a_list = [a.user.email for a in attendees \
-        if a.user is not None and a.user in paid_up_users]
-
-    return a_list
+    return map(lambda a: a.user.email, list(attendees))
 
 def get_DjangoGirls():
     dg_list = set()
