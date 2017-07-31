@@ -96,9 +96,32 @@ def get_DjangoGirls():
                 dg_list.add(u.email)
     return list(dg_list)
 
+def get_unused_spec_day():
+    '''
+    This was originally in the poke_specialist_ticketholders mgt command.
+    I moved it here since spamalot is a more general-purpose version
+    of that anyway.
+    '''
+        # Get all of the invoices for Professional / Sponsor / Contributor
+    # conference ticket holders.
+    eligible = list(set([li.invoice for li in LineItem.objects.
+                        filter(description__contains='Conference Ticket').
+                        filter(Q(description__contains='Professional')|
+                               Q(description__contains='Contributor')|
+                               Q(description__contains='Sponsor'))]))
+
+    # Look through these and find the ones that have no Specialist Day line item.
+    attendees = set()
+    for inv in eligible:
+        if inv.is_paid and not inv.lineitem_set.filter(description__contains='Specialist Day Inclusion').exists():
+            attendees.add(inv.user.email)
+
+    return list(attendees)
+
 def confirm(num):
     print """WARNING!  You are about to send email to %d users.""" % num
     return raw_input("Are you SURE you want to do this?  [N/y] -> ").upper() == 'Y'
+
 
 class Command(BaseCommand):
     groups = {
@@ -111,6 +134,7 @@ class Command(BaseCommand):
         'FRIDAYONLY': lambda: get_paid_up_attendees(True),
         'MAINONLY': lambda: list(set(get_paid_up_attendees(False)) - set(get_paid_up_attendees(True))),
         'DJANGOGIRLS': get_DjangoGirls,
+        'UNUSEDSPECDAY': get_unused_spec_day,
         'NOBODY': lambda: list()
         }
 
@@ -123,22 +147,25 @@ class Command(BaseCommand):
                             help="Just say how many haven't yet signed up.")
         parser.add_argument('--groups', required=False, action='store_true', default=False,
                             help="List available groups.")
+        parser.add_argument('--exclude', required=False, nargs='*', dest='exclusions',
+                            help="Exclude this group/name/email from the resulting list.")
         parser.add_argument('--template', type=str,
                             help="name of registrasion/emails subdir holding the templates.")
-        parser.add_argument('recipients', nargs='*', type=str)
+        parser.add_argument('--try-bcc', type=int, required=False, default=0,
+                            help="Attempt to send using bcc by chunks of specified size.  (e.g. --try-bcc=10)")
+        parser.add_argument('inclusions', nargs='*', type=str)
 
-    def handle(self, *args, **options):
-
-        if options['groups']:  # Just list the groups available and quit.
-            print "\n".join(self.groups.keys())
-            print "\nNote: group names are case-insensitive.\n"
-            return 0
-
-        # Iterate through the recipients listed.   First check to see if
-        # the specified recip matches one of the group names.
-        # Otherwise, check usernames and email addresses.
+    def build_list(self, recipients):
+        '''
+        Iterate through a list of groups, usernames, or email addresses.
+        Include the resulting email addresses as found by group queries,
+        association with usernames, or verification that the email
+        address itself is associated with a valid user.
+        '''
         recip_addresses = set()
-        for recip in options['recipients']:
+        if recipients is None: return recip_addresses
+
+        for recip in recipients:
             if recip.upper() in self.groups.keys():
                 recip_addresses = recip_addresses.union(set(self.groups[recip.upper()]()))
             else:
@@ -151,7 +178,21 @@ class Command(BaseCommand):
                     if ru is not None:
                         recip_addresses.add(ru.email)
 
-        recip_addresses = list(recip_addresses)
+        return recip_addresses
+
+    def handle(self, *args, **options):
+
+        if options['groups']:  # Just list the groups available and quit.
+            print "\n".join(self.groups.keys())
+            print "\nNote: group names are case-insensitive.\n"
+            return 0
+
+        # Build the list of included groups/users/emails and
+        # excise any exclusions.
+        inclusions = self.build_list(options['inclusions'])
+        exclusions = self.build_list(options['exclusions'])
+
+        recip_addresses = list(inclusions - exclusions)
 
         # Just getting a count?
         if options['count']:
@@ -165,7 +206,15 @@ class Command(BaseCommand):
                 return 0
 
             if confirm(len(recip_addresses)):
-                send_email([settings.DEFAULT_FROM_EMAIL], options['template'], bcc=recip_addresses, context={})
+                chunk = options['try_bcc']
+                if chunk > 0:
+                    for i in xrange(0, len(recip_addresses), chunk):
+                        send_email([settings.DEFAULT_FROM_EMAIL], options['template'],
+                            bcc=recip_addresses[i:i+chunk],
+                            context={})
+                else:
+                    for recip in recip_addresses:
+                        send_email([recip], options['template'], context={})
         else:
             # No, just print out the list in TSV form
             print "\n".join(recip_addresses)
