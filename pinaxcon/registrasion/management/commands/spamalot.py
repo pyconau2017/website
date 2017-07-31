@@ -9,6 +9,7 @@ from symposion.speakers.models import Speaker
 from django.contrib.auth.models import User, Group
 
 from registrasion.contrib.mail import send_email
+from django.db.models import F, Q
 
 def get_paid_up_attendees(friday=False):
     paid_up_users = User.objects.filter(invoice__status=Invoice.STATUS_PAID).distinct()
@@ -19,7 +20,7 @@ def get_paid_up_attendees(friday=False):
             if a.user is None:
                 continue
             for inv in a.user.invoice_set.all():
-                if inv.is_paid and inv.lineitem_set.filter(description__contains="Specialist Day").exists():
+                if inv.is_paid and inv.lineitem_set.filter(description__contains="Specialist Day Only").exists():
                     friday_only.append(a)
                     break
         attendees = friday_only
@@ -29,6 +30,14 @@ def get_paid_up_attendees(friday=False):
 
     return a_list
 
+def get_DjangoGirls():
+    dg_list = set()
+    for u in User.objects.distinct():
+        for inv in u.invoice_set.all():
+            if inv.is_paid and inv.lineitem_set.filter(description__contains='DjangoGirls').exists():
+                dg_list.add(u.email)
+    return list(dg_list)
+
 class Command(BaseCommand):
     groups = {
         'ATTENDEES': get_paid_up_attendees,
@@ -37,6 +46,9 @@ class Command(BaseCommand):
         'ORGANISERS': lambda: [u.email for u in Group.objects.filter(name='Conference organisers').first().user_set.distinct()],
         'VOLUNTEERS': lambda: [u.email for u in Group.objects.filter(name='Conference volunteers').first().user_set.distinct()],
         'EVERYONE': lambda: [u.email for u in User.objects.distinct()],  # DANGER, WILL ROBINSON!!!
+        'FRIDAYONLY': lambda: get_paid_up_attendees(True),
+        'MAINONLY': lambda: list(set(get_paid_up_attendees(False)) - set(get_paid_up_attendees(True))),
+        'DJANGOGIRLS': get_DjangoGirls,
         'NOBODY': lambda: list()
         }
 
@@ -47,8 +59,6 @@ class Command(BaseCommand):
                             help='Send email (using registration notification system) to those found.')
         parser.add_argument('--count', required=False, action='store_true', default=False,
                             help="Just say how many haven't yet signed up.")
-        parser.add_argument('--friday', required=False, action='store_true', default=False,
-                            help="Include just the 'friday only' attendees.")
         parser.add_argument('--groups', required=False, action='store_true', default=False,
                             help="List available groups.")
         parser.add_argument('--template', type=str, default="spamalot_test",
@@ -68,7 +78,7 @@ class Command(BaseCommand):
         recip_addresses = set()
         for recip in options['recipients']:
             if recip.upper() in self.groups.keys():
-                recip_addresses = recip_addresses.union(set(self.groups[recip.upper()](options['friday'])))
+                recip_addresses = recip_addresses.union(set(self.groups[recip.upper()]()))
             else:
                 if '@' in recip:  # Looks like an email address ...
                     ru = User.objects.filter(email=recip).first()
