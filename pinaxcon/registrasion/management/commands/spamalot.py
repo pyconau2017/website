@@ -10,10 +10,15 @@ from django.contrib.auth.models import User, Group
 
 from registrasion.contrib.mail import send_email
 
+def get_paid_up_attendees():
+    paid_up_users = User.objects.filter(invoice__status=Invoice.STATUS_PAID)
+    a_list = [a.user.email for a in Attendee.objects.distinct() \
+        if a.user is not None and a.user in paid_up_users]
+    return a_list
 
 class Command(BaseCommand):
     groups = {
-        'ATTENDEES': lambda: [a.user.email for a in Attendee.objects.distinct() if a.user is not None],
+        'ATTENDEES': get_paid_up_attendees,
         'SPEAKERS': lambda: [s.user.email for s in Speaker.objects.distinct() if s.user is not None],
         'SPONSORS': lambda: [s.contact_email for s in Sponsor.objects.distinct()],
         'ORGANISERS': lambda: [u.email for u in Group.objects.filter(name='Conference organisers').first().user_set.distinct()],
