@@ -155,9 +155,11 @@ def svg_badge(soup, data, n):
         lines = filter(None, lines)[:4]
 
         lines.extend('' for n in range(4-len(lines)))
+        prev = 9999
         for m, line in enumerate(lines):
-            size = text_size(line)
+            size = text_size(line, prev)
             set_text(soup, 'line-%s-%s' % (part, m), line, size)
+            prev = size
 
         lines = []
         if data['organiser']:
@@ -177,22 +179,33 @@ def svg_badge(soup, data, n):
 
         if 'Contributor' in data['ticket']:
             lines.append('Contributor')
-        elif 'Professional' in data['ticket']:
+        elif 'Professional' in data['ticket'] and not data['organiser']:
             lines.append('Professional')
-        elif data['ticket'] == 'Speaker':
-            pass
-        elif not special and data['ticket']:
-            lines.append(data['ticket'])
-
-        if not special:
-            if data['friday']:
-                lines.append('Friday and Weekend')
-                set_colour(soup, 'colour-' + part, '71319a')
-            elif not data['ticket']:
+        elif 'Sponsor' in data['ticket'] and not data['organiser']:
+            lines.append('Sponsor')
+        elif 'Enthusiast' in data['ticket'] and not data['organiser']:
+            lines.append('Enthusiast')
+        elif data['ticket'] == 'Speaker' and not data['speaker']:
+            lines.append('Speaker')
+        elif not special:
+            if data['ticket']:
+                lines.append(data['ticket'])
+            elif data['friday']:
+                lines.append('Friday Only')
+                set_colour(soup, 'colour-' + part, 'a83f3f')
+            else:
                 lines.append('Tutorial Only')
                 set_colour(soup, 'colour-' + part, 'a83f3f')
 
-        for n in range(3-len(lines)):
+        if data['friday'] and data['ticket'] and not data['organiser']:
+            lines.append('Fri, Sat and Sun')
+            if not data['volunteer']:
+                set_colour(soup, 'colour-' + part, '71319a')
+
+        if len(lines) > 3:
+            raise ValueError('lines = %s' % (lines,))
+
+        for n in range(3 - len(lines)):
             lines.insert(0, '')
         for m, line in enumerate(lines):
             size = text_size(line)
@@ -227,7 +240,7 @@ def collate(options):
             del at_nm[1]
         if at_nm:
             data['firstname'] = at_nm[0]
-            data['lastname'] = ''.join(at_nm[1:])
+            data['lastname'] = ' '.join(at_nm[1:])
         else:
             print "ERROR:", ap.attendee.user, 'has no name'
             continue
