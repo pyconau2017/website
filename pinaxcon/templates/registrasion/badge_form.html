@@ -1,0 +1,20 @@
+{% extends "registrasion/base.html" %}
+{% load bootstrap %}
+
+{% block page_content %}
+  <h1>Create Badge</h1>
+
+  <p>Enter a username to autofill this form, or fill in the rest of the fields by hand.</p>
+
+  <form method="post" action="/tickets/badger/">
+    {% csrf_token %}
+
+    <table>
+        {{ form|bootstrap }}
+    </table>
+
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="Create Badge" />
+    </div>
+  </form>
+{% endblock %}
