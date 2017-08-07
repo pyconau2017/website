@@ -195,7 +195,6 @@ INSTALLED_APPS = [
     "symposion.sponsorship",
     "symposion.teams",
     "pinax.boxes",
-    "symposion.survey",
 
     # Registrasion
     "registrasion",
