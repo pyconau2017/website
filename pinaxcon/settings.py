@@ -341,8 +341,8 @@ WIKI_ACCOUNT_HANDLING = False
 BLEACH_ALLOWED_TAGS = bleach.ALLOWED_TAGS + ['p']
 
 # Badge Generation -- Badger
-BADGER_DEFAULT_SVG = "registrasion/badge.svg"
-BADGER_DEFAULT_SVG_2PP = "registrasion/badge2.svg"    # Two badges on single page.
+BADGER_DEFAULT_SVG = "registrasion/badge.svg"         # One badge per page.
+BADGER_DEFAULT_SVG_2PP = "registrasion/badge-2pp.svg"    # Two badges on single page.
 BADGER_DEFAULT_FORM = "registrasion/badge_form.html"
 
 # Production settings have their own file to override stuff here
