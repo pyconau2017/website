@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-import models
+from . import models
 import registrasion.models.people as rmodels
 
 @admin.register(models.PastEvent)

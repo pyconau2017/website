@@ -1,8 +1,8 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import *
 
 import views
 
-urlpatterns = patterns(
+urlpatterns = [
     "pinaxcon.registrasion.views",
     url(r"^demopay/([0-9]+)/([A-Z0-9]+)$", views.demopay, name="demopay"),
-)
+]

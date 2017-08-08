@@ -1,8 +1,13 @@
 from django.contrib import admin
 
-import models
-from symposion.proposals import models as symposion_models
+import sys
+import os
 
+print(sys.path)
+
+from . import models
+
+from symposion.proposals import models as symposion_models
 
 @admin.register(models.TutorialProposal)
 @admin.register(models.PyConAuProposal)

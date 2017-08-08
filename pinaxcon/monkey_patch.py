@@ -25,7 +25,7 @@ def do_monkey_patch():
 def patch_speaker_profile_form():
     ''' Replaces textarea widgets with markdown editors. '''
 
-    import widgets
+    from . import widgets
     from symposion.speakers.forms import SpeakerForm
 
     fields = SpeakerForm.base_fields

@@ -1,37 +1,37 @@
 # Should use latest 1.9 for security
-Django==1.9.7
-pinax-theme-bootstrap==7.3.0
-django-user-accounts==1.3.1
-metron==1.3.7
-pinax-eventlog==1.1.1
-django-formset-js==0.5.0
-dj-static==0.0.6
-dj-database-url==0.4.0
-#pinax-pages==0.4.2
-pinax-boxes==2.1.2
-wagtail==1.6.2
-pylibmc==1.5.1
-raven==5.27.0
-bleach==1.4.3
-html5lib==0.9999999
-django-debug-toolbar==1.6
-django-markdownify==0.1.0
-progressbar==2.3
-lxml==3.8.0
+Django
+pinax-theme-bootstrap
+django-user-accounts
+metron
+pinax-eventlog
+django-formset-js
+dj-static
+dj-database-url
+#pinax-pages
+pinax-boxes
+wagtail
+pylibmc
+raven
+bleach
+html5lib
+django-debug-toolbar
+django-markdownify
+#progressbar
+lxml
 
 # database
-psycopg2==2.6.2
+psycopg2
 
 #Wiki
-wiki==0.1.2
+wiki
 
 # For testing
-django-nose==1.4.3
-coverage==4.0.3
+django-nose
+coverage
 
 # Registrasion + Symposion
 # Install via pip repo cloned locally
-#registrasion==0.1.1
+#registrasion
 
 -e git+https://github.com/pyconau2017/symposion.git@master#egg=symposion
 -e git+https://github.com/pyconau2017/registrasion.git@master#egg=registrasion

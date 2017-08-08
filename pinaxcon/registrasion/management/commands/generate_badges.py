@@ -22,7 +22,7 @@ from lxml import etree
 import tempfile
 from copy import deepcopy
 import subprocess
-import progressbar
+#import progressbar
 
 from django.conf import settings
 
