@@ -3,8 +3,6 @@ from django.contrib import admin
 import sys
 import os
 
-print(sys.path)
-
 from . import models
 
 from symposion.proposals import models as symposion_models
