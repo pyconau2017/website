@@ -85,7 +85,10 @@ The linux.conf.au 2016 attendees mailing listName
         if self.country:
             lines.append(self.country.name)
 
-        return "\n".join(unicode(line) for line in lines)
+        try:
+            return "\n".join(unicode(line) for line in lines)
+        except NameError:
+            return "\n".join(lines)
 
     def clean(self):
         errors = []

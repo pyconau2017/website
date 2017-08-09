@@ -247,6 +247,15 @@ DEBUG_TOOLBAR_PANELS = [
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     'SHOW_TOOLBAR_CALLBACK': lambda x: DEBUG,
+    #'SKIP_TEMPLATE_PREFIXES': (
+    #    'django/forms/widgets/',
+    #    'admin/widgets/',
+    #    'floppyforms/'
+    #),
+    #'DISABLE_PANELS': {
+    #    'debug_toolbar.panels.redirects.RedirectsPanel',
+    #    'debug_toolbar.panels.redirects.TemplatesPanel'
+    #},
 }
 
 # LOGGING configuratoin can be found in local_settings.py
