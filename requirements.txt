@@ -1,23 +1,20 @@
-# Should use latest 1.9 for security
-Django
-pinax-theme-bootstrap
+# DJANGO: Should use latest 1.11 for security
+django>=1.11
 django-user-accounts
-metron
-pinax-eventlog
+django-countries
+django-timezone-field
+django-sitetree
 django-formset-js
-dj-static
-dj-database-url
-#pinax-pages
-pinax-boxes
-wagtail
-pylibmc
-raven
-bleach
-html5lib
 django-debug-toolbar
 django-markdownify
-#progressbar
-lxml
+dj-static
+dj-database-url
+
+
+# Pinax
+pinax-theme-bootstrap
+pinax-eventlog
+pinax-boxes
 
 # database
 psycopg2
@@ -25,13 +22,24 @@ psycopg2
 #Wiki
 wiki
 
+# Misc supporting packages ...
+metron
+wagtail
+pylibmc
+raven
+bleach
+html5lib
+lxml
+easy-thumbnails
+
+# Make sure we have the latest / greatest of these ...
+
 # For testing
 django-nose
 coverage
 
 # Registrasion + Symposion
 # Install via pip repo cloned locally
-#registrasion
 
 -e git+https://github.com/pyconau2017/symposion.git@master#egg=symposion
 -e git+https://github.com/pyconau2017/registrasion.git@master#egg=registrasion
