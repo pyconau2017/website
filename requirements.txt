@@ -1,44 +1,45 @@
 # DJANGO: Should use latest 1.11 for security
-django>=1.11
-django-user-accounts
-django-countries
-django-timezone-field
-django-sitetree
-django-formset-js
-django-debug-toolbar
-django-markdownify
-django-model-utils
-dj-static
-dj-database-url
+django>=1.11.1
+django-user-accounts>=2.0.3
+django-countries>=4.6
+django-timezone-field>=2.0.0
+django-sitetree>=1.8.0
+django-formset-js>=0.5.0
+django-debug-toolbar>=1.8
+django-markdownify>=0.2.0
+django-model-utils>=3.0.0
+dj-static>=0.0.6
+dj-database-url>=0.4.2
 
 
 # Pinax
-pinax-theme-bootstrap
-pinax-eventlog
-pinax-boxes
+pinax-theme-bootstrap==8.0.1
+pinax-eventlog==1.1.2
+pinax-boxes==2.1.2
+pinax-stripe==3.2.1
 
 # database
-psycopg2
+psycopg2==2.7.3
 
 #Wiki
-wiki
+wiki=0.2.4
 
 # Misc supporting packages ...
-metron
-wagtail
-pylibmc
-raven
-bleach
-html5lib
-lxml
-easy-thumbnails
-pillow
+metron==1.3.7
+wagtail==1.11.1
+pylibmc==1.5.2
+raven==6.1.0
+bleach==2.0.0
+html5lib==0.999999999
+lxml==3.8.0
+easy-thumbnails==2.4.1
+Pillow==4.2.1
 
 # Make sure we have the latest / greatest of these ...
 
 # For testing
-django-nose
-coverage
+django-nose==1.4.4
+coverage==4.4.1
 
 # Registrasion + Symposion
 # Install via pip repo cloned locally
@@ -46,3 +47,4 @@ coverage
 -e git+https://github.com/pyconau2017/symposion.git@master#egg=symposion
 -e git+https://github.com/pyconau2017/registrasion.git@master#egg=registrasion
 -e git+https://github.com/pyconau2017/registrasion-stripe.git@master#egg=registrasion-stripe
+==
